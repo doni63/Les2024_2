@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container">
+    <ul class="breadcrumb">
+        <li>
+            <a>
+                <i class="fas fa-home">
+                    <i class="fas fa-chevron-right"></i>
+                </i>
+            </a>
+        </li>
+        <li>
+            <a class="text-decoration-none text-dark" asp-controller="CarrinhoDeCompra">Carrinho de Compra</a>
+            <i class="fas fa-chevron-right"></i>
+        </li>
+        <li>
+            <p>Finalizar pedido</p>
+        </li>
+    </ul>
+    <div class="row">
+        <div id="content" class="col-sm-12">
+            <h1>Finalizar Pedido</h1>
+        </div>
+
+        <div>
+            <p class="fs-5">1-Endereço para fatura</p>
+            <label>
+                <input type="radio" name="enderecoPagamento" value="existente" onchange="toggleEndereco(this)" checked />
+                utilizar endereço cadastrado
+            </label>
+        </div>
+        <div id="enderecoPagamentoExistencia">
+            <select name="endereco" class="form-control">
+                <option value="value" selected="selected">Donizeti Batista Juniro,Avenida Celeste 520,Mogi das Cruzes,São Paulo</option>
+            </select>
+        </div>
+        <div class="form-check">
+            <br />
+            <input class="form-check-input" type="radio" name="enderecoPagamento" value="novo" id="novoEndereco" onchange="toggleEndereco(this)" />
+            <label class="form-check-label" for="novoEndereco">Novo Endereço</label>
+        </div>
+        <!--Novo Endereço de pagamento-->
+        <form id="formNovoEndereco" style="display:none">
+            <div class="form-control">
+                <label for="rua">Rua:</label>
+                <input type="text" class="form-control" id="rua" name="rua">
+                <label for="numero">Numero:</label>
+                <input type="text" class="form-control" id="numero" name="numero">
+                <label for="complemento">Complemento:</label>
+                <input type="text" class="form-control" id="bairro" name="bairro">
+                <label for="bairro">Bairro:</label>
+                <input type="text" class="form-control" id="bairro" name="bairro">
+                <label for="cidade">Cidade:</label>
+                <input type="text" class="form-control" id="cidade" name="cidade">
+                <label for="estado">Estado:</label>
+                <input type="text" class="form-control" id="estado" name="estado">
+                <label for="cep">CEP:</label>
+                <input type="text" class="form-control" id="cep" name="cep">
+                <br />
+                <input type="submit" value="Cadastrar Endereço" class="btn btn-primary" />
+
+            </div>
+        </form>
+        <!--Botao continuar-->
+        <div class="mt-3 text-end">
+            <a asp-area="" asp-controller="MetodoPagamento" asp-action="MetodoPagamento" class="btn btn-primary" role="button">Continuar</a>
+        </div>
+    </div>
+</div>
+
+
+<!--Java script-->
+<script>
+    function toggleEndereco(input) {
+        var formNovoEndereco = document.getElementById('formNovoEndereco');
+        if (input.value === 'novo') {
+            formNovoEndereco.style.display = '';
+        } else {
+            formNovoEndereco.style.display = 'none';
+        }
+    }
+</script>
+

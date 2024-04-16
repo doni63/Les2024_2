@@ -1,0 +1,12 @@
+﻿@model SwitchSelect.Models.ViewModels.ClienteDeleteViewModel 
+
+<h1>Deletar Cliente</h1>
+
+<p>Tem certeza de que deseja deletar o cliente "@Model.Nome"?</p>
+
+<form asp-action="Delete" method="post" id="formDeletarCliente">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <button type="button" onclick="history.back();" class="btn btn-default">Cancelar</button>
+
+</form>

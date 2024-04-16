@@ -1,0 +1,121 @@
+﻿@model SwitchSelect.Models.Cliente
+
+@{
+
+    ViewData["Title"] = "Informações do cliente";
+}
+
+<h1>Informações do cliente</h1>
+
+<div>
+    <h4>Dados pessoais</h4>
+    <a asp-controller="Cupom" asp-action="CupomList" asp-route-id="@Model?.Id" class="btn btn-link">Visualizar cupons do cliente</a>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genero):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genero)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataDeNascimento):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataDeNascimento)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cpf):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cpf)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RG):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RG)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Telefones):
+        </dt>
+    </dl>
+    @foreach (var telefone in Model.Telefones)
+    {
+        <dd class="col-sm-10">
+            @telefone.NumeroTelefone
+        </dd>
+    }
+    <hr />
+</div>
+<h4>Dados de endereco</h4>
+<hr />
+@foreach (var endereco in Model.Enderecos)
+{
+    <div class="list-group">
+
+        <div class="list-group-item flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">
+                    @endereco.TipoLogradouro @endereco.Logradouro, N°. @endereco.Numero, CEP. @endereco.CEP
+                </h5>
+                <small>@endereco.TipoEndereco</small>
+            </div>
+            <p class="mb-1">@endereco.Complemento</p>
+            <small>@endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao</small>
+        </div>
+    </div>
+}
+    </dl>
+<hr />
+<h4>Dados de pagamento</h4>
+<hr />
+<dl>
+    @foreach (var cartao in Model.Cartoes)
+    {
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cartoes.FirstOrDefault().TipoCartao):
+        </dt>
+        <dd class="col-sm-10">
+            @cartao.TipoCartao
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cartoes.FirstOrDefault().TitularDoCartao):
+        </dt>
+        <dd class="col-sm-10">
+            @cartao.TitularDoCartao
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cartoes.FirstOrDefault().CartaoQuatroDigito):
+        </dt>
+        <dd class="col-sm-10">
+            @cartao.CartaoQuatroDigito
+        </dd>
+    }
+</dl>
+
+
+<div class="col-sm-3">
+    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@Model?.Id" asp-route-origem="adminInfo" class="btn btn-primary">Editar</a> |
+    <a asp-controller="" asp-action="" asp-route-id="@Model?.Id" class="btn btn-danger">Inativar</a> |
+    <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Delete</a> |
+    <a asp-action="AdminListaCliente">Voltar</a>
+</div>

@@ -1,0 +1,79 @@
+﻿@model SwitchSelect.Models.ViewModels.CartaoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar dados de cartão</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <input asp-for="ClienteId" class="form-control" />
+                <span asp-validation-for="ClienteId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Cartão</label>
+                <div>
+                    <label>
+                        <input type="radio" name="TipoCartao" value="0" asp-for="TipoCartao" checked />
+                        Crédito
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="TipoCartao" value="F" asp-for="TipoCartao" />
+                        Débito
+                    </label>
+                </div>
+                <span asp-validation-for="TipoCartao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroCartao" class="control-label"></label>
+                <input asp-for="NumeroCartao" class="form-control" />
+                <span asp-validation-for="NumeroCartao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TitularDoCartao" class="control-label"></label>
+                <input asp-for="TitularDoCartao" class="form-control" />
+                <span asp-validation-for="TitularDoCartao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CpfTitularCartao" class="control-label"></label>
+                <input asp-for="CpfTitularCartao" class="form-control" />
+                <span asp-validation-for="CpfTitularCartao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MesValidade" class="control-label">Mês Validade</label>
+                <input asp-for="MesValidade" class="form-control" type="number" />
+                <span asp-validation-for="MesValidade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AnoValidade" class="control-label">Ano Validade</label>
+                <input asp-for="AnoValidade" class="form-control" type="number" />
+                <span asp-validation-for="AnoValidade" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="CVV" class="control-label"></label>
+                <input asp-for="CVV" class="form-control" />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Cliente" asp-action="AreaCliente" asp-route-id="@Model.ClienteId">Voltar</a>
+</div>
+

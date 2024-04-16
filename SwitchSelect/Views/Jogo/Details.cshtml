@@ -1,0 +1,46 @@
+﻿@model SwitchSelect.Models.Jogo
+
+<style>
+    .nav-input {
+        width: 500px;
+        /* Ajuste este valor conforme necessário */
+    }
+</style>
+
+<!--Pagina Index do jogo (escolhido)-->
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-5 text-center">
+            <img src="@Url.Content(Model.ImagemUrl)" class="img-fluid" style="height:75%" alt="" />
+            
+            <a asp-controller="Curiosidade" asp-action="ObterCompletions" asp-route-nome="@Model.Nome:" class="btn btn-primary"
+               style="margin-top:2.5%">Curiosidades</a>
+        </div>
+        <div class="col-12 col-md-7 ">
+            <h1>
+                @Model.Nome - Nintendo Switch
+            </h1>
+            <br>
+            <p class="fs-5">
+                SwitchSelect, a melhor loja de Nintendo do Brasil, aqui somos Nintendista para você se sentir
+                em casa, a melhor loja de Nintendo do Brasil, aqui somos Nintendista para você se sentir em casa
+            </p>
+            
+            <h5 class="card-title">@Model.Nome</h5>
+            <p class="card-text">
+                Categoria: @Model.Categoria.Nome.
+                <br /> @Model.Categoria.Descricao
+            </p>
+            <p class="fs-3 text-danger">R$@Model.Preco</p>
+            <p class="btn btn-group align-content-lg-end">
+                <a asp-controller="Jogo" asp-action="JogoList" class="btn btn-outline-info">
+                    Ver todos os jogos
+                </a>
+
+                <a asp-controller="CarrinhoCompra" asp-action="AdicionarItemNoCarrinhoCompra"
+                   asp-route-id="@Model.Id" class="btn btn-primary">Adicionar @Model.Nome ao carrinho</a>
+            </p>
+
+        </div>
+    </div>
+</div>

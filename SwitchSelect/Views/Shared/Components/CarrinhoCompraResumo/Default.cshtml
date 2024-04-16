@@ -1,0 +1,28 @@
+﻿@model SwitchSelect.Models.ViewModels.CarrinhoCompraViewModel
+
+<style>
+    .carrinho-branco {
+        color: white;
+    }
+
+</style>
+
+
+@if (Model.CarrinhoCompra.CarrinhosCompraItens.Count > 0)
+{
+    <a asp-controller="CarrinhoCompra" asp-action="Index" style="text-decoration:none">
+        <span>
+            <!--Icone de carrinho de compra-->
+            <i class="bi bi-cart fs-3 carrinho-branco"></i>
+        </span>
+        <span style="color:white">
+            @Model.CarrinhoCompra.CarrinhosCompraItens.Count
+        </span>
+    </a>
+
+}
+else
+{
+    <i class="bi bi-cart fs-3 carrinho-branco"></i>
+}
+

@@ -1,0 +1,22 @@
+﻿@model SwitchSelect.Models.Jogo
+
+<div class="col-md-3 mb-3">
+    <div class="text-center">
+        <img src="@Url.Content(Model.ImagemUrl)" class="img-fluid" alt="Imagem de @Model.Nome">
+    </div>
+    <div class="card-body text-center">
+        <h5><a asp-controller="Jogo" asp-action="Details" asp-route-id="@Model.Id" 
+            style="text-decoration:none">@Model.Nome</a></h5>
+        <h7>@Model.Categoria.Nome</h7>
+        <h6>Preço: @Model.Preco.ToString("c")</h6>
+        
+        <div>
+            <p class="button">
+                <a class="btn btn-primary" id="incluirNoCarrinho" asp-controller="CarrinhoCompra"
+                   asp-action="AdicionarItemNoCarrinhoCompra" asp-route-id="@Model.Id">
+                    Incluir no carrinho
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿@model SwitchSelect.Models.ViewModels.JogoListViewModel;
+
+<h2>Os melhores jogos para Nitendo Switch</h2>
+
+
+<div class="container">
+    <div class="row text-center">
+        @foreach (var jogo in Model.Jogos)
+        {
+            <partial name="_jogoResumo" for="@jogo" />
+        }
+    </div>
+</div>
+
+<!--Pagina Index da Home Mokada-->
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <a class="text-decoration-none text-dark" asp-controller="Jogo" asp-action="JogoSelecionado">
+                <img src="~/imagens/acr-png-2-484x484.png" class="img-fluid" />
+                <p class="fs-4 mt-2 text-center">Another Code Recollection</p>
+                <p class="text-center">R$249 à vista ou 4X de R$69,44</p>
+            </a>
+        </div>
+        <div class="col-12 col-md-4 ">
+            <img src="~/imagens/animal-484x484.png" class="img-fluid" />
+            <p class="fs-4 mt-2 text-center">Animal Crossing</p>
+            <p class="mt-2 text-center">R$259,99 à vista ou 4x de 72,22</p>
+        </div>
+        <div class="col-12 col-md-4">
+            <img src="~/imagens/asterix-484x484.png" class="img-fluid" />
+            <p class="fs-4 mt-2 text-center">Asterix & Obelix</p>
+            <p class="mt-2 text-center">R$285,00 à vista ou 4x de 79,16</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-4">
+        <img src="~/imagens/bayonetta-3-484x484.png" class="img-fluid" />
+        <p class="fs-4 mt-2 text-center">Bayonetta 3</p>
+        <p class="text-center">R$229,99 à vista ou 4X de R$63,89</p>
+    </div>
+    <div class="col-12 col-md-4 ">
+        <img src="~/imagens/bdsp-484x484.png" class="img-fluid" />
+        <p class="fs-4 mt-2 text-center">Double Pack de Pokémon Brilliant Diamond & Shining Pearl</p>
+        <p class="mt-2 text-center">R$519,99 à vista ou 4x de 144,44</p>
+    </div>
+    <div class="col-12 col-md-4">
+        <img src="~/imagens/bravely-default-2-484x484.png" class="img-fluid" />
+        <p class="fs-4 mt-2 text-center">Bravely Default</p>
+        <p class="mt-2 text-center">R$279,99 à vista ou 4x de 77,78</p>
+    </div>
+</div>
+</div>
+-->

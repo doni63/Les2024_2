@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Carrinho de Compra";
+}
+<form>
+    <div>
+        <table class="table table-bordered text-center">
+            <thead class="">
+                <tr>
+                    <th class="col-sm-2">Imagem</th>
+                    <th class="col-sm-2">Produto</th>
+                    <th class="col-sm-2">Quantidade</th>
+                    <th class="col-sm-2">Preço (R$)</th>
+                    <th class="col-sm-2">Sub-total(R$)</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody class=" text-center">
+                <tr>
+                    <td><img src="~/imagens/acr_thumbnail.png" class="img-fluid" /></td>
+                    <td>Another Code Revollution</td>
+                    <td>1</td>
+                    <td>249</td>
+                    <td>249</td>
+                    <td class="bi bi-trash"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<!--Cupom e preço-->
+<div class="row">
+    <div class="col-sm-8 col-lg-6">
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Utilizar Cupom
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="d-flex align-items-center">
+                            <label for="inputCupom" class="me-2">Código do Cupom:</label>
+                            <input type="text" name="cupom" placeholder="Código de Cupom" id="inputCupom" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Preço do produto e Total-->
+
+    <div class="col-sm-4 col-lg-6">
+        <div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="text-end"><strong>Total</strong></td>
+                        <td class="text-end">R$249</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="float-end">
+                <a asp-controller="Checkout" asp-action="Checkout" class="btn btn-primary">Finalizar Pedido</a>
+            </div>
+        </div>
+    </div>
+</div>
+

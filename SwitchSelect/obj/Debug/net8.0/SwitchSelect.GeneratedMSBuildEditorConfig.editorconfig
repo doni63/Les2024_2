@@ -1,0 +1,223 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SwitchSelect
+build_property.RootNamespace = SwitchSelect
+build_property.ProjectDir = D:\ProgramacaoCsharp\MinhasAplicacoes\projetoLes2024\SwitchSelect\SwitchSelect\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\ProgramacaoCsharp\MinhasAplicacoes\projetoLes2024\SwitchSelect\SwitchSelect
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/AdminInformacaoCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5JbmZvcm1hY2FvQ2xpZW50ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/AdminListaCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5MaXN0YUNsaWVudGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/TelaAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGVsYUFkbWluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/CarrinhoCompra/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycmluaG9Db21wcmFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/CarrinhoDeCompra/Carrinho.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FycmluaG9EZUNvbXByYVxDYXJyaW5oby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cartao/CartaoList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFvXENhcnRhb0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cartao/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFvXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cartao/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFvXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cartao/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFvXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Checkout/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcQ2hlY2tvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/AreaCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxBcmVhQ2xpZW50ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/DadosPessoais.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxEYWRvc1Blc3NvYWlzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/EditDadosPessoais.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxFZGl0RGFkb3NQZXNzb2Fpcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/ListaCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxMaXN0YUNsaWVudGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/PerfilUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxQZXJmaWxVc3VhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/PesquisarClientePorCpf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxQZXNxdWlzYXJDbGllbnRlUG9yQ3BmLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Contato/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGF0b1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cupom/CupomList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb21cQ3Vwb21MaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Curiosidade/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VyaW9zaWRhZGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Endereco/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW5kZXJlY29cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Endereco/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW5kZXJlY29cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Endereco/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW5kZXJlY29cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Endereco/EnderecoList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW5kZXJlY29cRW5kZXJlY29MaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Jogo/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9nb1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Jogo/JogoList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9nb1xKb2dvTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Jogo/JogoSelecionado.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9nb1xKb2dvU2VsZWNpb25hZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Jogo/JogosPreferidos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9nb1xKb2dvc1ByZWZlcmlkb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Login/TelaLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cVGVsYUxvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/MetodoPagamento/MetodoPagamento.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0b2RvUGFnYW1lbnRvXE1ldG9kb1BhZ2FtZW50by5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/DevolucaoPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXERldm9sdWNhb1BlZGlkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/FinalizarPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXEZpbmFsaXphclBlZGlkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/Pedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/PedidoList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkb0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/StatusDevolucao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFN0YXR1c0Rldm9sdWNhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/StatusPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFN0YXR1c1BlZGlkby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/StatusTroca.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFN0YXR1c1Ryb2NhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/TrocaPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFRyb2NhUGVkaWRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/Components/CarrinhoCompraResumo/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2FycmluaG9Db21wcmFSZXN1bW9cRGVmYXVsdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/Components/CategoriaMenu/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQ2F0ZWdvcmlhTWVudVxEZWZhdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/_JogoResumo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Kb2dvUmVzdW1vLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-de4rxellqc

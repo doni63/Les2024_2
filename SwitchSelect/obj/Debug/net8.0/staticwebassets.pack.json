@@ -1,0 +1,409 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\SwitchSelect.bundle.scp.css",
+      "PackagePath": "staticwebassets\\SwitchSelect.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\fonts\\RobotoSlab-ExtraLight.ttf",
+      "PackagePath": "staticwebassets\\fonts\\RobotoSlab-ExtraLight.ttf"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\carrinho-de-compras.png",
+      "PackagePath": "staticwebassets\\icones\\carrinho-de-compras.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\favorito.png",
+      "PackagePath": "staticwebassets\\icones\\favorito.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\home_icon-icons.com_73532.png",
+      "PackagePath": "staticwebassets\\icones\\home_icon-icons.com_73532.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\icone-menu.png",
+      "PackagePath": "staticwebassets\\icones\\icone-menu.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\like_favorite_heart_5759.ico",
+      "PackagePath": "staticwebassets\\icones\\like_favorite_heart_5759.ico"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\search.png",
+      "PackagePath": "staticwebassets\\icones\\search.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\icones\\setaDireita.png",
+      "PackagePath": "staticwebassets\\icones\\setaDireita.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\Doom-600x-484x484.jpg",
+      "PackagePath": "staticwebassets\\imagens\\Doom-600x-484x484.jpg"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\Envelope-icon24.png",
+      "PackagePath": "staticwebassets\\imagens\\Envelope-icon24.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\Home-iconred.png",
+      "PackagePath": "staticwebassets\\imagens\\Home-iconred.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\acr-png-2-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\acr-png-2-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\acr_thumbnail.png",
+      "PackagePath": "staticwebassets\\imagens\\acr_thumbnail.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\animal-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\animal-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\asterix-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\asterix-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\bayonetta-3-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\bayonetta-3-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\bayonettacereza-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\bayonettacereza-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\bdsp-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\bdsp-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\bravely-default-2-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\bravely-default-2-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\dbz-capa-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\dbz-capa-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\digimon-survive-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\digimon-survive-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\donkey-kong-country-tropical-freeze-switch-484x484.jpg",
+      "PackagePath": "staticwebassets\\imagens\\donkey-kong-country-tropical-freeze-switch-484x484.jpg"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\engage-box-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\engage-box-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\faleconosco1.jpg",
+      "PackagePath": "staticwebassets\\imagens\\faleconosco1.jpg"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\hogwart-legacy-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\hogwart-legacy-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\jurassic-world-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\jurassic-world-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\kirby-deluxe-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\kirby-deluxe-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\kirby-novo-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\kirby-novo-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\luigi-s-mansion-3-484x484.jpg",
+      "PackagePath": "staticwebassets\\imagens\\luigi-s-mansion-3-484x484.jpg"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\mariogolf-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\mariogolf-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\phone-app-icon.png",
+      "PackagePath": "staticwebassets\\imagens\\phone-app-icon.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\pikachu-capa-484x484.jpg",
+      "PackagePath": "staticwebassets\\imagens\\pikachu-capa-484x484.jpg"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\steelbook-violet-scarlet-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\steelbook-violet-scarlet-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\toad-foto-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\toad-foto-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\zelda1-484x484.png",
+      "PackagePath": "staticwebassets\\imagens\\zelda1-484x484.png"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\bootstrap\\dist\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\scripts.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.SwitchSelect.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.SwitchSelect.props",
+      "PackagePath": "build\\SwitchSelect.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.SwitchSelect.props",
+      "PackagePath": "buildMultiTargeting\\SwitchSelect.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.SwitchSelect.props",
+      "PackagePath": "buildTransitive\\SwitchSelect.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Método de Pagamento";
+}
+
+<div class="container mt-4">
+    <h2>Confirme o método de pagamento</h2>
+    <form>
+        <!--cartão existente-->
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPagamento" id="cartaoExistente"
+                   value="cartaoExistente" onchange="toggleMetodoPagamento()" checked />
+            <label class="form-check-label" for="cartaoExistente">
+                Usar cartão de crédito existente
+            </label>
+            <div id="pagamentoExistencia" class="col-sm-3" style="display:none">
+                <select name="cartao" class="form-control">
+                    <option value="value" selected="selected">Visa 8888</option>
+                </select>
+            </div>
+        </div>
+
+        <!--Novo Cartao-->
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPagamento" id="novoCartao"
+                   value="novoCartao" onchange="toggleMetodoPagamento()" />
+            <label class="form-check-label">
+                Cadastrar novo cartão
+            </label>
+        </div>
+
+        <!--Formulario para novo cartao-->
+        <div id="formNovoCartao" style="display:none;" class=" form-control">
+            <h3>Dados do titular do cartão</h3>
+            <div class="col-sm-6">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" id="cpf" name="cpf">
+                <label for="numeroCartao">Número do Cartão</label>
+                <input type="text" class="form-control" id="numeroCartao" name="numeroCartao">
+            </div>
+
+            <div class="col-sm-2">
+                <label for="cvv">CVV</label>
+                <input type="text" class="form-control col-sm-2" id="cvv" name="cvv">
+            </div>
+
+            <div class="col-sm-6">
+                <label for="nomeCartao">Nome igual do cartão</label>
+                <input type="text" class="form-control" id="nomeCartao" name="nomeCartao">
+            </div>
+
+            <!--data validade do cartao-->
+            <br />
+            <div class="date-inputs">
+                <label>Mês e ano de validade</label>
+                <select name="mesValidade" id="mesValidade">
+                    <option value="01">01</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="010">10</option>
+                    <option value="011">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select name="expYear" id="expYear">
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                    <option value="32">32</option>
+                    <option value="33">33</option>
+                    <option value="34">34</option>
+                </select>
+            </div>
+
+            <input type="submit" value="Cadastrar Cartão" class="btn btn-primary" />
+        </div>
+        <!--Parcelamento no cartao-->
+        <br />
+        <div id="opcaoParcelamento" class="mt-3" style="display:none;">
+            <label for="parcelaPagamento">Parcela em</label>
+            <select name="parcelaPagamento">
+                <option values=249>1x de R$249,00</option>
+                <option values=276,80>2x de R$138,40 (R$276,80)</option>
+                <option values=277,74>3x de R$92,58 (R$277,74)</option>
+                <option values=277,76>4x de R$69,44 (R$277,76)</option>
+            </select>
+        </div>
+        <br />
+        <!--Boleto-->
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="metodoPagamento" id="boleto" value="boleto"
+                   onchange="toggleMetodoPagamento()">
+            <label class="form-check-label" for="boleto">
+                Pagar com Boleto
+            </label>
+            <br />
+            <!-- Botão Confirmar para Boleto, inicialmente escondido -->
+            <button type="button" id="confirmarBoleto" class="btn btn-primary mt-3" style="display: none;" onclick="exibirModalBoleto()">Confirmar</button>
+        </div>
+        <!--Botao confirmar-->
+        <div class="mt-3 text-end">
+            <a asp-controller="Pedido" asp-action="FinalizarPedido" class="btn btn-primary">Confirmar pedido</a>
+        </div>
+    </form>
+
+</div>
+<!--Modal gerar boleto-->
+<div class="modal" tabindex="-1" role="dialog" id="modalBoleto">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Boleto Gerado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                <p>Seu boleto foi gerado com sucesso. Verifique seu e-mail para mais instruções.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    function toggleMetodoPagamento() {
+        var cartaoExistente = document.getElementById('cartaoExistente').checked;
+        var novoCartao = document.getElementById('novoCartao').checked;
+        var boleto = document.getElementById('boleto').checked;
+        var pagamentoExistencia = document.getElementById('pagamentoExistencia');
+        var formNovoCartao = document.getElementById('formNovoCartao');
+        var opcaoParcelamento = document.getElementById('opcaoParcelamento');
+        var botaoConfirmarBoleto = document.getElementById('confirmarBoleto');
+
+        //exibir cartão existente
+        if (cartaoExistente) {
+            pagamentoExistencia.style.display = '';
+        } else {
+            pagamentoExistencia.style.display = 'none';
+        }
+        
+
+        //exibição novo cartão e cartão existente
+        //verificando se cartaoExistente ou novoCartao estão checked
+        if (cartaoExistente || novoCartao) {
+            opcaoParcelamento.style.display = '';
+        }else{
+            opcaoParcelamento.style.display = 'none';
+        }
+        //exibe form para novo cartao
+        if (novoCartao) {
+            formNovoCartao.style.display = '';
+        } else {
+            formNovoCartao.style.display = 'none';
+        }
+        // Controla a exibição do botão confirmar para boleto
+        if (boleto) {
+            botaoConfirmarBoleto.style.display = '';
+        }else{
+            botaoConfirmarBoleto.style.display = 'none';
+        }
+    }
+    toggleMetodoPagamento();
+
+    function exibirModalBoleto() {
+        $('#modalBoleto').modal('show');
+    }
+    function exibirConfirmarPedido() {
+        $('#modalConfirmarPedido').modal('show');
+    }
+</script>

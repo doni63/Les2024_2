@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SwitchSelect.Models.ViewModels.CartaoViewModel>
+
+@{
+    ViewData["Title"] = "CartaoList";
+}
+
+<h1>Cartões</h1>
+
+@if (Model.Any())
+{
+    <div class="list-group">
+        @foreach (var cartao in Model)
+        {
+            <div class="list-group-item flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@cartao.TipoCartao</h5>
+                    <small>@cartao.TitularDoCartao</small>
+                </div>
+                <p class="mb-1">@cartao.CartaoQuatroDigito <br />(Validade: @cartao.DataValidade)</p>
+                
+                <div class="mt-2">
+                    <a asp-action="Edit" asp-route-id="@cartao.Id" asp-route-clienteId="@cartao.ClienteId" class="btn btn-sm btn-secondary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@cartao.Id" asp-route-clienteId="@cartao.ClienteId" class="btn btn-sm btn-danger" id="deletar">Deletar</a>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Nenhum cartão cadastrado.</p>
+}
+
+<a asp-action="Create" asp-route-clienteId="@ViewData["ClienteID"]" class="btn btn-primary">+ Cartão</a>
+<a asp-controller="Cliente" asp-action="AreaCliente" asp-route-id="@ViewData["ClienteID"]" class="btn btn-link">Voltar</a>

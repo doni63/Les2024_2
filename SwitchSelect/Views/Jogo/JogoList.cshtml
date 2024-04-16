@@ -1,0 +1,23 @@
+﻿@model SwitchSelect.Models.ViewModels.JogoListViewModel;
+
+
+
+<div class="container">
+    <div class="row text-center">
+        @if(@Model.Jogos.Count() > 0)
+        {
+            <h2>Os melhores jogos de nintendo Switch</h2>
+            @foreach(var jogo in Model.Jogos)
+            {
+                <partial name="_jogoResumo" for="@jogo" />
+            }
+        }
+        else
+        {
+            <br />
+
+            <h2>Nehum jogo foi encontrado</h2>
+        }
+
+    </div>
+</div>

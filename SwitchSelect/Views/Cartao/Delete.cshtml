@@ -1,0 +1,14 @@
+﻿@model SwitchSelect.Models.ViewModels.CartaoViewModel
+
+<h1>Deletar endereço</h1>
+
+<p>Tem certeza de que deseja deletar o cartão de final "@Model.CartaoQuatroDigito"?</p>
+
+<form asp-action="Delete" method="post" id="formDeletarCartao">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="clienteId" value="@Model.ClienteId" />
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <button type="button" onclick="history.back();" class="btn btn-default">Cancelar</button>
+
+</form>
+

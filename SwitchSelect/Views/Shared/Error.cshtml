@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error</h1>
+
+@if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+{
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+}
+else
+{
+    <p class="text-danger">Ocorreu um erro desconhecido.</p>
+}

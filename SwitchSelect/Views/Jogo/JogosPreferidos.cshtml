@@ -1,0 +1,11 @@
+﻿@model SwitchSelect.Models.ViewModels.JogoPreferidoViewModel;
+
+<h2>Jogos recomendados</h2>
+
+<div class="row">
+    @foreach (var jogo in Model.JogosPreferidos)
+    {
+        <partial name="_JogoResumo" for="@jogo" />
+    }
+
+</div>

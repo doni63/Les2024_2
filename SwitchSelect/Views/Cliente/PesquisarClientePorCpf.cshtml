@@ -1,0 +1,10 @@
+﻿@model SwitchSelect.Models.Cliente
+@{
+    ViewData["Title"] = "Pesquisar cliente";
+}
+<h2>Entre com seu cpf</h2>
+
+<form asp-controller="Cliente" asp-action="PesquisarPorCpf" method="get">
+    <input asp-for="Cpf" placeholder="Digite o CPF" />
+    <button type="submit">Pesquisar</button>
+</form>

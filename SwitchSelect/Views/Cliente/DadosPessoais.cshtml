@@ -1,0 +1,57 @@
+﻿@model SwitchSelect.Models.ViewModels.ClienteCompletoViewModel
+
+@{
+    ViewData["Title"] = "Dados Pessoais";
+}
+
+<h4>Dados pessoais</h4>
+
+<div class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Nome):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Nome)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Genero):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Genero)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.DataDeNascimento):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.DataDeNascimento)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Cpf):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Cpf)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.RG):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.RG)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Email):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Email)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.NumeroTelefone):
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.NumeroTelefone)
+    </dd>
+    
+</div>
+<a asp-controller="Cliente" asp-action="EditDadosPessoais" asp-route-id="@Model?.Id"  class="btn btn-primary">Editar</a>
+<a asp-action="Delete" asp-route-id="@Model.Id" class="col-sm-2 btn btn-danger ">Excluir minha conta</a>
+<br />
+<a asp-action="AreaCliente" asp-route-id="@Model.Id">Voltar</a>

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<SwitchSelect.Models.ViewModels.EnderecoViewModel>
+
+<h2>Endereços</h2>
+@if (Model.Any())
+{
+   
+    <div class="list-group">
+        @foreach (var endereco in Model)
+        {
+            
+            <div class="list-group-item flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        @endereco.TipoLogradouro @endereco.Logradouro, N°. @endereco.Numero, CEP. @endereco.CEP,@endereco.Complemento
+                    </h5>
+                    <small>@endereco.TipoEndereco</small>
+                </div>
+                <p class="mb-1">@endereco.Complemento</p>
+                <small>@endereco.Cidade, @endereco.Estado</small>
+                <div class="mt-2">
+                    <a asp-action="Edit" asp-route-id="@endereco.Id" asp-route-clienteId="@endereco.ClienteID" class="btn btn-sm btn-secondary">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@endereco.Id" asp-route-clienteId="@endereco.ClienteID" class="btn btn-sm btn-danger">Deletar</a>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>Nenhum endereço cadastrado.</p>
+}
+<a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@ViewData["ClienteID"]" class="btn btn-primary">+ Endereço</a>
+<a asp-controller="Cliente" asp-action="AreaCliente" asp-route-id="@ViewData["ClienteID"]" class="btn btn-link">Voltar</a>

@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Another Code";
+}
+<style>
+    .nav-input {
+        width: 500px;
+        /* Ajuste este valor conforme necessário */
+    }
+</style>
+
+<!--Pagina Index do jogo (escolhido)-->
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-5">
+
+            <img src="~/imagens/acr-png-2-484x484.png" class="img-fluid" />
+            <p class="fs-4 mt-2 text-center">Another Code Recollection</p>
+            <p class="text-center">R$249 à vista ou 4X de R$69,44</p>
+
+        </div>
+        <div class="col-12 col-md-7 ">
+            <h1>
+                Another Code: Recollection - Nintendo Switch
+            </h1>
+            <br>
+            <p class="fs-5">
+                SwitchSelect, a melhor loja de Nintendo do Brasil, aqui somos Nintendista para você se sentir
+                em casa, a melhor loja de Nintendo do Brasil, aqui somos Nintendista para você se sentir em casa
+            </p>
+            <br>
+            <p class="fs-3 text-danger">R$ 249,00 à vista </p>
+            <p>
+                OU <span class="text-danger">4X</span> DE <span class="text-danger">R$69,44</span> NO CARTÃO SEM
+                JUROS OU EM ATÉ 12X COM JUROS
+            </p>
+
+            <div class="d-flex justify-content-start align-items-center">
+                <p>QTD</p>
+                <input type="number" class="form-control" style="width: 100px; margin-right: 10px;" value="1"
+                       min="1">
+              
+                <button id="adicionarCarrinho" class="btn btn-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#carrinhoModal">
+                    Adicionar ao Carrinho
+                </button>
+
+
+                <a asp-controller="Checkout" asp-action="Checkout" class="btn btn-primary" type="button">Comprar Agora</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="carrinhoModal" tabindex="-1" aria-labelledby="carrinhoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="carrinhoModalLabel">Carrinho de Compras</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fs-3">Tudo Certo!</p>
+                <p>Você adicionou Another Code Revollution ao carrinho de compra.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar Navegando</button>
+                <a asp-area="" asp-controller="CarrinhoDeCompra" asp-action="Carrinho" class="btn btn-primary">Ver Carrinho</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

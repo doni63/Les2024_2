@@ -1,0 +1,106 @@
+﻿@model SwitchSelect.Models.ViewModels.EnderecoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar Endereço</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" id="formEditarEndereco">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ClienteID" />
+            <!-- Informações Gerais -->
+            <div class="form-group">
+                <h4>Informações Gerais</h4>
+                <label asp-for="TipoEndereco" class="control-label">Tipo de Endereço</label>
+                <div>
+                    <label>
+                        <input type="radio" name="TipoEndereco" value="0" asp-for="TipoEndereco" checked /> Cobrança
+                    </label>
+                    <label>
+                        <input type="radio" name="TipoEndereco" value="1" asp-for="TipoEndereco" /> Entrega
+                    </label>
+                </div>
+                <span asp-validation-for="TipoEndereco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label asp-for="TipoResidencia" class="control-label">Tipo de Residência</label>
+                    @Html.DropDownListFor(model => model.TipoResidencia,
+                             new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoResidencia))),
+                             "Selecione o Tipo de Residência",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="TipoResidencia" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="TipoLogradouro" class="control-label">Tipo de Logradouro</label>
+                    @Html.DropDownListFor(model => model.TipoLogradouro,
+                             new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoLogradouro))),
+                             "Selecione o Tipo de Logradouro",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="TipoLogradouro" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Endereço -->
+            <div class="form-group">
+                <h4>Endereço</h4>
+                <label asp-for="Logradouro" class="control-label">Logradouro</label>
+                <input asp-for="Logradouro" class="form-control" />
+                <span asp-validation-for="Logradouro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label asp-for="Numero" class="control-label">Número</label>
+                    <input asp-for="Numero" class="form-control" />
+                    <span asp-validation-for="Numero" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="CEP" class="control-label">CEP</label>
+                    <input asp-for="CEP" class="form-control" />
+                    <span asp-validation-for="CEP" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Complemento" class="control-label">Complemento</label>
+                <input asp-for="Complemento" class="form-control" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+
+            <!-- Localização -->
+            <div class="form-group">
+                <h4>Localização</h4>
+                <label asp-for="Bairro" class="control-label">Bairro</label>
+                <input asp-for="Bairro" class="form-control" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label asp-for="Cidade" class="control-label">Cidade</label>
+                    <input asp-for="Cidade" class="form-control" />
+                    <span asp-validation-for="Cidade" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="Estado" class="control-label">Estado</label>
+                    <input asp-for="Estado" class="form-control" />
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Salvar Alterações" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
