@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SwitchSelect.Models.Pedido;
+namespace SwitchSelect.Models;
 
 public class PedidoDetalhe
 {

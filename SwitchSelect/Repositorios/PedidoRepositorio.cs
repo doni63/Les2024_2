@@ -1,6 +1,6 @@
 ﻿using SwitchSelect.Data;
 using SwitchSelect.Models.Carrinho;
-using SwitchSelect.Models.Pedido;
+using SwitchSelect.Models;
 using SwitchSelect.Repositorios.Interfaces;
 
 namespace SwitchSelect.Repositorios;

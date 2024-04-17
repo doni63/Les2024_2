@@ -16,21 +16,28 @@ public class CuriosidadeController : Controller
 
     public async Task<IActionResult> ObterCompletions(string nome)
     {
-        string apiKey = Environment.GetEnvironmentVariable("OpenaiApiKey");
+        string resposta = string.Empty;
+        //variavel configurada localmente no sistema operacional
+        string? apiKey = Environment.GetEnvironmentVariable("OpenaiApiKey");
+        if(apiKey == null)
+        {
+            resposta = "Chave apikey vazia";
+            return View("Index", resposta);
+        }
+        else
+        {
+            string prompt = $"Escreva no máximo 100 tokens sobre um segredo do jogo {nome}";
 
+            var cliente = new OpenAIAPI(apiKey);
 
-        string prompt = $"Escreva no máximo 100 tokens sobre um segredo do jogo {nome}";
+            var chat = cliente.Chat.CreateConversation();
 
-        var cliente = new OpenAIAPI(apiKey);
+            chat.AppendSystemMessage(prompt);
 
-        var chat = cliente.Chat.CreateConversation();
+            resposta = await chat.GetResponseFromChatbotAsync();
 
-        chat.AppendSystemMessage(prompt);
-
-        string resposta = await chat.GetResponseFromChatbotAsync();
-
-        return View("Index", resposta);
-
+            return View("Index", resposta);
+        }
     }
 
 }

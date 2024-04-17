@@ -2,7 +2,7 @@
 using SwitchSelect.Models;
 using SwitchSelect.Models.Carrinho;
 using SwitchSelect.Models.Estoque;
-using SwitchSelect.Models.Pedido;
+using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 
 

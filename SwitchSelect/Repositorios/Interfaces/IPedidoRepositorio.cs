@@ -1,4 +1,5 @@
-﻿using SwitchSelect.Models.Pedido;
+﻿using SwitchSelect.Models;
+
 
 namespace SwitchSelect.Repositorios.Interfaces;
 
