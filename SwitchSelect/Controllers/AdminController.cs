@@ -1,23 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SwitchSelect.Service;
 using SwitchSelect.Models;
-using SwitchSelect.Models.ViewModels;
+using SwitchSelect.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 namespace SwitchSelect.Controllers
 {
     public class AdminController : Controller
     {
         private readonly AdminService _adminservice;
+        private readonly SwitchSelectContext _context;
 
         public IActionResult TelaAdmin()
         {
             return View();
         }
 
-        public AdminController(AdminService Adminservice)
+        public AdminController(AdminService Adminservice, SwitchSelectContext context)
         {
             _adminservice = Adminservice;
-
+            _context = context;
         }
 
         public IActionResult AdminListaCliente(string pesquisa)
@@ -43,5 +46,39 @@ namespace SwitchSelect.Controllers
             return View(cliente);
         }
 
+        public IActionResult AdicionarProduto()
+        {
+            var categorias = _context.Categorias.ToList();
+            SelectList listaCategorias = new SelectList(categorias, "Id", "Nome");
+            ViewBag.Categorias = listaCategorias;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdicionarProduto([FromForm] Jogo jogo)
+        {
+            jogo.Categoria = _context.Categorias.FirstOrDefault(c => c.Id == jogo.CategoriaID);
+
+            _context.Jogos.Add(jogo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("TelaAdmin", "Admin");
+        }
+
+        public IActionResult AdicionarCategoria()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AdicionarCategoria([FromForm] Categoria categoria)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Categorias.Add(categoria);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("TelaAdmin", "Admin");
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

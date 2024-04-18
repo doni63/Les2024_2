@@ -11,10 +11,10 @@ public class ClienteViewModel
     [StringLength(100, ErrorMessage = "Número máximo de caracter 100")]
     public string Nome { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Informe a data de nascimento")]
     public DateTime DataDeNascimento { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Informe o gênero")]
     [StringLength(10)]
     public string Genero { get; set; }
 

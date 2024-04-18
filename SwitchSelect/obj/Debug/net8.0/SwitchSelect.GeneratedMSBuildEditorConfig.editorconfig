@@ -26,6 +26,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\ProgramacaoCsharp\MinhasAplicacoes\projetoLes2024\SwitchSelect\SwitchSelect
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/AdicionarCategoria.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRpY2lvbmFyQ2F0ZWdvcmlhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/AdicionarProduto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRpY2lvbmFyUHJvZHV0by5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/AdminInformacaoCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5JbmZvcm1hY2FvQ2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

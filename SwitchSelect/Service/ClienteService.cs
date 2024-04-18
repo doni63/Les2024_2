@@ -93,8 +93,6 @@ namespace SwitchSelect.Service
                 Email = model.Email,
                 Cpf = model.Cpf,
                 RG = model.RG,
-
-
             };
 
             var telefone = new Telefone

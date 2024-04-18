@@ -18,6 +18,10 @@ public class Pedido
     public int EnderecoId { get; set; }
     public Endereco? Endereco { get; set; }
 
+    //Relação com telefone
+    public int TelefoneId {  get; set; }
+    public Telefone? Telefone { get; set; }
+
     [ScaffoldColumn(false)]
     [Column(TypeName = "decimal(18,2)")]
     [Display(Name = "Total do Pedido")]

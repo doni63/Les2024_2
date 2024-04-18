@@ -1,20 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SwitchSelect.Data;
 using SwitchSelect.Models;
 using SwitchSelect.Models.Carrinho;
+using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
 
 namespace SwitchSelect.Controllers
 {
-    
+
     public class PedidoController : Controller
     {
         private readonly IPedidoRepositorio _pedidoRepositorio;
         private readonly CarrinhoCompra _carrinhoCompra;
+        private readonly SwitchSelectContext _context;
 
-        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra)
+        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context)
         {
             _pedidoRepositorio = pedidoRepositorio;
             _carrinhoCompra = carrinhoCompra;
+            _context = context;
         }
 
         public IActionResult FinalizarPedido()
@@ -55,14 +59,123 @@ namespace SwitchSelect.Controllers
         }
 
         [HttpGet]
-       public IActionResult Checkout()
+        public IActionResult Checkout()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Checkout(PedidoController pedido)
+        public IActionResult Checkout(ClientePedidoViewModel pedido)
         {
-            return View();
+            int totalItensPedido = 0;
+            decimal precoTotalPedido = 0.0m;
+
+            //obter itens do carrinho de compra do cliente
+            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
+            _carrinhoCompra.CarrinhosCompraItens = itens;
+
+            if (_carrinhoCompra.CarrinhosCompraItens.Count == 0)
+            {
+                ModelState.AddModelError("", "Carrinho vazio");
+            }
+
+            //calcular total de pedidos e de itens
+            foreach (var item in itens)
+            {
+                totalItensPedido += item.Quantidade;
+                precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
+            }
+
+            //atribui os valores obtidos ao pedido
+            //pedido.Pedido.TotalItensPedido = totalItensPedido;
+            //pedido.Pedido.PedidoTotal = precoTotalPedido;
+
+            var modelPedido = new Pedido();
+           
+
+            //dados Cliente
+            var cliente = new Cliente
+            {
+                Nome = pedido.Nome,
+                RG = pedido.RG,
+                Cpf = pedido.Cpf,
+                Genero = pedido.Genero,
+                DataDeNascimento = pedido.DataDeNascimento,
+                Email = pedido.Email
+            };  
+
+            //dados de telefone
+            var telefone = new Telefone
+            {
+                TipoTelefone = pedido.TipoTelefone,
+                DDD = pedido.DDD,
+                NumeroTelefone = pedido.NumeroTelefone,
+                Cliente = cliente
+            };
+
+            //dados de endereco
+            var estado = new Estado
+            {
+                Descricao = pedido.Estado
+            };
+
+            var cidade = new Cidade
+            {
+                Descricao = pedido.Cidade,
+                Estado = estado
+            };
+
+            var bairro = new Bairro
+            {
+                Descricao = pedido.Bairro,
+                Cidade = cidade
+            };
+
+            var endereco = new Endereco
+            {
+                TipoEndereco = pedido.TipoEndereco,
+                TipoLogradouro = pedido.TipoLogradouro,
+                Logradouro = pedido.Logradouro,
+                Numero = pedido.Numero,
+                CEP = pedido.CEP,
+                TipoResidencia = pedido.TipoResidencia,
+                Complemento = pedido.Complemento,
+                Cliente = cliente,
+                Bairro = bairro
+            };
+
+            cliente.Telefones.Add(telefone);
+            cliente.Enderecos.Add(endereco);
+            _context.Clientes.Add(cliente);
+            _context.SaveChanges();
+
+            //dados Pedido
+            modelPedido.ClienteId = cliente.Id;
+            modelPedido.Cliente = cliente;
+            modelPedido.EnderecoId = endereco.Id;
+            modelPedido.Endereco = endereco;
+            
+            modelPedido.TotalItensPedido = totalItensPedido;
+            modelPedido.PedidoTotal = precoTotalPedido;
+
+            //valida os dados do pedido
+            if (ModelState.IsValid)
+            {
+                //cria os pedidos e os detalhes
+
+                _pedidoRepositorio.CriarPedido(modelPedido);
+
+                //mensagem ao cliente
+                ViewBag.CheckoutCompleteMensagem = "Obrigado pela compra !";
+                ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
+
+                //limpa o carrinho
+                _carrinhoCompra.LimparCarrinho();
+
+                //exibir a view com dados de cliente e pedido
+                return View("~/Views/Checkout/CheckoutCompleto.cshtml", pedido);
+            }
+            return View(pedido);
+
         }
 
     }

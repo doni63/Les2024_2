@@ -15,7 +15,8 @@ namespace SwitchSelect.Models.ViewModels
         [StringLength(100, ErrorMessage = "Número máximo de caracter 100")]
         public string Nome { get; set; }
 
-        [Required]
+        [Display(Name = "Data de Nascimento")]
+        [Required(ErrorMessage = "Informe a data de nascimento")]
         public DateTime DataDeNascimento { get; set; }
 
         [Required]
@@ -23,8 +24,9 @@ namespace SwitchSelect.Models.ViewModels
         public string Genero { get; set; }
 
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Informe o email.")]
+        [StringLength(50)]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Informe o Cpf")]
@@ -44,17 +46,18 @@ namespace SwitchSelect.Models.ViewModels
 
         [Required(ErrorMessage = "Informe Telefone")]
         [StringLength(9)]
-        [Display(Name ="Telefone")]
+        [Display(Name = "Telefone")]
         public string NumeroTelefone { get; set; }
 
+
         // Informações de Endereço
-        
+
         [Required]
-        [Display(Name ="Tipo de endereço")]
+        [Display(Name = "Tipo de endereço")]
         public TipoEndereco TipoEndereco { get; set; }
 
         [Required]
-        [Display(Name ="Tipo de residência")]
+        [Display(Name = "Tipo de residência")]
         public TipoResidencia TipoResidencia { get; set; }
 
         [Required]
@@ -79,14 +82,15 @@ namespace SwitchSelect.Models.ViewModels
         [StringLength(100)]
         public string Bairro { get; set; }
 
-       [Required(ErrorMessage = "Informe a cidade")]
-       [StringLength(100)]
+        [Required(ErrorMessage = "Informe a cidade")]
+        [StringLength(100)]
         public string Cidade { get; set; }
 
         [Required(ErrorMessage = "Informe o Estado")]
         [StringLength(100)]
         public string Estado { get; set; }
-
+        [Display(Name = "Brasil")]
+        public Pais Pais { get; } = new Pais();
         //Dados do cartão
         [Required(ErrorMessage = "Informe número do cartão")]
         [Display(Name = "Numero do cartão")]
@@ -107,7 +111,7 @@ namespace SwitchSelect.Models.ViewModels
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Cpf inválido")]
         public string CpfTitularCartao { get; set; }
 
-        
+
         [Required(ErrorMessage = "Informe mês de validade do cartão")]
         [Range(1, 12, ErrorMessage = "O mês de validade deve estar entre 1 e 12.")]
         [MesValidade(ErrorMessage = "O mês de validade deve ser maior que o mês atual.")]
@@ -119,7 +123,7 @@ namespace SwitchSelect.Models.ViewModels
         [NotMapped]
         public int AnoValidade { get; set; }
 
-        
+
         [DataType(DataType.Date)]
         [Display(Name = "Data de Validade")]
         public DateTime? DataValidade { get; set; }
@@ -132,6 +136,7 @@ namespace SwitchSelect.Models.ViewModels
         [Required]
         [Display(Name = "Tipo de cartão")]
         public TipoCartao TipoCartao { get; set; }
+
 
     }
 }

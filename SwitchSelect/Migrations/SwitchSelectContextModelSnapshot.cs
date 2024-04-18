@@ -320,7 +320,7 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Jogos");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Pedido.Pedido", b =>
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -343,6 +343,9 @@ namespace SwitchSelect.Migrations
                     b.Property<decimal>("PedidoTotal")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("TelefoneId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TotalItensPedido")
                         .HasColumnType("int");
 
@@ -352,10 +355,12 @@ namespace SwitchSelect.Migrations
 
                     b.HasIndex("EnderecoId");
 
+                    b.HasIndex("TelefoneId");
+
                     b.ToTable("Pedidos");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Pedido.PedidoDetalhe", b =>
+            modelBuilder.Entity("SwitchSelect.Models.PedidoDetalhe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -364,9 +369,6 @@ namespace SwitchSelect.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("JogoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LancheId")
                         .HasColumnType("int");
 
                     b.Property<int>("PedidoId")
@@ -515,8 +517,8 @@ namespace SwitchSelect.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Estado")
                         .IsRequired()
@@ -606,8 +608,8 @@ namespace SwitchSelect.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Genero")
                         .IsRequired()
@@ -780,7 +782,7 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Categoria");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Pedido.Pedido", b =>
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Cliente", "Cliente")
                         .WithMany()
@@ -794,12 +796,20 @@ namespace SwitchSelect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SwitchSelect.Models.Telefone", "Telefone")
+                        .WithMany()
+                        .HasForeignKey("TelefoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
 
                     b.Navigation("Endereco");
+
+                    b.Navigation("Telefone");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Pedido.PedidoDetalhe", b =>
+            modelBuilder.Entity("SwitchSelect.Models.PedidoDetalhe", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
                         .WithMany()
@@ -807,7 +817,7 @@ namespace SwitchSelect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SwitchSelect.Models.Pedido.Pedido", "Pedido")
+                    b.HasOne("SwitchSelect.Models.Pedido", "Pedido")
                         .WithMany("PedidoItens")
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -858,7 +868,7 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Cidades");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Pedido.Pedido", b =>
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
                     b.Navigation("PedidoItens");
                 });

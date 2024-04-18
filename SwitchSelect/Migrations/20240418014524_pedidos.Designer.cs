@@ -12,15 +12,15 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    [Migration("20240316202530_dataNascimento")]
-    partial class dataNascimento
+    [Migration("20240418014524_pedidos")]
+    partial class pedidos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -48,6 +48,32 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Bairro");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Carrinho.CarrinhoCompraItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CarrinhoCompraId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<int>("JogoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JogoId");
+
+                    b.ToTable("CarrinhoCompraItens");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Cartao", b =>
                 {
                     b.Property<int>("Id")
@@ -69,7 +95,7 @@ namespace SwitchSelect.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("varchar(11)");
 
-                    b.Property<DateTime>("DataValidade")
+                    b.Property<DateTime?>("DataValidade")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("NumeroCartao")
@@ -156,8 +182,8 @@ namespace SwitchSelect.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Genero")
                         .IsRequired()
@@ -247,6 +273,19 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Estados");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Estoque.Estoque", b =>
+                {
+                    b.Property<int>("JogoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("JogoId");
+
+                    b.ToTable("Estoque");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Jogo", b =>
                 {
                     b.Property<int>("Id")
@@ -284,6 +323,75 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Jogos");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PedidoEntregueEm")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("PedidoEnviado")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("PedidoTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TelefoneId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalItensPedido")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.HasIndex("TelefoneId");
+
+                    b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PedidoDetalhe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("JogoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JogoId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("PedidoDetalhes");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Telefone", b =>
                 {
                     b.Property<int>("Id")
@@ -302,8 +410,8 @@ namespace SwitchSelect.Migrations
 
                     b.Property<string>("NumeroTelefone")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("varchar(9)");
+                        .HasMaxLength(25)
+                        .HasColumnType("varchar(25)");
 
                     b.Property<int>("TipoTelefone")
                         .HasColumnType("int");
@@ -315,7 +423,49 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Telefones");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.ViewModels.ClienteViewModel", b =>
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.CartaoViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CpfTitularCartao")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<DateTime?>("DataValidade")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NumeroCartao")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<int>("TipoCartao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TitularDoCartao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartaoViewModel");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.ClienteCompletoViewModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -365,13 +515,13 @@ namespace SwitchSelect.Migrations
                     b.Property<DateTime>("DataDeNascimento")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DataValidade")
+                    b.Property<DateTime?>("DataValidade")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Estado")
                         .IsRequired()
@@ -438,6 +588,118 @@ namespace SwitchSelect.Migrations
                     b.ToTable("ClienteViewModels");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.ClienteDadosPessoaisViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("DDD")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<DateTime>("DataDeNascimento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("NumeroTelefone")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<int>("TipoTelefone")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClienteDadosPessoaisViewModel");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.EnderecoViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("varchar(8)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("ClienteID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<int>("TipoEndereco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoLogradouro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoResidencia")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnderecoViewModel");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Bairro", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Cidade", "Cidade")
@@ -447,6 +709,17 @@ namespace SwitchSelect.Migrations
                         .IsRequired();
 
                     b.Navigation("Cidade");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Carrinho.CarrinhoCompraItem", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
+                        .WithMany()
+                        .HasForeignKey("JogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jogo");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Cartao", b =>
@@ -490,6 +763,17 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Cliente");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Estoque.Estoque", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
+                        .WithMany()
+                        .HasForeignKey("JogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jogo");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Jogo", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Categoria", "Categoria")
@@ -499,6 +783,52 @@ namespace SwitchSelect.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Telefone", "Telefone")
+                        .WithMany()
+                        .HasForeignKey("TelefoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Endereco");
+
+                    b.Navigation("Telefone");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PedidoDetalhe", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
+                        .WithMany()
+                        .HasForeignKey("JogoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Pedido", "Pedido")
+                        .WithMany("PedidoItens")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jogo");
+
+                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Telefone", b =>
@@ -539,6 +869,11 @@ namespace SwitchSelect.Migrations
             modelBuilder.Entity("SwitchSelect.Models.Estado", b =>
                 {
                     b.Navigation("Cidades");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
+                {
+                    b.Navigation("PedidoItens");
                 });
 #pragma warning restore 612, 618
         }
