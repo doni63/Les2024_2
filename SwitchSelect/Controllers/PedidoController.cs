@@ -90,7 +90,6 @@ namespace SwitchSelect.Controllers
             //pedido.Pedido.PedidoTotal = precoTotalPedido;
 
             var modelPedido = new Pedido();
-           
 
             //dados Cliente
             var cliente = new Cliente
@@ -142,18 +141,34 @@ namespace SwitchSelect.Controllers
                 Cliente = cliente,
                 Bairro = bairro
             };
+            //dados de cartao
+            var cartao = new Cartao
+            {
+                NumeroCartao = pedido.NumeroCartao,
+                TitularDoCartao = pedido.TitularDoCartao,
+                CpfTitularCartao = pedido.CpfTitularCartao,
+                DataValidade = new DateTime(pedido.AnoValidade, pedido.MesValidade, DateTime.DaysInMonth(pedido.AnoValidade, pedido.MesValidade)),
+                CVV = pedido.CVV,
+                TipoCartao = pedido.TipoCartao,
+                Cliente = cliente
+            };
 
             cliente.Telefones.Add(telefone);
             cliente.Enderecos.Add(endereco);
+            cliente.Cartoes.Add(cartao);
             _context.Clientes.Add(cliente);
             _context.SaveChanges();
 
             //dados Pedido
             modelPedido.ClienteId = cliente.Id;
             modelPedido.Cliente = cliente;
+            modelPedido.Telefone = telefone;
+            modelPedido.TelefoneId = telefone.Id;
             modelPedido.EnderecoId = endereco.Id;
             modelPedido.Endereco = endereco;
-            
+            modelPedido.Cartao = cartao;
+            modelPedido.cartaoId = cartao.Id;
+            modelPedido.Status = "Em Processamento";
             modelPedido.TotalItensPedido = totalItensPedido;
             modelPedido.PedidoTotal = precoTotalPedido;
 
@@ -165,14 +180,14 @@ namespace SwitchSelect.Controllers
                 _pedidoRepositorio.CriarPedido(modelPedido);
 
                 //mensagem ao cliente
-                ViewBag.CheckoutCompleteMensagem = "Obrigado pela compra !";
+                ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra !";
                 ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
 
                 //limpa o carrinho
                 _carrinhoCompra.LimparCarrinho();
 
                 //exibir a view com dados de cliente e pedido
-                return View("~/Views/Checkout/CheckoutCompleto.cshtml", pedido);
+                return View("~/Views/Pedido/CheckoutCompleto.cshtml", modelPedido);
             }
             return View(pedido);
 

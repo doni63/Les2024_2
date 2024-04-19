@@ -22,6 +22,10 @@ public class Pedido
     public int TelefoneId {  get; set; }
     public Telefone? Telefone { get; set; }
 
+    //relação com cartao
+    public int cartaoId { get; set; }
+    public Cartao? Cartao { get; set; }
+
     [ScaffoldColumn(false)]
     [Column(TypeName = "decimal(18,2)")]
     [Display(Name = "Total do Pedido")]
@@ -41,5 +45,6 @@ public class Pedido
     [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
     public DateTime? PedidoEntregueEm { get; set; }
 
+    public string? Status {  get; set; }
     public List<PedidoDetalhe> PedidoItens { get; set; }
 }

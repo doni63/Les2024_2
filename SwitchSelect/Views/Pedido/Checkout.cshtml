@@ -19,9 +19,9 @@
                 <option value="F">Feminino</option>
             </select>
             <span asp-validation-for="@Model.Genero" class="text-danger"></span>
-            
+
         </div>
-        
+
 
         <div class="form-group col-md-4">
             <label asp-for="@Model.DataDeNascimento" class="form-label"></label>
@@ -127,6 +127,60 @@
         </div>
     </div>
     <hr />
+    <h3>Informações de pagamento</h3>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label">Cartão</label>
+            <div>
+                <label>
+                    <input type="radio" name="TipoCartao" value="0" asp-for="TipoCartao" checked />
+                    Crédito
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="radio" name="TipoCartao" value="1" asp-for="TipoCartao" />
+                    Débito
+                </label>
+            </div>
+            <span asp-validation-for="TipoCartao" class="text-danger"></span>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="TitularDoCartao" class="control-label"></label>
+            <input asp-for="TitularDoCartao" class="form-control" />
+            <span asp-validation-for="TitularDoCartao" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="CpfTitularCartao" class="control-label"></label>
+            <input asp-for="CpfTitularCartao" class="form-control" />
+            <span asp-validation-for="CpfTitularCartao" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="NumeroCartao" class="control-label"></label>
+            <input asp-for="NumeroCartao" class="form-control" />
+            <span asp-validation-for="NumeroCartao" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="MesValidade" class="control-label">Mês Validade</label>
+            <input asp-for="MesValidade" class="form-control" type="number" />
+            <span asp-validation-for="MesValidade" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="AnoValidade" class="control-label">Ano Validade</label>
+            <input asp-for="AnoValidade" class="form-control" type="number" />
+            <span asp-validation-for="AnoValidade" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="CVV" class="control-label"></label>
+            <input asp-for="CVV" class="form-control" />
+            <span asp-validation-for="CVV" class="text-danger"></span>
+        </div>
+    </div>
     <!--Botoes-->
     <div class="row">
         <div class="form-group col-md-2">
@@ -135,7 +189,7 @@
         <div class="form-group col-md-3">
             <a class="btn btn-outline-info" asp-controller="CarrinhoCompra" asp-action="Index">Retornar ao carrinho</a>
         </div>
-        
+
     </div>
 
 </form>
