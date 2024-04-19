@@ -80,5 +80,11 @@ namespace SwitchSelect.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult>  ListaVendas()
+        {
+            var list = await _adminservice.AdminListarPedidos();
+            return View("~/Views/Pedido/Pedidolist.cshtml",list);
+        }
     }
 }

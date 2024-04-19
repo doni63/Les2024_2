@@ -58,5 +58,25 @@ namespace SwitchSelect.Service
             return clientes.ToList();
         }
 
+        public async Task<List<Pedido>> AdminListarPedidos()
+        {
+            var pedidos = await _context.Pedidos
+                .Include(p => p.Cliente)
+                    .ThenInclude(c => c.Telefones) // Incluir os telefones do cliente
+                .Include(p => p.Cliente)
+                    .ThenInclude(c => c.Enderecos)
+                        .ThenInclude(e => e.Bairro)
+                            .ThenInclude(b => b.Cidade)
+                                .ThenInclude(c => c.Estado)
+                .Include(p => p.PedidoItens)
+                    .ThenInclude(ip => ip.Jogo)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return pedidos;
+        }
+
+
+
     }
 }
