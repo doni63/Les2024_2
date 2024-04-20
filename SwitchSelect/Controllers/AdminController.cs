@@ -81,10 +81,26 @@ namespace SwitchSelect.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult>  ListaVendas()
+        public async Task<IActionResult> ListaVendas()
         {
             var list = await _adminservice.AdminListarPedidos();
-            return View("~/Views/Pedido/Pedidolist.cshtml",list);
+            return View("ListaVendas", list);
+        }
+
+        [HttpPost]
+        public IActionResult AtualizarStatus(int pedidoId, string novoStatus)
+        {
+            
+            var pedido = _context.Pedidos.Find(pedidoId);
+
+            if (pedido == null)
+            {
+                return NotFound(); 
+            }
+
+            pedido.Status = novoStatus;
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }

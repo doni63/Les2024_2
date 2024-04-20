@@ -168,7 +168,7 @@ namespace SwitchSelect.Controllers
             modelPedido.Endereco = endereco;
             modelPedido.Cartao = cartao;
             modelPedido.cartaoId = cartao.Id;
-            modelPedido.Status = "Em Processamento";
+            modelPedido.Status = "Processando";
             modelPedido.TotalItensPedido = totalItensPedido;
             modelPedido.PedidoTotal = precoTotalPedido;
 

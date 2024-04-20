@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SwitchSelect.Models.Pedido>
+
+<h1>Lista de Pedidos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id do Pedido</th>
+            <th>Id do Cliente</th>
+            <th>CPF do Cliente</th>
+            <th>Número de Telefone</th>
+            <th>CEP de Entrega</th>
+            <th>Número de Entrega</th>
+            <th>Id do Jogo</th>
+            <th>Valor do Jogo</th>
+            <th>Total do Pedido</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model)
+        {
+            <tr>
+                <td>@pedido.Id</td>
+                <td>@pedido.ClienteId</td>
+                <td>@pedido.Cliente.Cpf</td>
+                <td>
+                    @foreach (var telefone in pedido.Cliente.Telefones)
+                    {
+                        @telefone.NumeroTelefone
+
+                        <br />
+                    }
+                </td>
+
+                @foreach (var endereco in pedido.Cliente.Enderecos)
+                {
+                    <td>@endereco.CEP</td>
+                    <td>@endereco.Numero</td>
+                    <br />
+                }
+                <td>@pedido.PedidoItens.FirstOrDefault()?.Jogo.Id</td>
+                <td>@pedido.PedidoItens.FirstOrDefault()?.Jogo.Preco.ToString("c")</td>
+                <td>@pedido.PedidoTotal.ToString("c")</td>
+                <td>
+                    <a>@pedido.Status</a>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#atualizarStatusModal-@pedido.Id">
+                        Atualizar Status
+                    </button>
+                </td>
+            </tr>
+            <!-- Modal -->
+            <div class="modal fade" id="atualizarStatusModal-@pedido.Id" tabindex="-1" aria-labelledby="atualizarStatusLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="atualizarStatusLabel">Atualizar Status do Pedido</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Dropdown para selecionar o novo status -->
+                            <select class="form-select" id="novoStatus-@pedido.Id">
+                                <option selected disabled>Selecione o novo status</option>
+                                <option value="Processando">Processando</option>
+                                <option value="A Caminho">A Caminho</option>
+                                <option value="Entregue">Entregue</option>
+                            </select>
+
+                        </div>
+                        <div class="modal-footer">
+                            <!-- Botão para fechar o modal -->
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <!-- Botão para confirmar a atualização -->
+                            <button type="button" class="btn btn-primary" onclick="atualizarStatus(@pedido.Id, $('#novoStatus-@pedido.Id').val())">Confirmar</button>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+    <script>
+        function atualizarStatus(pedidoId, novoStatus) {
+            $.post('/Admin/AtualizarStatus', { pedidoId: pedidoId, novoStatus: novoStatus })
+                .done(function (data) {
+                    // Fechar o modal automaticamente após 1 segundo
+                    setTimeout(function () {
+                        $('#atualizarStatusModal-' + pedidoId).modal('hide');
+                    }, 250);
+
+                    console.log('Status atualizado com sucesso');
+
+
+                    setTimeout(function () {
+                        location.reload();
+                    }, 250);
+                })
+                .fail(function (xhr, status, error) {
+                    console.error('Erro ao atualizar o status do pedido:', error);
+                });
+        }
+    </script>
+   
+</table>
+
+
