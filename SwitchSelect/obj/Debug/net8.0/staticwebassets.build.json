@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BQiJihpqNyfxG8oqw1NrlHF23+vkGaTUbjzYVJCrrCs=",
+  "Hash": "daiu9wwgp2LWiYvnticOCj5OhEnozkMl3oMMgh64sPE=",
   "Source": "SwitchSelect",
   "BasePath": "_content/SwitchSelect",
   "Mode": "Default",
@@ -473,12 +473,12 @@
       "OriginalItemSpec": "wwwroot\\imagens\\digimon-survive-484x484.png"
     },
     {
-      "Identity": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\donkey-kong-country-tropical-freeze-switch-484x484.jpg",
+      "Identity": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\donkey-kong-484x484.jpg",
       "SourceId": "SwitchSelect",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\",
       "BasePath": "_content/SwitchSelect",
-      "RelativePath": "imagens/donkey-kong-country-tropical-freeze-switch-484x484.jpg",
+      "RelativePath": "imagens/donkey-kong-484x484.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -489,7 +489,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\imagens\\donkey-kong-country-tropical-freeze-switch-484x484.jpg"
+      "OriginalItemSpec": "wwwroot\\imagens\\donkey-kong-484x484.jpg"
     },
     {
       "Identity": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\imagens\\Doom-600x-484x484.jpg",

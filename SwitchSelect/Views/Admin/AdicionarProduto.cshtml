@@ -29,12 +29,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsJogoPreferido" class="control-label"></label>
-                <input asp-for="IsJogoPreferido" class="form-control" />
+                <select asp-for="IsJogoPreferido" class="form-control">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
                 <span asp-validation-for="IsJogoPreferido" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EmEstoque" class="control-label"></label>
-                <input asp-for="EmEstoque" class="form-control" />
+                <select asp-for="EmEstoque" class="form-control">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
                 <span asp-validation-for="EmEstoque" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,13 +48,11 @@
                 <select asp-for="CategoriaID" class="form-control" asp-items="ViewBag.Categorias"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Adicionar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
