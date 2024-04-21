@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SwitchSelect.Models.Carrinho;
+using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 namespace SwitchSelect.Components;
 

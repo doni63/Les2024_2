@@ -1,6 +1,5 @@
 ﻿using SwitchSelect.Data;
 using SwitchSelect.Models;
-using SwitchSelect.Models.Carrinho;
 
 
 namespace SwitchSelect.Service;

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SwitchSelect.Models.Carrinho;
+namespace SwitchSelect.Models;
 [Table("CarrinhoCompraItens")]
 public class CarrinhoCompraItem
 {

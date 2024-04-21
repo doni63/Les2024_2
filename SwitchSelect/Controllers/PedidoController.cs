@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SwitchSelect.Data;
 using SwitchSelect.Models;
-using SwitchSelect.Models.Carrinho;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
 

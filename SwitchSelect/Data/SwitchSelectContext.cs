@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SwitchSelect.Models;
-using SwitchSelect.Models.Carrinho;
-using SwitchSelect.Models.Estoque;
-using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
+
 
 
 namespace SwitchSelect.Data;
@@ -26,6 +24,7 @@ public class SwitchSelectContext : DbContext
     public DbSet<Cartao> Cartoes {  get; set; } 
     public DbSet<Telefone> Telefones {  get; set; }
     public DbSet<Pedido> Pedidos { get; set; }
+    public DbSet<Cupom> Cupons { get; set; }
     public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
     public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
 

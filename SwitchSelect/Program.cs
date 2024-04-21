@@ -1,13 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using SwitchSelect.Data;
-using SwitchSelect.Models.Carrinho;
 using SwitchSelect.Repositorios;
 using SwitchSelect.Repositorios.Interfaces;
 using SwitchSelect.Service;
 using SwitchSelect.Controllers;
 using SwitchSelect.Components;
 using System.Configuration;
+using SwitchSelect.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
