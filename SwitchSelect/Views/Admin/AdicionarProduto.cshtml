@@ -4,7 +4,7 @@
     ViewData["Title"] = "AdicionarProduto";
 }
 
-<h1>AdicionarProduto</h1>
+<h1>Adicionar Produto</h1>
 
 <h4>Jogo</h4>
 <hr />
@@ -29,25 +29,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="IsJogoPreferido" class="control-label"></label>
-                <select asp-for="IsJogoPreferido" class="form-control">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
+                <input asp-for="IsJogoPreferido" class="form-control" />
                 <span asp-validation-for="IsJogoPreferido" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EmEstoque" class="control-label"></label>
-                <select asp-for="EmEstoque" class="form-control">
-                    <option value="true">Sim</option>
-                    <option value="false">Não</option>
-                </select>
+                <input asp-for="EmEstoque" class="form-control" />
                 <span asp-validation-for="EmEstoque" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoriaID" class="control-label"></label>
-                <select asp-for="CategoriaID" class ="form-control" asp-items="ViewBag.Categorias"></select>
+                <select asp-for="CategoriaID" class="form-control" asp-items="ViewBag.Categorias"></select>
             </div>
-            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

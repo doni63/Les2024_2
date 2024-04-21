@@ -45,6 +45,7 @@ namespace SwitchSelect.Controllers
             {
                 Id = c.Id,
                 ClienteId = c.ClienteId,
+                Bandeira = c.Bandeira,
                 NumeroCartao = c.NumeroCartao,
                 TitularDoCartao = c.TitularDoCartao,
                 CpfTitularCartao = c.CpfTitularCartao,

@@ -5,8 +5,6 @@ namespace SwitchSelect.Models;
 public class Pais
 {
     public int Id { get; set; }
-
-    [Display(Name = "Brasil")]
-    public string Descricao { get; } = "Brasil";
+    public string Descricao { get; set; }
     public List<Estado> Estados { get; set; }
 }

@@ -32,7 +32,7 @@ public class Jogo
 
     [Display(Name = "Estoque")]
     public bool? EmEstoque { get; set; }
-   
+
     public int CategoriaID { get; set; }
     public virtual Categoria Categoria { get; set; }
 

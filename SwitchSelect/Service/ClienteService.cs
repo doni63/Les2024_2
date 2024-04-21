@@ -105,6 +105,7 @@ namespace SwitchSelect.Service
 
             var cartao = new Cartao
             {
+                Bandeira = model.Bandeira,
                 NumeroCartao = model.NumeroCartao,
                 TitularDoCartao = model.TitularDoCartao,
                 CpfTitularCartao = model.CpfTitularCartao,
@@ -113,10 +114,15 @@ namespace SwitchSelect.Service
                 TipoCartao = model.TipoCartao,
                 Cliente = cliente
             };
+            var pais = new Pais
+            {
+                Descricao = "Brasil"
+            };
 
             var estado = new Estado
             {
-                Descricao = model.Estado
+                Descricao = model.Estado,
+                Pais = pais
             };
 
             var cidade = new Cidade

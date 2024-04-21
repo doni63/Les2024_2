@@ -12,8 +12,8 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    [Migration("20240418221515_corrigindoTabelaPedido")]
-    partial class corrigindoTabelaPedido
+    [Migration("20240421171043_adicionandoPais")]
+    partial class adicionandoPais
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,7 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Bairro");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Carrinho.CarrinhoCompraItem", b =>
+            modelBuilder.Entity("SwitchSelect.Models.CarrinhoCompraItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,6 +81,11 @@ namespace SwitchSelect.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bandeira")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("CVV")
                         .IsRequired()
@@ -205,6 +210,33 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Cupom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CodigoCupom")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Cupons");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
                 {
                     b.Property<int>("Id")
@@ -268,12 +300,17 @@ namespace SwitchSelect.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("PaisId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PaisId");
 
                     b.ToTable("Estados");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Estoque.Estoque", b =>
+            modelBuilder.Entity("SwitchSelect.Models.Estoque", b =>
                 {
                     b.Property<int>("JogoId")
                         .HasColumnType("int");
@@ -323,6 +360,23 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Jogos");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Pais", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Paises");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
                     b.Property<int>("Id")
@@ -345,6 +399,10 @@ namespace SwitchSelect.Migrations
 
                     b.Property<decimal>("PedidoTotal")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("TelefoneId")
                         .HasColumnType("int");
@@ -436,6 +494,11 @@ namespace SwitchSelect.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Bandeira")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
                     b.Property<string>("CVV")
                         .IsRequired()
                         .HasMaxLength(3)
@@ -482,6 +545,11 @@ namespace SwitchSelect.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Bandeira")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("CEP")
                         .IsRequired()
@@ -562,6 +630,9 @@ namespace SwitchSelect.Migrations
                         .IsRequired()
                         .HasMaxLength(9)
                         .HasColumnType("varchar(9)");
+
+                    b.Property<string>("Pais")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RG")
                         .IsRequired()
@@ -716,7 +787,7 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Cidade");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Carrinho.CarrinhoCompraItem", b =>
+            modelBuilder.Entity("SwitchSelect.Models.CarrinhoCompraItem", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
                         .WithMany()
@@ -749,6 +820,13 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Estado");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Cupom", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Cliente", null)
+                        .WithMany("Cupons")
+                        .HasForeignKey("ClienteId");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Bairro", "Bairro")
@@ -768,7 +846,18 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("SwitchSelect.Models.Estoque.Estoque", b =>
+            modelBuilder.Entity("SwitchSelect.Models.Estado", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Pais", "Pais")
+                        .WithMany("Estados")
+                        .HasForeignKey("PaisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pais");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Estoque", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Jogo", "Jogo")
                         .WithMany()
@@ -874,6 +963,8 @@ namespace SwitchSelect.Migrations
                 {
                     b.Navigation("Cartoes");
 
+                    b.Navigation("Cupons");
+
                     b.Navigation("Enderecos");
 
                     b.Navigation("Telefones");
@@ -882,6 +973,11 @@ namespace SwitchSelect.Migrations
             modelBuilder.Entity("SwitchSelect.Models.Estado", b =>
                 {
                     b.Navigation("Cidades");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Pais", b =>
+                {
+                    b.Navigation("Estados");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>

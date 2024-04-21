@@ -89,13 +89,17 @@ namespace SwitchSelect.Models.ViewModels
         [Required(ErrorMessage = "Informe o Estado")]
         [StringLength(100)]
         public string Estado { get; set; }
-        [Display(Name = "Brasil")]
-        public Pais Pais { get; } = new Pais();
+       
+        public string? Pais { get; set; }
+
         //Dados do cartão
         [Required(ErrorMessage = "Informe número do cartão")]
         [Display(Name = "Numero do cartão")]
         [StringLength(16)]
         public string NumeroCartao { get; set; }
+        [Required(ErrorMessage = "Informe a bandeira")]
+        [StringLength(20)]
+        public string Bandeira { get; set; }
 
         [NotMapped]
         [Display(Name = "Cartao de final")]

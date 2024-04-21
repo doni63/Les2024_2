@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SwitchSelect.Migrations
 {
     /// <inheritdoc />
-    public partial class pedidos : Migration
+    public partial class adicionandoPais : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,6 +23,8 @@ namespace SwitchSelect.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     NumeroCartao = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Bandeira = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TitularDoCartao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -148,7 +150,11 @@ namespace SwitchSelect.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Estado = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Pais = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     NumeroCartao = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Bandeira = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TitularDoCartao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -197,7 +203,7 @@ namespace SwitchSelect.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Estados",
+                name: "Paises",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -207,7 +213,7 @@ namespace SwitchSelect.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Estados", x => x.Id);
+                    table.PrimaryKey("PK_Paises", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -246,6 +252,8 @@ namespace SwitchSelect.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NumeroCartao = table.Column<string>(type: "varchar(16)", maxLength: 16, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Bandeira = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     TitularDoCartao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CpfTitularCartao = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false)
@@ -265,6 +273,30 @@ namespace SwitchSelect.Migrations
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Cupons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CodigoCupom = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Valor = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClienteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cupons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cupons_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -294,22 +326,22 @@ namespace SwitchSelect.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Cidades",
+                name: "Estados",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Descricao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Descricao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EstadoID = table.Column<int>(type: "int", nullable: false)
+                    PaisId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cidades", x => x.Id);
+                    table.PrimaryKey("PK_Estados", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cidades_Estados_EstadoID",
-                        column: x => x.EstadoID,
-                        principalTable: "Estados",
+                        name: "FK_Estados_Paises_PaisId",
+                        column: x => x.PaisId,
+                        principalTable: "Paises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -352,6 +384,28 @@ namespace SwitchSelect.Migrations
                         name: "FK_Estoque_Jogos_JogoId",
                         column: x => x.JogoId,
                         principalTable: "Jogos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Cidades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Descricao = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EstadoID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cidades", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cidades_Estados_EstadoID",
+                        column: x => x.EstadoID,
+                        principalTable: "Estados",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -426,14 +480,23 @@ namespace SwitchSelect.Migrations
                     ClienteId = table.Column<int>(type: "int", nullable: false),
                     EnderecoId = table.Column<int>(type: "int", nullable: false),
                     TelefoneId = table.Column<int>(type: "int", nullable: false),
+                    cartaoId = table.Column<int>(type: "int", nullable: false),
                     PedidoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalItensPedido = table.Column<int>(type: "int", nullable: false),
                     PedidoEnviado = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    PedidoEntregueEm = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    PedidoEntregueEm = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pedidos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pedidos_Cartoes_cartaoId",
+                        column: x => x.cartaoId,
+                        principalTable: "Cartoes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Pedidos_Clientes_ClienteId",
                         column: x => x.ClienteId,
@@ -505,6 +568,11 @@ namespace SwitchSelect.Migrations
                 column: "EstadoID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cupons_ClienteId",
+                table: "Cupons",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Enderecos_BairroID",
                 table: "Enderecos",
                 column: "BairroID");
@@ -513,6 +581,11 @@ namespace SwitchSelect.Migrations
                 name: "IX_Enderecos_ClienteId",
                 table: "Enderecos",
                 column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Estados_PaisId",
+                table: "Estados",
+                column: "PaisId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jogos_CategoriaID",
@@ -528,6 +601,11 @@ namespace SwitchSelect.Migrations
                 name: "IX_PedidoDetalhes_PedidoId",
                 table: "PedidoDetalhes",
                 column: "PedidoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pedidos_cartaoId",
+                table: "Pedidos",
+                column: "cartaoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pedidos_ClienteId",
@@ -560,13 +638,13 @@ namespace SwitchSelect.Migrations
                 name: "CartaoViewModel");
 
             migrationBuilder.DropTable(
-                name: "Cartoes");
-
-            migrationBuilder.DropTable(
                 name: "ClienteDadosPessoaisViewModel");
 
             migrationBuilder.DropTable(
                 name: "ClienteViewModels");
+
+            migrationBuilder.DropTable(
+                name: "Cupons");
 
             migrationBuilder.DropTable(
                 name: "EnderecoViewModel");
@@ -587,6 +665,9 @@ namespace SwitchSelect.Migrations
                 name: "Categorias");
 
             migrationBuilder.DropTable(
+                name: "Cartoes");
+
+            migrationBuilder.DropTable(
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
@@ -603,6 +684,9 @@ namespace SwitchSelect.Migrations
 
             migrationBuilder.DropTable(
                 name: "Estados");
+
+            migrationBuilder.DropTable(
+                name: "Paises");
         }
     }
 }

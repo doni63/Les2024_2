@@ -3,234 +3,240 @@
 @{
     ViewData["Title"] = "Faça seu cadastro";
 }
-    <h1>Faça seu cadastro</h1>
+<h1>Faça seu cadastro</h1>
 
-    <hr />
-    <div class="row">
+<hr />
+<div class="row">
 
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div id="secaoDadosPessoais">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Nome" class="control-label"></label>
-                        <input asp-for="Nome" class="form-control" />
-                        <span asp-validation-for="Nome" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DataDeNascimento" class="form-label"></label>
-                        <input asp-for="DataDeNascimento" class="form-control" type="date" />
-                        <span asp-validation-for="DataDeNascimento" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Gênero</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="Genero" value="M" asp-for="Genero" checked />
-                                Masculino
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="Genero" value="F" asp-for="Genero" />
-                                Feminino
-                            </label>
-                        </div>
-                        <span asp-validation-for="Genero" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Cpf" class="control-label"></label>
-                        <input asp-for="Cpf" class="form-control" />
-                        <span asp-validation-for="Cpf" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RG" class="control-label"></label>
-                        <input asp-for="RG" class="form-control" />
-                        <span asp-validation-for="RG" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DDD" class="control-label"></label>
-                        <input asp-for="DDD" class="form-control" />
-                        <span asp-validation-for="DDD" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TipoTelefone" class="control-label"></label>
-                        @Html.DropDownListFor(model => model.TipoTelefone,
-                                 new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoTelefone))),
-                                 "Selecione o Tipo de Telefone",
-                                 new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NumeroTelefone" class="control-label"></label>
-                        <input asp-for="NumeroTelefone" class="form-control" />
-                        <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
-                    </div>
-                <button id="btnDadosPessoais" name="endereco" class="btn btn-primary">Ir para Endereço</button>
-                </div>
-                <br />
-
-                <div id="secaoEndereco">
-                    <h4>Cadastre seu endereço</h4>
-                    <div class="form-group">
-                        <label class="control-label">Tipo de endereco</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="TipoEndereco" value="0" asp-for="TipoEndereco" checked />
-                                Cobrança
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="TipoEndereco" value="1" asp-for="TipoEndereco" />
-                                Entrega
-                            </label>
-                        </div>
-                        <span asp-validation-for="TipoEndereco" class="text-danger"></span>
-                    </div>
-                    <br />
-
-                    <div class="form-group">
-                        <label asp-for="TipoLogradouro" class="control-label"></label>
-                        @Html.DropDownListFor(model => model.TipoLogradouro,
-                                 new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoLogradouro))),
-                                 "Selecione o Tipo de logradouro",
-                                 new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Logradouro" class="control-label"></label>
-                        <input asp-for="Logradouro" class="form-control" />
-                        <span asp-validation-for="Logradouro" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Numero" class="control-label"></label>
-                        <input asp-for="Numero" class="form-control" />
-                        <span asp-validation-for="Numero" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CEP" class="control-label"></label>
-                        <input asp-for="CEP" class="form-control" />
-                        <span asp-validation-for="CEP" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TipoResidencia" class="control-label"></label>
-                        @Html.DropDownListFor(model => model.TipoResidencia,
-                                 new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoResidencia))),
-                                 "Selecione o Tipo de Residência",
-                                 new { @class = "form-control" })
-                    </div>
-
-                    <div class="form-group">
-                        <label asp-for="Complemento" class="control-label"></label>
-                        <input asp-for="Complemento" class="form-control" />
-
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Bairro" class="control-label"></label>
-                        <input asp-for="Bairro" class="form-control" />
-                        <span asp-validation-for="Bairro" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Cidade" class="control-label"></label>
-                        <input asp-for="Cidade" class="form-control" />
-                        <span asp-validation-for="Cidade" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Estado" class="control-label"></label>
-                        <input asp-for="Estado" class="form-control" />
-                        <span asp-validation-for="Estado" class="text-danger"></span>
-                    </div>
-                <button id="btnEndereco" class="btn btn-primary">Ir para Cartão</button>
-                </div>
-                <br />
-                <div id="secaoCartao">
-                    <h4>Cadatre seu cartão</h4>
-                    <div class="form-group">
-                        <label class="control-label">Cartão</label>
-                        <div>
-                            <label>
-                                <input type="radio" name="TipoCartao" value="0" asp-for="TipoCartao" checked />
-                                Crédito
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                                <input type="radio" name="TipoCartao" value="1" asp-for="TipoCartao" />
-                                Débito
-                            </label>
-                        </div>
-                        <span asp-validation-for="TipoCartao" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TitularDoCartao" class="control-label"></label>
-                        <input asp-for="TitularDoCartao" class="form-control" />
-                        <span asp-validation-for="TitularDoCartao" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CpfTitularCartao" class="control-label"></label>
-                        <input asp-for="CpfTitularCartao" class="form-control" />
-                        <span asp-validation-for="CpfTitularCartao" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NumeroCartao" class="control-label"></label>
-                        <input asp-for="NumeroCartao" class="form-control" />
-                        <span asp-validation-for="NumeroCartao" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="MesValidade" class="control-label">Mês Validade</label>
-                        <input asp-for="MesValidade" class="form-control" type="number" />
-                        <span asp-validation-for="MesValidade" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="AnoValidade" class="control-label">Ano Validade</label>
-                        <input asp-for="AnoValidade" class="form-control" type="number" />
-                        <span asp-validation-for="AnoValidade" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CVV" class="control-label"></label>
-                        <input asp-for="CVV" class="form-control" />
-                        <span asp-validation-for="CVV" class="text-danger"></span>
-                    </div>
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div id="secaoDadosPessoais">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Salvar" id="salvar" class="btn btn-primary" />
+                    <label asp-for="DataDeNascimento" class="form-label"></label>
+                    <input asp-for="DataDeNascimento" class="form-control" type="date" />
+                    <span asp-validation-for="DataDeNascimento" class="text-danger"></span>
                 </div>
-            </form>
-        </div>
-    </div>
+                <div class="form-group">
+                    <label class="control-label">Gênero</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="Genero" value="M" asp-for="Genero" checked />
+                            Masculino
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="Genero" value="F" asp-for="Genero" />
+                            Feminino
+                        </label>
+                    </div>
+                    <span asp-validation-for="Genero" class="text-danger"></span>
+                </div>
 
-    <div>
+                <div class="form-group">
+                    <label asp-for="Cpf" class="control-label"></label>
+                    <input asp-for="Cpf" class="form-control" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RG" class="control-label"></label>
+                    <input asp-for="RG" class="form-control" />
+                    <span asp-validation-for="RG" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DDD" class="control-label"></label>
+                    <input asp-for="DDD" class="form-control" />
+                    <span asp-validation-for="DDD" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoTelefone" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.TipoTelefone,
+                             new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoTelefone))),
+                             "Selecione o Tipo de Telefone",
+                             new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumeroTelefone" class="control-label"></label>
+                    <input asp-for="NumeroTelefone" class="form-control" />
+                    <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
+                </div>
+                <button id="btnDadosPessoais" name="endereco" class="btn btn-primary">Ir para Endereço</button>
+            </div>
+            <br />
+
+            <div id="secaoEndereco">
+                <h4>Cadastre seu endereço</h4>
+                <div class="form-group">
+                    <label class="control-label">Tipo de endereco</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="TipoEndereco" value="0" asp-for="TipoEndereco" checked />
+                            Cobrança
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="TipoEndereco" value="1" asp-for="TipoEndereco" />
+                            Entrega
+                        </label>
+                    </div>
+                    <span asp-validation-for="TipoEndereco" class="text-danger"></span>
+                </div>
+                <br />
+
+                <div class="form-group">
+                    <label asp-for="TipoLogradouro" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.TipoLogradouro,
+                             new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoLogradouro))),
+                             "Selecione o Tipo de logradouro",
+                             new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label asp-for="Logradouro" class="control-label"></label>
+                    <input asp-for="Logradouro" class="form-control" />
+                    <span asp-validation-for="Logradouro" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Numero" class="control-label"></label>
+                    <input asp-for="Numero" class="form-control" />
+                    <span asp-validation-for="Numero" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CEP" class="control-label"></label>
+                    <input asp-for="CEP" class="form-control" />
+                    <span asp-validation-for="CEP" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoResidencia" class="control-label"></label>
+                    @Html.DropDownListFor(model => model.TipoResidencia,
+                             new SelectList(Enum.GetValues(typeof(SwitchSelect.Models.TipoResidencia))),
+                             "Selecione o Tipo de Residência",
+                             new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Complemento" class="control-label"></label>
+                    <input asp-for="Complemento" class="form-control" />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bairro" class="control-label"></label>
+                    <input asp-for="Bairro" class="form-control" />
+                    <span asp-validation-for="Bairro" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cidade" class="control-label"></label>
+                    <input asp-for="Cidade" class="form-control" />
+                    <span asp-validation-for="Cidade" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <input asp-for="Estado" class="form-control" />
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+                <button id="btnEndereco" class="btn btn-primary">Ir para Cartão</button>
+            </div>
+            <br />
+            <div id="secaoCartao">
+                <h4>Cadatre seu cartão</h4>
+                <div class="form-group">
+                    <label class="control-label">Cartão</label>
+                    <div>
+                        <label>
+                            <input type="radio" name="TipoCartao" value="0" asp-for="TipoCartao" checked />
+                            Crédito
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="TipoCartao" value="1" asp-for="TipoCartao" />
+                            Débito
+                        </label>
+                    </div>
+                    <span asp-validation-for="TipoCartao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TitularDoCartao" class="control-label"></label>
+                    <input asp-for="TitularDoCartao" class="form-control" />
+                    <span asp-validation-for="TitularDoCartao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CpfTitularCartao" class="control-label"></label>
+                    <input asp-for="CpfTitularCartao" class="form-control" />
+                    <span asp-validation-for="CpfTitularCartao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Bandeira" class="control-label"></label>
+                    <input asp-for="Bandeira" class="form-control" />
+                    <span asp-validation-for="Bandeira" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumeroCartao" class="control-label"></label>
+                    <input asp-for="NumeroCartao" class="form-control" />
+                    <span asp-validation-for="NumeroCartao" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="MesValidade" class="control-label">Mês Validade</label>
+                    <input asp-for="MesValidade" class="form-control" type="number" />
+                    <span asp-validation-for="MesValidade" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnoValidade" class="control-label">Ano Validade</label>
+                    <input asp-for="AnoValidade" class="form-control" type="number" />
+                    <span asp-validation-for="AnoValidade" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CVV" class="control-label"></label>
+                    <input asp-for="CVV" class="form-control" />
+                    <span asp-validation-for="CVV" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Salvar" id="salvar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
     <a id="btnVoltar" href="#">Voltar</a>
-    </div>
+</div>
 
-    @section Scripts {
-        <script>
-            $(document).ready(function () {
-                // Inicialmente, esconde todos os passos exceto o primeiro
-                $("#secaoEndereco").hide();
-                $("#secaoCartao").hide();
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicialmente, esconde todos os passos exceto o primeiro
+            $("#secaoEndereco").hide();
+            $("#secaoCartao").hide();
 
-                // Quando clicar no botão para ir para o endereço, esconda dados pessoais e mostre endereço
-                $("#btnDadosPessoais").click(function (e) {
-                    e.preventDefault(); // Impede o submit do formulário
-                    $("#secaoDadosPessoais").hide();
-                    $("#secaoEndereco").show();
-                });
-
-                // Quando clicar no botão para ir para o cartão, esconda endereço e mostre cartão
-                $("#btnEndereco").click(function (e) {
-                    e.preventDefault(); // Impede o submit do formulário
-                    $("#secaoEndereco").hide();
-                    $("#secaoCartao").show();
-                });
-
-                // Se necessário, adicione lógica para o botão voltar
+            // Quando clicar no botão para ir para o endereço, esconda dados pessoais e mostre endereço
+            $("#btnDadosPessoais").click(function (e) {
+                e.preventDefault(); // Impede o submit do formulário
+                $("#secaoDadosPessoais").hide();
+                $("#secaoEndereco").show();
             });
+
+            // Quando clicar no botão para ir para o cartão, esconda endereço e mostre cartão
+            $("#btnEndereco").click(function (e) {
+                e.preventDefault(); // Impede o submit do formulário
+                $("#secaoEndereco").hide();
+                $("#secaoCartao").show();
+            });
+
+            // Se necessário, adicione lógica para o botão voltar
+        });
 
 
         $(document).ready(function () {
@@ -277,4 +283,4 @@
 
 
     </script>
-    }
+}

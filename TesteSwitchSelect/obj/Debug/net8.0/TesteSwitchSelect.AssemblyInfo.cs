@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TesteSwitchSelect")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5505359abe6e3ee5e02533cd6412fcd5a19dad5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22ec89f323d671d142ff78a6092e389ac6932c2e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TesteSwitchSelect")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TesteSwitchSelect")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

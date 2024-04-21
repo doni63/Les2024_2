@@ -21,6 +21,7 @@ public class SwitchSelectContext : DbContext
     public DbSet<Bairro> Bairros { get; set; }
     public DbSet<Cidade> Cidades { get; set; }
     public DbSet<Estado> Estados { get; set; }
+    public DbSet<Pais> Paises { get; set; }
     public DbSet<Cartao> Cartoes {  get; set; } 
     public DbSet<Telefone> Telefones {  get; set; }
     public DbSet<Pedido> Pedidos { get; set; }

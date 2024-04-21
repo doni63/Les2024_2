@@ -9,7 +9,7 @@ public class PedidoDetalhe
     public int JogoId { get; set; }
     public int Quantidade { get; set; }
 
-    [Column(TypeName = "decimal(18,2)")]
+    [Column(TypeName = "decimal(10,2)")]
     public decimal Preco { get; set; }
 
     public virtual Jogo Jogo { get; set; }

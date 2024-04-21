@@ -12,6 +12,8 @@ namespace SwitchSelect.Models
         [Required(ErrorMessage ="Informe Estado")]
         [Display(Name ="Estado")]
         public string Descricao { get; set; }
+        public Pais? Pais { get; set; }
+        public int PaisId { get; set; }
         public List<Cidade> Cidades { get; set; } = new List<Cidade>();
     }
 }
