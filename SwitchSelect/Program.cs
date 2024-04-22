@@ -9,6 +9,7 @@ using SwitchSelect.Components;
 using System.Configuration;
 using SwitchSelect.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +44,7 @@ builder.Services.AddScoped(c => CarrinhoCompra.GetCarrinho(c));
 builder.Services.AddSession();
 builder.Services.AddMemoryCache(); //habilitando memoria cache
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddHttpClient<CuriosidadeController>();
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>();
 
 var app = builder.Build();
 

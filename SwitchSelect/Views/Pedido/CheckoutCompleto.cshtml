@@ -32,6 +32,8 @@
             </table>
             <h4>Valor total do pedido: <strong>@(((decimal)ViewBag.PedidoTotal).ToString("C2"))</strong></h4>
             <h4>Status do pedido: <strong>@Model.Status</strong></h4>
+            <h4>Cartão: <strong>@Model.Cartao.Bandeira</strong></h4>
+            <h4>Final: <strong>@Model.Cartao.CartaoQuatroDigito</strong></h4>
         </div>
     </div>
 </div>

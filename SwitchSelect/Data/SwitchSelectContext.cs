@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 
@@ -6,7 +8,7 @@ using SwitchSelect.Models.ViewModels;
 
 namespace SwitchSelect.Data;
 
-public class SwitchSelectContext : DbContext
+public class SwitchSelectContext : /*DbContext*/ IdentityDbContext<IdentityUser>
 {
     public SwitchSelectContext(DbContextOptions<SwitchSelectContext> options)
         : base(options)

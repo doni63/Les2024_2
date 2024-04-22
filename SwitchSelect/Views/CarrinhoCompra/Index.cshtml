@@ -12,11 +12,10 @@
                     <th class="col-sm-2">Quantidade</th>
                     <th class="col-sm-2">Preço (R$)</th>
                     <th class="col-sm-2">Sub-total(R$)</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody class=" text-center">
-                @foreach(var item in Model.CarrinhoCompra.CarrinhosCompraItens)
+                @foreach (var item in Model.CarrinhoCompra.CarrinhosCompraItens)
                 {
                     <tr>
                         <td class="text-center">
@@ -25,17 +24,28 @@
                         </td>
 
                         <td class="text-center">@item.Jogo.Nome</td>
-                        <td class="text-center">@item.Quantidade</td>
+                        <td class="text-center">
+                            <div class="input-group">
+
+
+                                <input class="form-control quantidade" value="@item.Quantidade" min="1" max="999">
+                                <button asp-controller="CarrinhoCompra" asp-action="AdicionarItemNoCarrinhoCompra"
+                                        asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-primary aumentar-quantidade">
+                                    +
+                                </button>
+                                <button asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra"
+                                        asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-danger diminuir-quantidade">
+                                    -
+                                </button>
+                            </div>
+                        </td>
+
+
                         <td class="text-center">@item.Jogo.Preco.ToString("c")</td>
 
                         <td class="text-center">
                             @((item.Quantidade * item.Jogo.Preco).ToString("c"))
                         </td>
-                        <td class="text-center">
-                            <a asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra"
-                               asp-route-id="@item.Jogo.Id"> <i class="bi bi-trash"></i> </a>
-                        </td>
-                        
                     </tr>
                 }
             </tbody>
@@ -69,7 +79,7 @@
             </div>
         </div>
     </div>
-   
+
     <!--Preço do produto e Total-->
     <div class="col-lg-2"></div>
     <div class="col-sm-4 col-lg-6">

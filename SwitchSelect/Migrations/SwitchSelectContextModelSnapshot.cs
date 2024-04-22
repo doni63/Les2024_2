@@ -438,7 +438,7 @@ namespace SwitchSelect.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");

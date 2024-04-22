@@ -3,6 +3,7 @@ using SwitchSelect.Data;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
+using SwitchSelect.Service;
 
 namespace SwitchSelect.Controllers
 {
@@ -12,12 +13,14 @@ namespace SwitchSelect.Controllers
         private readonly IPedidoRepositorio _pedidoRepositorio;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly SwitchSelectContext _context;
+        private readonly CartaoService _cartaoService;
 
-        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context)
+        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context, CartaoService cartaoService)
         {
             _pedidoRepositorio = pedidoRepositorio;
             _carrinhoCompra = carrinhoCompra;
             _context = context;
+            _cartaoService = cartaoService;
         }
 
         public IActionResult FinalizarPedido()
@@ -84,10 +87,6 @@ namespace SwitchSelect.Controllers
                 precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
             }
 
-            //atribui os valores obtidos ao pedido
-            //pedido.Pedido.TotalItensPedido = totalItensPedido;
-            //pedido.Pedido.PedidoTotal = precoTotalPedido;
-
             var modelPedido = new Pedido();
 
             //dados Cliente
@@ -111,9 +110,14 @@ namespace SwitchSelect.Controllers
             };
 
             //dados de endereco
+            var pais = new Pais
+            {
+                Descricao = "Brasil"
+            };
             var estado = new Estado
             {
-                Descricao = pedido.Estado
+                Descricao = pedido.Estado,
+                Pais = pais
             };
 
             var cidade = new Cidade
@@ -144,6 +148,8 @@ namespace SwitchSelect.Controllers
             var cartao = new Cartao
             {
                 NumeroCartao = pedido.NumeroCartao,
+                CartaoQuatroDigito = _cartaoService.FormatarUltimosQuatroDigitos(pedido.NumeroCartao),
+                Bandeira = pedido.Bandeira,
                 TitularDoCartao = pedido.TitularDoCartao,
                 CpfTitularCartao = pedido.CpfTitularCartao,
                 DataValidade = new DateTime(pedido.AnoValidade, pedido.MesValidade, DateTime.DaysInMonth(pedido.AnoValidade, pedido.MesValidade)),

@@ -98,6 +98,10 @@ public class ClientePedidoViewModel
     [StringLength(16)]
     public string NumeroCartao { get; set; }
 
+    [Required(ErrorMessage ="Informe bandeira do cartão")]
+    [StringLength(20, ErrorMessage ="Máximo 20 caracteres")]
+    public string Bandeira {  get; set; }
+
     [NotMapped]
     [Display(Name = "Cartao de final")]
     public string? CartaoQuatroDigito { get; set; }

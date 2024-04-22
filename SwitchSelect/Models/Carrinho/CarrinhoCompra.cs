@@ -15,6 +15,7 @@ public class CarrinhoCompra
     //teste
     public string CarrinhoCompraId { get; set; }
     public List<CarrinhoCompraItem> CarrinhosCompraItens { get; set; }
+    public int QuantidadeProdutosTotal => CarrinhosCompraItens?.Sum(item => item.Quantidade) ?? 0;
 
     public static CarrinhoCompra GetCarrinho(IServiceProvider services)
     {
@@ -57,6 +58,7 @@ public class CarrinhoCompra
         else
         {
             carrinhoCompraItem.Quantidade++;
+           
         }
         _context.SaveChanges();
     }
