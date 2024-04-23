@@ -1,0 +1,32 @@
+﻿@model List<SwitchSelect.Models.Cupom>
+
+<h2>Meus Cupons</h2>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código do Cupom</th>
+                <th>Valor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cupom in Model)
+            {
+                <tr>
+                    <td>@cupom.CodigoCupom</td>
+                    <td>@cupom.Valor</td>
+                    <td>@cupom.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Você não possui nenhum cupom disponível.</p>
+}
+
+<button onclick="window.history.back()" class="btn btn-link">Voltar</button>

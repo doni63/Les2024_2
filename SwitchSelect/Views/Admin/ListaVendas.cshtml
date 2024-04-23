@@ -25,21 +25,10 @@
                 <td>@pedido.Id</td>
                 <td>@pedido.ClienteId</td>
                 <td>@pedido.Cliente.Cpf</td>
-                <td>
-                    @foreach (var telefone in pedido.Cliente.Telefones)
-                    {
-                        @telefone.NumeroTelefone
 
-                        <br />
-                    }
-                </td>
-
-                @foreach (var endereco in pedido.Cliente.Enderecos)
-                {
-                    <td>@endereco.CEP</td>
-                    <td>@endereco.Numero</td>
-                    <br />
-                }
+                <td>@pedido.Cliente.Telefones.FirstOrDefault()?.NumeroTelefone</td>
+                <td>@pedido.Cliente.Enderecos.FirstOrDefault()?.CEP</td>
+                <td>@pedido.Cliente.Enderecos.FirstOrDefault()?.Numero</td>
                 <td>@pedido.PedidoItens.FirstOrDefault()?.Jogo.Id</td>
                 <td>@pedido.PedidoItens.FirstOrDefault()?.Jogo.Preco.ToString("c")</td>
                 <td>@pedido.PedidoTotal.ToString("c")</td>
@@ -69,44 +58,16 @@
                                 <option value="A Caminho">A Caminho</option>
                                 <option value="Entregue">Entregue</option>
                             </select>
-
                         </div>
                         <div class="modal-footer">
                             <!-- Botão para fechar o modal -->
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <!-- Botão para confirmar a atualização -->
                             <button type="button" class="btn btn-primary" onclick="atualizarStatus(@pedido.Id, $('#novoStatus-@pedido.Id').val())">Confirmar</button>
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
         }
     </tbody>
-    <script>
-        function atualizarStatus(pedidoId, novoStatus) {
-            $.post('/Admin/AtualizarStatus', { pedidoId: pedidoId, novoStatus: novoStatus })
-                .done(function (data) {
-                    // Fechar o modal automaticamente após 1 segundo
-                    setTimeout(function () {
-                        $('#atualizarStatusModal-' + pedidoId).modal('hide');
-                    }, 250);
-
-                    console.log('Status atualizado com sucesso');
-
-
-                    setTimeout(function () {
-                        location.reload();
-                    }, 250);
-                })
-                .fail(function (xhr, status, error) {
-                    console.error('Erro ao atualizar o status do pedido:', error);
-                });
-        }
-    </script>
-   
 </table>
-
-

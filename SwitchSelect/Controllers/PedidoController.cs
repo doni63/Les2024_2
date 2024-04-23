@@ -22,40 +22,13 @@ namespace SwitchSelect.Controllers
             _context = context;
             _cartaoService = cartaoService;
         }
-
-        public IActionResult FinalizarPedido()
-        {
-            return View();
-        }
-        public IActionResult Pedido()
-        {
-            return View();
-        }
-        public IActionResult StatusPedido()
-        {
-            return View();
-        }
-        public IActionResult TrocaPedido()
+        public IActionResult CheckoutCpf()
         {
             return View();
         }
 
-        public IActionResult StatusTroca()
-        {
-            return View();
-        }
-
-        public IActionResult DevolucaoPedido()
-        {
-            return View();
-        }
-
-        public IActionResult StatusDevolucao()
-        {
-            return View();
-        }
-
-        public IActionResult PedidoList()
+        [HttpPost]
+        public IActionResult CheckoutCpf(LoginViewModel model)
         {
             return View();
         }
@@ -65,6 +38,7 @@ namespace SwitchSelect.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Checkout(ClientePedidoViewModel pedido)
         {

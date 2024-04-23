@@ -15,12 +15,14 @@ using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
+builder.Services.AddControllersWithViews();
+
 var connectionString = builder.Configuration.GetConnectionString("SwitchSelectConnection");
 
 builder.Services.AddDbContext<SwitchSelectContext>(options => options.UseMySql
 (connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddControllersWithViews();
+
 
 builder.Services.AddSession(options =>
 {
@@ -44,6 +46,7 @@ builder.Services.AddScoped(c => CarrinhoCompra.GetCarrinho(c));
 builder.Services.AddSession();
 builder.Services.AddMemoryCache(); //habilitando memoria cache
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddHttpClient<CuriosidadeController>();
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>();
 
 var app = builder.Build();

@@ -21,9 +21,14 @@ public class EnderecoService
 
     public async Task CriarEnderecoAsync(EnderecoViewModel model)
     {
+        var pais = new Pais
+        {
+            Descricao = "Brasil"
+        };
         var estado = new Estado
         {
             Descricao = model.Estado,
+            Pais = pais
         };
 
         var cidade = new Cidade

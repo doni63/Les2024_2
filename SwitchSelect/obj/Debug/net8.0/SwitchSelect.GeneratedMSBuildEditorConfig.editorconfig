@@ -70,8 +70,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFvXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Checkout/Checkout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcQ2hlY2tvdXQuY3NodG1s
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Checkout/CheckoutAntigo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcQ2hlY2tvdXRBbnRpZ28uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Checkout/CheckoutCpf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tvdXRcQ2hlY2tvdXRDcGYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cliente/AreaCliente.cshtml]
@@ -118,8 +122,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb21cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cupom/CupomList.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb21cQ3Vwb21MaXN0LmNzaHRtbA==
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cupom/CupomListCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3Vwb21cQ3Vwb21MaXN0Q2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Cupom/Delete.cshtml]
@@ -186,12 +190,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWV0b2RvUGFnYW1lbnRvXE1ldG9kb1BhZ2FtZW50by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/Checkout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXENoZWNrb3V0LmNzaHRtbA==
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/CheckoutAntigo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXENoZWNrb3V0QW50aWdvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/CheckoutCompleto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXENoZWNrb3V0Q29tcGxldG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/CheckoutCpf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXENoZWNrb3V0Q3BmLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/DevolucaoPedido.cshtml]

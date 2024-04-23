@@ -43,7 +43,9 @@ public class EnderecoController : Controller
     public IActionResult Create(int clienteId)
     {
         var viewModel = new EnderecoViewModel
-        { ClienteID = clienteId };
+        { 
+            ClienteID = clienteId 
+        };
         return View(viewModel);
     }
 
