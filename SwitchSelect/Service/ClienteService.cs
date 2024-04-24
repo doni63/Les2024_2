@@ -37,6 +37,7 @@ namespace SwitchSelect.Service
                 NumeroTelefone = cliente.Telefones.FirstOrDefault()?.NumeroTelefone,
                 TipoTelefone = (TipoTelefone)cliente.Telefones.FirstOrDefault()?.TipoTelefone,
                 DDD = cliente.Telefones.FirstOrDefault()?.DDD,
+                Pais = cliente.Enderecos.FirstOrDefault()?.Bairro.Cidade.Estado.Pais.Descricao,
                 Estado = cliente.Enderecos.FirstOrDefault()?.Bairro.Cidade.Estado.Descricao,
                 Cidade = cliente.Enderecos.FirstOrDefault()?.Bairro.Cidade.Descricao,
                 Bairro = cliente.Enderecos.FirstOrDefault()?.Bairro.Descricao,
@@ -54,6 +55,7 @@ namespace SwitchSelect.Service
                 DataValidade = (DateTime)(cliente.Cartoes.FirstOrDefault()?.DataValidade),
                 CVV = cliente.Cartoes.FirstOrDefault()?.CVV,
             };
+            
             return clienteViewModel;
         }
 

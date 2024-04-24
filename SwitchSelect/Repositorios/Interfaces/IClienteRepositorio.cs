@@ -6,4 +6,5 @@ public interface IClienteRepositorio
 {
     IEnumerable<Cliente> Clientes {  get; }
     Cliente GetPorId(int id);
+    Cliente GetPorCpf(string cpf);
 }
