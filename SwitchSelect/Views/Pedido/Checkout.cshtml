@@ -23,5 +23,60 @@
         </div>
 
     </dl>
-  
+    <h4>Dados de Endereço</h4>
+    <hr />
+    <select id="endereco" name="enderecoId" class="form-select">
+        <option value="">Selecione um endereço</option>
+        @foreach (var endereco in Model.Enderecos)
+        {
+            <option value="@endereco.Id">@endereco.TipoLogradouro @endereco.Logradouro, 
+                N°. @endereco.Numero, CEP. @endereco.CEP - @endereco.Complemento, 
+                @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao
+                </option>
+        }
+    </select>
+   
+    <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id"
+       asp-route-origem="Pedido" class="btn btn-primary">+ Endereço</a>
+
+    <h4 class="mt-4">Dados de Pagamento</h4>
+    <hr />
+    <select id="cartao" name="cartaoId" class="form-select">
+        <option value="">Selecione um cartão</option>
+        @foreach (var cartao in Model.Cartoes)
+        {
+            <option value="@cartao.Id">Tipo de Cartão: @cartao.TipoCartao, Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito</option>
+        }
+    </select>
+
+    <form id="formFinalizarCompra" asp-action="FinalizarCompra" asp-controller="Pedido" method="post">
+        <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
+    </form>
 </div>
+
+<script>
+    // Função para enviar os dados selecionados quando o usuário clicar em "Finalizar Compra"
+    document.getElementById("formFinalizarCompra").addEventListener("submit", function(e) {
+        e.preventDefault(); // Impede o envio padrão do formulário
+
+        // Obter os valores selecionados
+        var enderecoId = document.getElementById("endereco").value;
+        var cartaoId = document.getElementById("cartao").value;
+
+        // Definir os valores selecionados nos campos hidden do formulário
+        var hiddenEnderecoId = document.createElement("input");
+        hiddenEnderecoId.type = "hidden";
+        hiddenEnderecoId.name = "enderecoId";
+        hiddenEnderecoId.value = enderecoId;
+        document.getElementById("formFinalizarCompra").appendChild(hiddenEnderecoId);
+
+        var hiddenCartaoId = document.createElement("input");
+        hiddenCartaoId.type = "hidden";
+        hiddenCartaoId.name = "cartaoId";
+        hiddenCartaoId.value = cartaoId;
+        document.getElementById("formFinalizarCompra").appendChild(hiddenCartaoId);
+
+        // Enviar o formulário
+        this.submit();
+    });
+</script>

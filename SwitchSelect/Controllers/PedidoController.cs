@@ -38,10 +38,16 @@ namespace SwitchSelect.Controllers
 
             if (ModelState.IsValid)
             {
-                string cpf = model.Cpf;
-                if (cpf != null)
+                //string cpf = model.Cpf;
+
+                if (model.Cpf != null)
                 {
-                    var cliente = _clienteRepositorio.GetPorCpf(cpf);
+                    var cliente = _clienteRepositorio.GetPorCpf(model.Cpf);
+                    foreach(var cartao in cliente.Cartoes)
+                    {
+                        var numeroCartao = cartao.NumeroCartao;
+                        cartao.CartaoQuatroDigito = _cartaoService.FormatarUltimosQuatroDigitos(numeroCartao);
+                    }
                     return View("Checkout", cliente);
                 }
                 else
@@ -50,6 +56,10 @@ namespace SwitchSelect.Controllers
                 }
             }
             return View(model);
+        }
+        public IActionResult Checkout(Cliente cliente)
+        {
+            return View(cliente);
         }
 
         //[HttpGet]

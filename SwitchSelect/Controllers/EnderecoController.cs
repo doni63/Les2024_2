@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SwitchSelect.Data;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
@@ -10,11 +11,15 @@ public class EnderecoController : Controller
 {
     private readonly IEnderecoRepositorio _enderecoRepositorio;
     private readonly EnderecoService _enderecoService;
+    private readonly SwitchSelectContext _context;
+    private readonly IClienteRepositorio _clienteRepositorio;
 
-    public EnderecoController(IEnderecoRepositorio enderecoRepositorio, EnderecoService enderecoService)
+    public EnderecoController(IEnderecoRepositorio enderecoRepositorio, EnderecoService enderecoService,SwitchSelectContext context, IClienteRepositorio clienteRepositorio)
     {
         _enderecoRepositorio = enderecoRepositorio;
         _enderecoService = enderecoService;
+        _context = context;
+        _clienteRepositorio = clienteRepositorio;
     }
 
 
@@ -40,12 +45,14 @@ public class EnderecoController : Controller
         return View(enderecosViewModel);
     }
 
-    public IActionResult Create(int clienteId)
+    public IActionResult Create(int clienteId,string origem)
     {
         var viewModel = new EnderecoViewModel
         { 
+            
             ClienteID = clienteId 
         };
+        viewModel.Origem = origem;
         return View(viewModel);
     }
 
@@ -59,8 +66,19 @@ public class EnderecoController : Controller
 
         await _enderecoService.CriarEnderecoAsync(model);
 
-        // Redireciona para a lista de endereços do cliente, passando o clienteId
-        return RedirectToAction(nameof(EnderecoList), new { clienteId = model.ClienteID });
+        if(model.Origem != null)
+        {
+            
+            var cliente = _clienteRepositorio.GetPorId(model.ClienteID);
+            
+            return View("~/Views/Pedido/Checkout.cshtml", cliente);
+
+        }
+        else
+        {
+            // Redireciona para a lista de endereços do cliente, passando o clienteId
+            return RedirectToAction(nameof(EnderecoList), new { clienteId = model.ClienteID });
+        } 
     }
 
     [HttpGet]

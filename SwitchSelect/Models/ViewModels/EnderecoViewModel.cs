@@ -52,5 +52,7 @@ public class EnderecoViewModel
     [Display(Name = "Estado")]
     public string Estado { get; set; }
 
+    public string? Origem { get; set; }
+
 
 }

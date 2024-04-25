@@ -11,10 +11,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Endereco" asp-action="Create" id="formCreateNovoEndereco">
+        <form asp-controller="Endereco" asp-action="Create"  id="formCreateNovoEndereco">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @Html.HiddenFor(model => model.ClienteID)
             <div class="form-group">
+
+                <input asp-for="Origem" hidden  />
+
                 <label class="control-label">Tipo de endereco</label>
                 <div>
                     <label>

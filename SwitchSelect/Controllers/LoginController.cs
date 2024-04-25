@@ -2,16 +2,19 @@
 using SwitchSelect.Data;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
+using SwitchSelect.Repositorios.Interfaces;
 
 namespace SwitchSelect.Controllers
 {
     public class LoginController : Controller
     {
         private readonly SwitchSelectContext _context;
+        private readonly IClienteRepositorio _cliRepo;
 
-        public LoginController(SwitchSelectContext context)
+        public LoginController(SwitchSelectContext context, IClienteRepositorio cliRepo)
         {
             _context = context;
+            _cliRepo = cliRepo;
         }
 
         public IActionResult TelaLogin()
@@ -25,13 +28,15 @@ namespace SwitchSelect.Controllers
             if(ModelState.IsValid)
             {
                 //verificando cpf de usuário
-                var usuario = _context.Clientes.FirstOrDefault(u => u.Cpf == model.Cpf);
-                if (usuario != null) 
+                //var usuario = _context.Clientes.FirstOrDefault(u => u.Cpf == model.Cpf);
+                if (model.Cpf != null) 
                 {
-                    HttpContext.Session.SetString("Cpf", usuario.Cpf);
-                    HttpContext.Session.SetString("Nome", usuario.Nome);
-                    HttpContext.Session.SetInt32("Id", usuario.Id);
-                    return RedirectToAction("AreaCliente","Cliente", new { id = usuario.Id });
+                    //HttpContext.Session.SetString("Cpf", usuario.Cpf);
+                    //HttpContext.Session.SetString("Nome", usuario.Nome);
+                    //HttpContext.Session.SetInt32("Id", usuario.Id);
+                    var cliente = _cliRepo.GetPorCpf(model.Cpf);
+                    //return RedirectToAction("AreaCliente","Cliente", new { id = usuario.Id });
+                    return RedirectToAction("AreaCliente","Cliente",cliente);
                 }
                 else
                 {
