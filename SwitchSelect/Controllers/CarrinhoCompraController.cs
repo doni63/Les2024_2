@@ -62,14 +62,6 @@ namespace SwitchSelect.Controllers
 
             if (cupom != null)
             {
-                // Obter os itens do carrinho do banco de dados
-                var carrinhoCompraItens = _context.CarrinhoCompraItens
-                    .Include(item => item.Jogo)
-                    .Where(item => item.CarrinhoCompraId == _carrinhoCompra.CarrinhoCompraId)
-                    .ToList();
-
-                // Aplicar o desconto correspondente
-                _carrinhoCompra.AplicarDesconto(cupom.Valor, carrinhoCompraItens);
 
                 // Definir o cupom como usado
                 cupom.Status = "Usado";

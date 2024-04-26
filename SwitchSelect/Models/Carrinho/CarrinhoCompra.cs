@@ -113,27 +113,6 @@ public class CarrinhoCompra
         return total;
     }
 
-    public void AplicarDesconto(decimal valorDesconto, List<CarrinhoCompraItem> carrinhoCompraItens)
-    {
-        decimal valorTotal = GetCarrinhoCompraTotal();
-        decimal novoValorTotal = valorTotal - valorDesconto;
+    
 
-        // Verifica se o desconto não deixa o valor total negativo
-        if (novoValorTotal >= 0)
-        {
-            // Atualiza o valor total do carrinho com o desconto aplicado
-            foreach (var item in carrinhoCompraItens)
-            {
-                item.Jogo.Preco -= valorDesconto / item.Quantidade;
-            }
-        }
-        else
-        {
-            // Se o desconto for maior que o valor total do carrinho, define o valor total como 0
-            foreach (var item in carrinhoCompraItens)
-            {
-                item.Jogo.Preco = 0;
-            }
-        }
-    }
 }

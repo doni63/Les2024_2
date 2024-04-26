@@ -3,80 +3,83 @@
 <h2>Checkout</h2>
 
 <div>
-    <dl class="">
+    <form asp-action="Checkout" asp-controller="Pedido" method="post">
         <div class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Nome):
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
+            <div class="col-sm-1">
+                <label asp-for="Nome"></label>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="Nome" readonly class="col-sm-4 form-control" style="border:none" />
+            </div>
+            
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Código do Cupom" aria-label="Código do Cupom" name="codigoCupom">
+                    <button type="submit" class="btn btn-primary">Aplicar Cupom</button>
+                </div>
+            </div>
         </div>
 
         <div class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Cpf):
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Cpf)
-            </dd>
+            <div class="col-sm-1"> <label asp-for="Cpf"></label></div>
+            <div class="col-sm-5">
+                <input asp-for="Cpf" readonly class="col-sm-4 form-control" style="border:none" />
+            </div>
         </div>
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Dados de Endereço</h4>
+                <hr />
+                <select id="endereco" name="enderecoId" class="form-select">
+                    <option value="">Selecione um endereço</option>
+                    @foreach (var endereco in Model.Enderecos)
+                    {
+                        <option value="@endereco.Id">
+                            @endereco.Id, @endereco.TipoLogradouro @endereco.Logradouro,
+                            N°. @endereco.Numero, CEP. @endereco.CEP - @endereco.Complemento,
+                            @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao
+                        </option>
+                    }
+                </select>
 
-    </dl>
-    <h4>Dados de Endereço</h4>
-    <hr />
-    <select id="endereco" name="enderecoId" class="form-select">
-        <option value="">Selecione um endereço</option>
-        @foreach (var endereco in Model.Enderecos)
-        {
-            <option value="@endereco.Id">@endereco.TipoLogradouro @endereco.Logradouro, 
-                N°. @endereco.Numero, CEP. @endereco.CEP - @endereco.Complemento, 
-                @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao
-                </option>
-        }
-    </select>
-   
-    <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id"
-       asp-route-origem="Pedido" class="btn btn-primary">+ Endereço</a>
+                <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id"
+                   asp-route-origem="Pedido" class="btn btn-primary">+ Endereço</a>
+            </div>
+            
+            <div class="col-sm-6">
+                <h4>Dados de Pagamento</h4>
+                <hr />
+                <select id="cartao" name="cartaoId" class="form-select">
+                    <option value="">Selecione um cartão</option>
+                    @foreach (var cartao in Model.Cartoes)
+                    {
+                        <option value="@cartao.Id">
+                            ID:@cartao.Id, Tipo de Cartão: @cartao.TipoCartao,
+                            Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito
+                        </option>
+                    }
+                </select>
+                <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id"
+                   asp-route-origem="Pedido" class="btn btn-primary">+ Cartão</a>
+            </div>
+        </div>
+        <input type="hidden" id="enderecoId" name="enderecoId" />
+        <input hidden id="cartaoId" name="cartaoId" />
 
-    <h4 class="mt-4">Dados de Pagamento</h4>
-    <hr />
-    <select id="cartao" name="cartaoId" class="form-select">
-        <option value="">Selecione um cartão</option>
-        @foreach (var cartao in Model.Cartoes)
-        {
-            <option value="@cartao.Id">Tipo de Cartão: @cartao.TipoCartao, Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito</option>
-        }
-    </select>
-
-    <form id="formFinalizarCompra" asp-action="FinalizarCompra" asp-controller="Pedido" method="post">
         <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
     </form>
 </div>
-
 <script>
-    // Função para enviar os dados selecionados quando o usuário clicar em "Finalizar Compra"
-    document.getElementById("formFinalizarCompra").addEventListener("submit", function(e) {
-        e.preventDefault(); // Impede o envio padrão do formulário
+    // Adicione um ouvinte de evento para o envio do formulário
+    document.querySelector('form').addEventListener('submit', function () {
+        // Obtenha o valor selecionado na select de endereço e cartao
+        var enderecoIdSelecionado = document.getElementById('endereco').value;
+        var cartaoSelecionado = document.getElementById('cartao').value;
 
-        // Obter os valores selecionados
-        var enderecoId = document.getElementById("endereco").value;
-        var cartaoId = document.getElementById("cartao").value;
-
-        // Definir os valores selecionados nos campos hidden do formulário
-        var hiddenEnderecoId = document.createElement("input");
-        hiddenEnderecoId.type = "hidden";
-        hiddenEnderecoId.name = "enderecoId";
-        hiddenEnderecoId.value = enderecoId;
-        document.getElementById("formFinalizarCompra").appendChild(hiddenEnderecoId);
-
-        var hiddenCartaoId = document.createElement("input");
-        hiddenCartaoId.type = "hidden";
-        hiddenCartaoId.name = "cartaoId";
-        hiddenCartaoId.value = cartaoId;
-        document.getElementById("formFinalizarCompra").appendChild(hiddenCartaoId);
-
-        // Enviar o formulário
-        this.submit();
+        // Defina o valor selecionado no campo oculto
+        document.getElementById('enderecoId').value = enderecoIdSelecionado;
+        document.getElementById('cartaoId').value = cartaoSelecionado;
     });
 </script>
+

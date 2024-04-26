@@ -54,32 +54,7 @@
 </form>
 
 <!--Cupom e preço-->
-<div class="row">
-    <div class="col-sm-8 col-lg-4">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Utilizar Cupom
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="d-flex align-items-center">
-                            <form method="post" action="@Url.Action("AplicarCupom", "CarrinhoCompra")">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Código do Cupom" aria-label="Código do Cupom" name="codigoCupom">
-                                    <button type="submit" class="btn btn-primary">Aplicar Cupom</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<div class="row"
     <!--Preço do produto e Total-->
     <div class="col-lg-2"></div>
     <div class="col-sm-4 col-lg-6">
@@ -111,27 +86,7 @@
 <!-- Mensagem de Estimativa de Frete -->
 <div id="mensagemFrete" class="alert" role="alert" style="display: none;"></div>
 
-<script>
-    document.getElementById('btnCalcularFrete').addEventListener('click', function () {
-        var cep = document.getElementById('inputCEP').value;
-        // Chamar a API dos Correios para calcular o frete com base no CEP fornecido
-        fetch('https://api.correios.com.br/frete/calculo?cep=' + cep)
-            .then(response => response.json())
-            .then(data => {
-                // Manipular a resposta da API dos Correios e exibir a estimativa de frete ao cliente
-                var mensagem = 'O custo estimado de frete para o CEP ' + cep + ' é R$ ' + data.valor;
-                document.getElementById('mensagemFrete').innerHTML = mensagem;
-                document.getElementById('mensagemFrete').style.display = 'block';
-            })
-            .catch(error => {
-                console.error('Erro ao calcular o frete:', error);
-                // Exibir mensagem de erro ao cliente
-                document.getElementById('mensagemFrete').innerHTML = 'Ocorreu um erro ao calcular o frete. Por favor, tente novamente mais tarde.';
-                document.getElementById('mensagemFrete').className = 'alert alert-danger';
-                document.getElementById('mensagemFrete').style.display = 'block';
-            });
-    });
-</script>
+
 
 
 

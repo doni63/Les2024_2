@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
+using SwitchSelect.Repositorios;
 using SwitchSelect.Repositorios.Interfaces;
 using SwitchSelect.Service;
 
@@ -10,19 +11,22 @@ namespace SwitchSelect.Controllers
     {
         private readonly ICartaoRepositorio _cartaoRepositorio;
         private readonly CartaoService _cartaoService;
+        private readonly IClienteRepositorio _clienteRepositorio;
 
-        public CartaoController(CartaoService service, ICartaoRepositorio cartaoRepositorio)
+        public CartaoController(CartaoService service, ICartaoRepositorio cartaoRepositorio, IClienteRepositorio clienteRepositorio)
         {
             _cartaoService = service;
             _cartaoRepositorio = cartaoRepositorio;
+            _clienteRepositorio = clienteRepositorio;
         }
 
-        public IActionResult Create(int clienteId)
+        public IActionResult Create(int clienteId,string origem)
         {
             var viewModel = new CartaoViewModel
             {
                 ClienteId = clienteId
             };
+            viewModel.Origem = origem;
             return View(viewModel);
         }
 
@@ -34,6 +38,13 @@ namespace SwitchSelect.Controllers
                 return View(model);
             }
             await _cartaoService.CriarCartaoAsync(model);
+
+            if (model.Origem.Equals("Pedido"))
+            {
+                var cliente = _clienteRepositorio.GetPorId(model.ClienteId);
+                return View("~/Views/Pedido/Checkout.cshtml", cliente);
+            }
+
             return RedirectToAction(nameof(CartaoList), new { clienteId = model.ClienteId });
         }
         public IActionResult CartaoList(int clienteId)
@@ -59,12 +70,15 @@ namespace SwitchSelect.Controllers
             {
                 return NotFound();
             }
-            foreach(var cartao in cartoesViewModel)
+            
+            foreach (var cartao in cartoesViewModel)
             {
                 var numeroCartao = cartao.NumeroCartao;
                 cartao.CartaoQuatroDigito = _cartaoService.FormatarUltimosQuatroDigitos(numeroCartao);
             }
+            
             ViewData["ClienteID"] = clienteId;
+            
             return View(cartoesViewModel);
         }
 

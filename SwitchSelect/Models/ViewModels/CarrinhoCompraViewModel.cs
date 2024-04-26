@@ -11,4 +11,7 @@ public class CarrinhoCompraViewModel
 
    [Display(Name = "Código do Cupom")]
     public string CodigoCupom { get; set; }
+
+    
+
 }

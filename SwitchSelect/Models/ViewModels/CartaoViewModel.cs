@@ -9,6 +9,7 @@ public class CartaoViewModel
     [Display(Name ="Id")]
     public int Id { get; set; }
     public int ClienteId { get; set; }
+
     [Required(ErrorMessage = "Informe número do cartão")]
     [Display(Name = "Numero do cartão")]
     [StringLength(16)]
@@ -54,5 +55,6 @@ public class CartaoViewModel
     [Display(Name = "Tipo de cartão")]
     public TipoCartao TipoCartao { get; set; }
 
+    public string? Origem { get; set; }
 
 }

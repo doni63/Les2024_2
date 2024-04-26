@@ -3,6 +3,7 @@ using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Models;
 using Microsoft.EntityFrameworkCore;
 using SwitchSelect.Repositorios.Interfaces;
+using Newtonsoft.Json;
 
 namespace SwitchSelect.Service
 {
@@ -10,12 +11,15 @@ namespace SwitchSelect.Service
     {
         private readonly SwitchSelectContext _context;
         private readonly IClienteRepositorio _cliRepositorio;
-       
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly string _clienteKey = "Cliente";
 
-        public ClienteService(SwitchSelectContext context, IClienteRepositorio cliRepositorio)
+
+        public ClienteService(SwitchSelectContext context, IClienteRepositorio cliRepositorio, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _cliRepositorio = cliRepositorio;
+            _httpContextAccessor = httpContextAccessor;
             
         }
 
@@ -384,5 +388,41 @@ namespace SwitchSelect.Service
             return ConverterParaClienteDadosPessoaisViewModel(cliente);
         }
 
+        public void GuardarClienteNaSessao(Cliente cliente)
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            if (session != null)
+            {
+                var settings = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                var clienteSerializado = JsonConvert.SerializeObject(cliente, settings);
+                session.SetString(_clienteKey, clienteSerializado);
+            }
+        }
+
+        public Cliente ObterClienteDaSessao()
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            if(session != null)
+            {
+                var clienteSerializado = session.GetString(_clienteKey);
+                if (clienteSerializado != null)
+                {
+                    return JsonConvert.DeserializeObject<Cliente>(clienteSerializado);
+                }
+            }
+            return null;
+        }
+        public void LimparSessaoCliente()
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            if (session != null)
+            {
+                session.Remove(_clienteKey);
+            }
+        }
     }
 }

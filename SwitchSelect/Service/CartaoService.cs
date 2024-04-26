@@ -35,6 +35,7 @@ public class CartaoService
         {
             Id = model.Id,
             ClienteId = model.ClienteId,
+            Bandeira = model.Bandeira,
             NumeroCartao = model.NumeroCartao,
             CpfTitularCartao = model.CpfTitularCartao,
             TitularDoCartao = model.TitularDoCartao,

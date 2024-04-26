@@ -48,8 +48,7 @@ public class EnderecoController : Controller
     public IActionResult Create(int clienteId,string origem)
     {
         var viewModel = new EnderecoViewModel
-        { 
-            
+        {  
             ClienteID = clienteId 
         };
         viewModel.Origem = origem;
@@ -66,13 +65,11 @@ public class EnderecoController : Controller
 
         await _enderecoService.CriarEnderecoAsync(model);
 
-        if(model.Origem != null)
-        {
-            
+        if(model.Origem.Equals("Pedido"))
+        { 
             var cliente = _clienteRepositorio.GetPorId(model.ClienteID);
             
             return View("~/Views/Pedido/Checkout.cshtml", cliente);
-
         }
         else
         {
