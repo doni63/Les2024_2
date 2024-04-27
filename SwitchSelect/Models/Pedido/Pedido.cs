@@ -115,6 +115,9 @@ public class Pedido
     [Display(Name = "Total do Pedido")]
     public decimal PedidoTotal { get; set; }
 
+    public  decimal? Desconto { get; set; }
+    public virtual Cupom? Cupom { get; set; }
+
     [ScaffoldColumn(false)]
     [Display(Name = "Itens no Pedido")]
     public int TotalItensPedido { get; set; }
