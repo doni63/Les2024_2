@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI;
 using SwitchSelect.Data;
 using SwitchSelect.Models;
@@ -29,7 +30,8 @@ namespace SwitchSelect.Controllers
             _clienteService = clienteService;
 
         }
-        public IActionResult CheckoutCpf()
+        [HttpGet]
+        public IActionResult CheckoutLogin()
         {
             return View();
         }
@@ -38,7 +40,7 @@ namespace SwitchSelect.Controllers
         public IActionResult CheckoutCpf(LoginViewModel model)
         {
             int totalItensPedido = 0;
-            decimal precoTotalPedido = 0.0m;
+            decimal precoTotalPedido = 0;
 
             if (ModelState.IsValid)
             {
@@ -56,19 +58,19 @@ namespace SwitchSelect.Controllers
                     totalItensPedido += item.Quantidade;
                     precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
                 }
+
                 ViewBag.PrecoTotalPedido = precoTotalPedido;
                 ViewBag.TotalItensPedido = totalItensPedido;
-
-                //string cpf = model.Cpf;
 
                 if (model.Cpf != null)
                 {
                     var cliente = _clienteRepositorio.GetPorCpf(model.Cpf);
-                    foreach(var cartao in cliente.Cartoes)
+                    foreach (var cartao in cliente.Cartoes)
                     {
                         var numeroCartao = cartao.NumeroCartao;
                         cartao.CartaoQuatroDigito = _cartaoService.FormatarUltimosQuatroDigitos(numeroCartao);
                     }
+                    //colocar cliente na sessao
                     _clienteService.GuardarClienteNaSessao(cliente);
                     return View("Checkout", cliente);
                 }
@@ -77,23 +79,44 @@ namespace SwitchSelect.Controllers
                     ModelState.AddModelError(string.Empty, "CPF não encontrado");
                 }
             }
-            return View(model);
+            return View();
         }
-        [HttpGet]
-       
+
+
 
         [HttpPost]
-        public IActionResult Checkout(int enderecoId,int cartaoId,decimal precoTotalPedido, int totalItensPedido)
+        public IActionResult Checkout(int enderecoId, int cartaoId, decimal precoTotalPedido, int totalItensPedido, string cupomAplicado)
         {
+            //buscando cliente da sessão
+            var cliente = _clienteService.ObterClienteDaSessao();
             
+
+            //se cupom for aplicado obter cupom para editar clienteId e status
+            if(cliente != null)
+            {
+                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado);
+                cupom.Status = "Usado";
+                cupom.ClienteId = cliente.Id;
+                _context.Update(cupom);
+                _context.SaveChanges();
+            }
+            
+
+
             //obter itens do carrinho de compra do cliente
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
 
+            //valor do desconto
+            decimal totalValoPedido = 0m;
+            foreach (var item in itens)
+            {
+                totalItensPedido += item.Quantidade;
+                totalValoPedido += (item.Jogo.Preco * item.Quantidade);
+            }
+            var desconto = totalValoPedido - precoTotalPedido;
+
             var modelPedido = new Pedido();
-
-            //buscando cliente da sessão
-            var cliente = _clienteService.ObterClienteDaSessao();
-
+                      
             //dados Pedido
             modelPedido.ClienteId = cliente.Id;
 
@@ -113,6 +136,7 @@ namespace SwitchSelect.Controllers
             modelPedido.Status = "Processando";
             modelPedido.TotalItensPedido = totalItensPedido;
             modelPedido.PedidoTotal = precoTotalPedido;
+            modelPedido.Desconto = desconto;
 
             //valida os dados do pedido
             if (ModelState.IsValid)
@@ -123,7 +147,7 @@ namespace SwitchSelect.Controllers
 
                 //mensagem ao cliente
                 ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra !";
-                ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
+                ViewBag.PedidoTotal = precoTotalPedido;
 
                 //limpa o carrinho 
                 _carrinhoCompra.LimparCarrinho();
@@ -136,15 +160,59 @@ namespace SwitchSelect.Controllers
 
         }
 
-        public IActionResult AplicarCupom(string codigoCupom)
+        public IActionResult AplicarCupom(string Cpf, string codigoCupom)
         {
-            var cupom  = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
-            if(cupom != null)
+            ViewBag.Cupom = codigoCupom;
+            //recebendo valor do desconto
+            var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
+            decimal desconto = 0m;
+
+            //adicionando o valor do desconto na variavel desconto
+            if (cupom != null && cupom.Status.Equals("Valido"))
             {
-                decimal desconto = cupom.Valor;
+                desconto = cupom.Valor;
             }
 
+            //atualizar valor com desconto
 
+            int totalItensPedido = 0;
+            decimal precoTotalPedido = 0;
+
+            //obter itens do carrinho de compra do cliente
+            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
+            _carrinhoCompra.CarrinhosCompraItens = itens;
+            if (_carrinhoCompra.CarrinhosCompraItens.Count == 0)
+            {
+                ModelState.AddModelError("", "Carrinho vazio");
+            }
+            //calcular total de pedidos e de itens
+            foreach (var item in itens)
+            {
+                totalItensPedido += item.Quantidade;
+                precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
+            }
+            //aplicando desconto
+            precoTotalPedido = precoTotalPedido - desconto;
+
+            ViewBag.PrecoTotalPedido = precoTotalPedido;
+            ViewBag.TotalItensPedido = totalItensPedido;
+
+            if (Cpf != null)
+            {
+                var cliente = _clienteRepositorio.GetPorCpf(Cpf);
+                foreach (var cartao in cliente.Cartoes)
+                {
+                    var numeroCartao = cartao.NumeroCartao;
+                    cartao.CartaoQuatroDigito = _cartaoService.FormatarUltimosQuatroDigitos(numeroCartao);
+                }
+                //colocar cliente na sessao
+                _clienteService.GuardarClienteNaSessao(cliente);
+                return View("Checkout", cliente);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "CPF não encontrado");
+            }
 
             return View();
         }

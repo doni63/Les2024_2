@@ -16,6 +16,7 @@
                     <th>Quantidade</th>
                     <th>Jogo</th>
                     <th>Preço</th>
+                    <th>Desconto</th>
                 </tr>
                 @foreach (var item in Model.PedidoItens)
                 {
@@ -27,6 +28,7 @@
                         <td>@item.Quantidade</td>
                         <td>@item.Jogo.Nome</td>
                         <td>@item.Jogo.Preco</td>
+                        <td>@(((decimal)item.Pedido.Desconto).ToString("c2"))</td>
                     </tr>
                 }
             </table>

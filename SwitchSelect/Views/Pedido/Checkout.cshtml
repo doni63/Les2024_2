@@ -12,15 +12,14 @@
                 <input asp-for="Nome" readonly class="col-sm-4 form-control" style="border:none" />
             </div>
 
-            <div class="col-sm-6">
-                <h5>
-                    Valor total do pedido:
-                    <strong>
-                        <input name="precoTotalPedidoString" value="@(((decimal)ViewBag.PrecoTotalPedido).ToString("C2"))" />
-                        <input name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" hidden/>
-                        <input name="totalItensPedido" value="@ViewBag.TotalItensPedido" hidden />
-                    </strong>
-                </h5>
+            <!--Valores Hidden-->
+            <div class="">
+                <strong>
+                    <input name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" hidden />
+                    <input name="totalItensPedido" value="@ViewBag.TotalItensPedido" hidden />
+                    <input name="cupomAplicado" value="@ViewBag.Cupom" hidden/>
+                </strong>
+
             </div>
 
 
@@ -31,12 +30,7 @@
             <div class="col-sm-5">
                 <input asp-for="Cpf" readonly class="col-sm-4 form-control" style="border:none" />
             </div>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="text" id="codigoCupom" class="form-control" placeholder="Código do Cupom" aria-label="Código do Cupom">
-                    <button type="button" class="btn btn-primary" onclick="aplicarCupom()">Aplicar Cupom</button>
-                </div>
-            </div>
+
         </div>
         <br />
         <hr />
@@ -80,7 +74,29 @@
         <input type="hidden" id="enderecoId" name="enderecoId" />
         <input hidden id="cartaoId" name="cartaoId" />
 
-        <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
+       <div class="row">
+           <div class="col-sm-6"></div>
+           <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
+           </div>
+       </div>
+        
+    </form>
+
+    <!--AplicarCupom-->
+    <form asp-controller="Pedido" asp-action="AplicarCupom" method="post">
+        <input asp-for="Cpf" hidden/>
+        <div class="col-sm-4">
+            <h5>
+                Valor do pedido:
+                <input name="precoTotalPedidoString" value="@(((decimal)ViewBag.PrecoTotalPedido).ToString("C2"))" style="border:none" />
+            </h5>
+            <div class="input-group">
+                <input type="text" name="codigoCupom" class="form-control" placeholder="Código do Cupom">
+                
+                <button type="submit" class="btn btn-primary" onclick="aplicarCupom()">Aplicar Cupom</button>
+            </div>
+        </div>
     </form>
 </div>
 <script>
@@ -95,9 +111,6 @@
         document.getElementById('cartaoId').value = cartaoSelecionado;
     });
 
-    function aplicarCupom() {
-        var codigoCupom = document.getElementById('codigoCupom').value;
-        window.location.href = '@Url.Action("AplicarCupom", "Pedido")?codigoCupom=' + codigoCupom;
-    }
 </script>
+
 
