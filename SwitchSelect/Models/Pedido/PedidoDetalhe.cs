@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwitchSelect.Models;
 
@@ -12,6 +13,8 @@ public class PedidoDetalhe
     [Column(TypeName = "decimal(10,2)")]
     public decimal Preco { get; set; }
 
+    [Display(Name ="Jogo")]
+    public string? NomeJogo { get; set; }
     public virtual Jogo Jogo { get; set; }
     public virtual Pedido Pedido { get; set; }
 }

@@ -17,7 +17,7 @@
                 <strong>
                     <input name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" hidden />
                     <input name="totalItensPedido" value="@ViewBag.TotalItensPedido" hidden />
-                    <input name="cupomAplicado" value="@ViewBag.Cupom" hidden/>
+                    <input name="cupomAplicado" value="@ViewBag.Cupom" hidden />
                 </strong>
 
             </div>
@@ -74,18 +74,32 @@
         <input type="hidden" id="enderecoId" name="enderecoId" />
         <input hidden id="cartaoId" name="cartaoId" />
 
-       <div class="row">
-           <div class="col-sm-6"></div>
-           <div class="col-sm-6">
-                <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
-           </div>
-       </div>
-        
+        <!--botao finalizar-->
+        <div class="row justify-content-end">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <div class="row align-items-center justify-content-end">
+                    <div class="col-auto">
+                        <label class="col-form-label">Frete:</label>
+                    </div>
+                    <div class="col-auto">
+                        <input class="form-control" name="frete" />
+                    </div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </form>
 
     <!--AplicarCupom-->
     <form asp-controller="Pedido" asp-action="AplicarCupom" method="post">
-        <input asp-for="Cpf" hidden/>
+        <input asp-for="Cpf" hidden />
         <div class="col-sm-4">
             <h5>
                 Valor do pedido:
@@ -93,7 +107,7 @@
             </h5>
             <div class="input-group">
                 <input type="text" name="codigoCupom" class="form-control" placeholder="Código do Cupom">
-                
+
                 <button type="submit" class="btn btn-primary" onclick="aplicarCupom()">Aplicar Cupom</button>
             </div>
         </div>

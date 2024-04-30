@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SwitchSelect.Models.Pedido>
+
+@{
+    ViewData["Title"] = "PedidoListCliente";
+}
+
+<h1>Lista de pedidos do cliente</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Desconto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoEnviado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PedidoEntregueEm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desconto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEnviado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-action="PedidoDetalhe" asp-route-pedidoId="@item.Id">Detalhes</a>
+                    <a class="btn btn-primary" asp-action="#" asp-route-id="@item.Id">Trocar Produto</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Devolver Produto</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -89,19 +89,6 @@ namespace SwitchSelect.Controllers
         {
             //buscando cliente da sessão
             var cliente = _clienteService.ObterClienteDaSessao();
-            
-
-            //se cupom for aplicado obter cupom para editar clienteId e status
-            if(cliente != null)
-            {
-                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado);
-                cupom.Status = "Usado";
-                cupom.ClienteId = cliente.Id;
-                _context.Update(cupom);
-                _context.SaveChanges();
-            }
-            
-
 
             //obter itens do carrinho de compra do cliente
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
@@ -113,10 +100,9 @@ namespace SwitchSelect.Controllers
                 totalItensPedido += item.Quantidade;
                 totalValoPedido += (item.Jogo.Preco * item.Quantidade);
             }
-            var desconto = totalValoPedido - precoTotalPedido;
 
             var modelPedido = new Pedido();
-                      
+
             //dados Pedido
             modelPedido.ClienteId = cliente.Id;
 
@@ -136,9 +122,22 @@ namespace SwitchSelect.Controllers
             modelPedido.Status = "Processando";
             modelPedido.TotalItensPedido = totalItensPedido;
             modelPedido.PedidoTotal = precoTotalPedido;
-            modelPedido.Desconto = desconto;
 
+            //se cupom for aplicado obter cupom para editar clienteId e status
+            decimal desconto = 0m;
+            if (cupomAplicado != null)
+            {
+                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado);
+                cupom.Status = "Usado";
+                cupom.ClienteId = cliente.Id;
+                _context.Update(cupom);
+                _context.SaveChanges();
+                desconto = totalValoPedido - precoTotalPedido;
+                modelPedido.Desconto = desconto;
+            }
+      
             //valida os dados do pedido
+            ModelState.Remove("cupomAplicado");
             if (ModelState.IsValid)
             {
                 //cria os pedidos e os detalhes
@@ -217,5 +216,19 @@ namespace SwitchSelect.Controllers
             return View();
         }
 
+        public async Task<IActionResult> PedidoListCliente(int clienteId)
+        {
+            var pedidoCliente = await _context.Pedidos
+                .Where(p => p.ClienteId == clienteId)
+                .ToListAsync();
+            return View(pedidoCliente);
+        }
+
+        public IActionResult PedidoDetalhe(int pedidoId)
+        {
+            var itensPedido = _context.PedidoDetalhes.Where(pd => pd.PedidoId == pedidoId).ToList();
+
+            return View(itensPedido);
+        }
     }
 }

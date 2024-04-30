@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SwitchSelect.Models.PedidoDetalhe>
+
+
+@{
+    ViewData["Title"] = "PedidoDetalhe";
+}
+
+<h1>PedidoDetalhe</h1>
+
+@foreach (var item in Model)
+{
+    <div>
+        <h4>Detalhes do Pedido</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(modelItem => item.Pedido)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.PedidoId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(modelItem => item.Preco)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Preco)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(modelItem => item.Quantidade)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </dd>
+           
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(modelItem => item.Jogo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem =>item.Jogo)
+            </dd>
+           
+        </dl>
+    </div>
+}

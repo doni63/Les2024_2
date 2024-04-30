@@ -19,7 +19,7 @@
                 {
                     <tr>
                         <td class="text-center">
-                            <img src="@Url.Content(@item.Jogo.ImagemUrl)" alt="Imagem do Produto"
+                            <img src="@Url.Content(item.Jogo.ImagemUrl)" alt="Imagem do Produto"
                                  class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
                         </td>
 
@@ -27,16 +27,17 @@
                         <td class="text-center">
                             <div class="input-group">
 
-
-                                <input class="form-control quantidade" value="@item.Quantidade" min="1" max="999">
-                                <button asp-controller="CarrinhoCompra" asp-action="AdicionarItemNoCarrinhoCompra"
-                                        asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-primary aumentar-quantidade">
-                                    +
-                                </button>
+                               
+                                <input class="form-control justify-content-center" value="@item.Quantidade" min="1" max="999">
                                 <button asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra"
                                         asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-danger diminuir-quantidade">
                                     -
                                 </button>
+                                <button asp-controller="CarrinhoCompra" asp-action="AdicionarItemNoCarrinhoCompra"
+                                        asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-primary aumentar-quantidade">
+                                    +
+                                </button>
+                               
                             </div>
                         </td>
 
@@ -74,17 +75,6 @@
         </div>
     </div>
 </div>
-<!-- Estimativa de Frete -->
-<div class="row">
-    <div class="col-md-4">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Digite o CEP" aria-label="Digite o CEP" id="inputCEP">
-            <button class="btn btn-outline-secondary" type="button" id="btnCalcularFrete">Calcular Frete</button>
-        </div>
-    </div>
-</div>
-<!-- Mensagem de Estimativa de Frete -->
-<div id="mensagemFrete" class="alert" role="alert" style="display: none;"></div>
 
 
 

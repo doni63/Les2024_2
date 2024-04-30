@@ -30,7 +30,9 @@ public class PedidoRepositorio : IPedidoRepositorio
                 Quantidade = carrinhoItens.Quantidade,
                 JogoId = carrinhoItens.Jogo.Id,
                 Preco = carrinhoItens.Jogo.Preco,
+                NomeJogo = carrinhoItens.Jogo.Nome,
                 PedidoId = pedido.Id
+                
             };
             _context.PedidoDetalhes.Add(pedidoDetalhe);
         }

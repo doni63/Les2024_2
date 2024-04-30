@@ -28,7 +28,18 @@
                         <td>@item.Quantidade</td>
                         <td>@item.Jogo.Nome</td>
                         <td>@item.Jogo.Preco</td>
-                        <td>@(((decimal)item.Pedido.Desconto).ToString("c2"))</td>
+                        <td>
+                            @if (item.Pedido.Desconto.HasValue)
+                            {
+                                <text>@item.Pedido.Desconto.Value.ToString("c2")</text>
+                            }
+                            else
+                            {
+                                <p>R$0,00</p>
+                            }
+                        </td>
+
+
                     </tr>
                 }
             </table>
