@@ -49,8 +49,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Devolucao\" />
-  </ItemGroup>
-
 </Project>

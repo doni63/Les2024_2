@@ -28,7 +28,7 @@
                             <div class="input-group">
 
                                
-                                <input class="form-control justify-content-center" value="@item.Quantidade" min="1" max="999">
+                                <input class="form-control justify-content-center" name="quantidade" value="@item.Quantidade" min="1" max="999">
                                 <button asp-controller="CarrinhoCompra" asp-action="RemoverItemDoCarrinhoCompra"
                                         asp-route-id="@item.Jogo.Id" class="btn btn-sm btn-danger diminuir-quantidade">
                                     -

@@ -15,6 +15,8 @@ public class PedidoDetalhe
 
     [Display(Name ="Jogo")]
     public string? NomeJogo { get; set; }
-    public virtual Jogo Jogo { get; set; }
-    public virtual Pedido Pedido { get; set; }
+
+    [Display(Name ="Codigo de venda do produto")]
+    public virtual Jogo? Jogo { get; set; }
+    public virtual Pedido? Pedido { get; set; }
 }

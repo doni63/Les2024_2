@@ -5,12 +5,11 @@
     ViewData["Title"] = "PedidoDetalhe";
 }
 
-<h1>PedidoDetalhe</h1>
-
+<h1>Pedidos</h1>
+<h3>@ViewBag.PedidoTotal</h3>
 @foreach (var item in Model)
 {
     <div>
-        <h4>Detalhes do Pedido</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
@@ -31,14 +30,18 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(modelItem => item.Quantidade)
             </dd>
-           
+
+             <input name="jogoId" value="@item.JogoId" hidden />
+
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(modelItem => item.Jogo)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem =>item.Jogo)
+                @Html.DisplayFor(modelItem =>item.NomeJogo)
             </dd>
            
         </dl>
     </div>
 }
+<button type="button" onclick="history.back();" class="btn btn-primary">Voltar</button>
+

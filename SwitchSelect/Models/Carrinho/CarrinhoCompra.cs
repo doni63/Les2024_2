@@ -12,7 +12,7 @@ public class CarrinhoCompra
     {
         _context = context;
     }
-    //teste
+    
     public string CarrinhoCompraId { get; set; }
     public List<CarrinhoCompraItem> CarrinhosCompraItens { get; set; }
     public int QuantidadeProdutosTotal => CarrinhosCompraItens?.Sum(item => item.Quantidade) ?? 0;
@@ -20,17 +20,17 @@ public class CarrinhoCompra
     public static CarrinhoCompra GetCarrinho(IServiceProvider services)
     {
         //definir uma sessão
-        ISession session =
+        ISession? session =
             services.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.Session;
 
         //obter serviço do nosso contexto
         var context = services.GetService<SwitchSelectContext>();
 
         //obtem ou gera o Id do carrinho
-        string carrinhoId = session.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
+        string carrinhoId = session?.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
 
         //atribui o id do carrinho na sessão
-        session.SetString("CarrinhoId", carrinhoId);
+        session?.SetString("CarrinhoId", carrinhoId);
 
         return new CarrinhoCompra(context)
         {

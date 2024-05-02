@@ -23,8 +23,12 @@ public class PedidoRepositorio : IPedidoRepositorio
 
         var carrinhoCompraItens = _carrinhoCompra.CarrinhosCompraItens;
 
-        foreach(var carrinhoItens in carrinhoCompraItens)
+        //criando código único do produto vendido
+
+
+        foreach (var carrinhoItens in carrinhoCompraItens)
         {
+
             var pedidoDetalhe = new PedidoDetalhe()
             {
                 Quantidade = carrinhoItens.Quantidade,
@@ -32,7 +36,7 @@ public class PedidoRepositorio : IPedidoRepositorio
                 Preco = carrinhoItens.Jogo.Preco,
                 NomeJogo = carrinhoItens.Jogo.Nome,
                 PedidoId = pedido.Id
-                
+
             };
             _context.PedidoDetalhes.Add(pedidoDetalhe);
         }

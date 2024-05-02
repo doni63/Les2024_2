@@ -31,14 +31,19 @@ namespace SwitchSelect.Controllers
 
         }
         [HttpGet]
-        public IActionResult CheckoutLogin()
+        public IActionResult CheckoutLogin(int quantidade)
         {
+            if(quantidade > 1)
+            {
+                return View("~/Views/Pedido/PedidoError.Cshtml");
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult CheckoutCpf(LoginViewModel model)
         {
+
             int totalItensPedido = 0;
             decimal precoTotalPedido = 0;
 
@@ -78,8 +83,9 @@ namespace SwitchSelect.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "CPF não encontrado");
                 }
+
             }
-            return View();
+            return View("~/Views/Pedido/PedidoError.Cshtml");
         }
 
 
@@ -135,7 +141,7 @@ namespace SwitchSelect.Controllers
                 desconto = totalValoPedido - precoTotalPedido;
                 modelPedido.Desconto = desconto;
             }
-      
+
             //valida os dados do pedido
             ModelState.Remove("cupomAplicado");
             if (ModelState.IsValid)
@@ -155,7 +161,7 @@ namespace SwitchSelect.Controllers
                 //exibir a view com dados de cliente e pedido
                 return View("~/Views/Pedido/CheckoutCompleto.cshtml", modelPedido);
             }
-            return View(cliente);
+            return View("~/Views/Pedido/PedidoError.Cshtml");
 
         }
 
@@ -224,10 +230,11 @@ namespace SwitchSelect.Controllers
             return View(pedidoCliente);
         }
 
-        public IActionResult PedidoDetalhe(int pedidoId)
+        public IActionResult PedidoDetalhe(int pedidoId, string pedidoTotal)
         {
             var itensPedido = _context.PedidoDetalhes.Where(pd => pd.PedidoId == pedidoId).ToList();
 
+            ViewBag.PedidoTotal = pedidoTotal;
             return View(itensPedido);
         }
     }
