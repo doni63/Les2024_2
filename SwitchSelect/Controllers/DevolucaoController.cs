@@ -4,7 +4,7 @@ namespace SwitchSelect.Controllers
 {
     public class DevolucaoController : Controller
     {
-        public IActionResult Index(int id)
+        public IActionResult IndexPedido(int id)
         {
            
             return View(id);
