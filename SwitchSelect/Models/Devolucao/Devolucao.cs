@@ -10,10 +10,19 @@ public class Devolucao
     [StringLength(200, ErrorMessage = "Maximo de caracteres 200")]
     [MinLength(8, ErrorMessage = "Explique melhor o motivo")]
     public string Motivo { get; set; }
+
+    [Display(Name = "Pedido")]
     public int PedidoId { get; set; }
+
+    [Display(Name = "Codigo Cliente")]
     public int ClienteId { get; set; }
+
+    [Display(Name ="Nome cliente")]
     public string NomeCliente { get; set; }
+
+    [Display(Name = "Cpf")]
     public string CpfCliente { get; set; }
+       
     public string StatusDevolucao { get; set; }
     public DateTime? DataSolicitacao { get; set; }
     public DateTime? DataConfirmacao { get; set; }

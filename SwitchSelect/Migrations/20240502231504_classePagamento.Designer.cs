@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SwitchSelect.Data;
 
@@ -11,9 +12,11 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    partial class SwitchSelectContextModelSnapshot : ModelSnapshot
+    [Migration("20240502231504_classePagamento")]
+    partial class classePagamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,9 +420,6 @@ namespace SwitchSelect.Migrations
                     b.Property<string>("CodigoCupom")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("PagamentoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .HasColumnType("longtext");
 
@@ -429,8 +429,6 @@ namespace SwitchSelect.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
-
-                    b.HasIndex("PagamentoId");
 
                     b.ToTable("Cupons");
                 });
@@ -613,9 +611,10 @@ namespace SwitchSelect.Migrations
                         .HasMaxLength(14)
                         .HasColumnType("varchar(14)");
 
-                    b.Property<string>("NumerosCartao")
+                    b.Property<string>("NumeroCartao")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
 
                     b.Property<int?>("PedidoId")
                         .HasColumnType("int");
@@ -660,8 +659,17 @@ namespace SwitchSelect.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CartaoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
+
+                    b.Property<int?>("CupomId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("EnderecoId")
                         .HasColumnType("int");
@@ -687,7 +695,11 @@ namespace SwitchSelect.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CartaoId");
+
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("CupomId");
 
                     b.HasIndex("EnderecoId");
 
@@ -859,10 +871,6 @@ namespace SwitchSelect.Migrations
                     b.HasOne("SwitchSelect.Models.Cliente", null)
                         .WithMany("Cupons")
                         .HasForeignKey("ClienteId");
-
-                    b.HasOne("SwitchSelect.Models.Pagamento", null)
-                        .WithMany("Cupons")
-                        .HasForeignKey("PagamentoId");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
@@ -926,11 +934,21 @@ namespace SwitchSelect.Migrations
 
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
+                    b.HasOne("SwitchSelect.Models.Cartao", "Cartao")
+                        .WithMany()
+                        .HasForeignKey("CartaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SwitchSelect.Models.Cliente", "Cliente")
                         .WithMany()
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Cupom", "Cupom")
+                        .WithMany()
+                        .HasForeignKey("CupomId");
 
                     b.HasOne("SwitchSelect.Models.Endereco", "Endereco")
                         .WithMany()
@@ -942,7 +960,11 @@ namespace SwitchSelect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Cartao");
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Cupom");
 
                     b.Navigation("Endereco");
 
@@ -1008,11 +1030,6 @@ namespace SwitchSelect.Migrations
             modelBuilder.Entity("SwitchSelect.Models.Estado", b =>
                 {
                     b.Navigation("Cidades");
-                });
-
-            modelBuilder.Entity("SwitchSelect.Models.Pagamento", b =>
-                {
-                    b.Navigation("Cupons");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Pais", b =>

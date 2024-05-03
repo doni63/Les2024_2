@@ -39,12 +39,14 @@ namespace SwitchSelect.Controllers
             }
             await _cartaoService.CriarCartaoAsync(model);
 
-            if (model.Origem.Equals("Pedido"))
+            if(model.Origem != null)
             {
-                var cliente = _clienteRepositorio.GetPorId(model.ClienteId);
-                return View("~/Views/Pedido/Checkout.cshtml", cliente);
+                if (model.Origem.Equals("Pedido"))
+                {
+                    var cliente = _clienteRepositorio.GetPorId(model.ClienteId);
+                    return View("~/Views/Pedido/Checkout.cshtml", cliente);
+                }
             }
-
             return RedirectToAction(nameof(CartaoList), new { clienteId = model.ClienteId });
         }
         public IActionResult CartaoList(int clienteId)

@@ -8,6 +8,7 @@ namespace SwitchSelect.Repositorios;
 public class CartaoRepositorio : ICartaoRepositorio
 {
     private readonly SwitchSelectContext _context;
+
     public CartaoRepositorio(SwitchSelectContext context)
     {
         _context = context;
