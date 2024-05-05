@@ -12,7 +12,7 @@
                 @Html.DisplayFor(model => model.Nome)
             </dd>
         </div>
-       
+
         <div class="row">
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Cpf):
@@ -20,7 +20,7 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Cpf)
             </dd>
-        </div>      
+        </div>
 
     </dl>
     <div class="align-items-start">
@@ -29,7 +29,7 @@
         <a asp-controller="Cartao" asp-action="CartaoList" asp-route-ClienteId="@Model.Id" class="btn btn-primary" id="cartao">Metodo de pagamento</a>
         <a asp-controller="Cliente" asp-action="DadosPessoais" asp-route-id="@Model.Id" class="btn btn-primary">Dados pessoais</a>
         <a asp-controller="Endereco" asp-action="EnderecoList" asp-route-ClienteId="@Model.Id" class="btn btn-primary" id="endereco">Endereço</a>
-        
+
     </div>
     <br />
     <a asp-controller="Home" asp-action="Index" class="btn btn-link">Voltar</a>

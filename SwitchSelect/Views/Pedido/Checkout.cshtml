@@ -63,6 +63,8 @@
                         <input type="number" name="valorCartao_@cartao.Id" step="0.01" min="0" max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
                     </div>
                 }
+                <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
+                   class="btn btn-primary">+ Cartão</a>
                 <input type="hidden" name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" />
                 <input type="hidden" name="totalItensPedido" value="@ViewBag.TotalItensPedido" />
                 <input type="hidden" name="cupomAplicado" value="@ViewBag.Cupom" />

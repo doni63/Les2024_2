@@ -83,10 +83,7 @@ public class EnderecoController : Controller
 
                 return View("~/Views/Pedido/Checkout.cshtml", cliente);
             }
-            // Redireciona para a lista de endereços do cliente, passando o clienteId
-            return RedirectToAction(nameof(EnderecoList), new { clienteId = model.ClienteID });
         }
-
         // Redireciona para a lista de endereços do cliente, passando o clienteId
         return RedirectToAction(nameof(EnderecoList), new { clienteId = model.ClienteID });
     }

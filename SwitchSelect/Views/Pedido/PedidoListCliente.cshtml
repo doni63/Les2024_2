@@ -58,11 +58,8 @@
                 </td>
                 <td>
                     <a class="btn btn-info" asp-action="PedidoDetalhe" asp-route-pedidoId="@item.Id"
-                       asp-route-pedidoTotal="@item.PedidoTotal">Detalhes</a>
-                    <a class="btn btn-primary" asp-action="#" asp-route-id="@item.Id">Trocar Produto</a>
-                    <a class="btn btn-danger" asp-controller="Devolucao" asp-action="Index"
-                      asp-route-id="@item.Id" >Devolver Produto</a>
-
+                       asp-route-pedidoTotal="@item.PedidoTotal" asp-route-status="@item.Status">Detalhes</a>
+                    
                 </td>
             </tr>
         }
