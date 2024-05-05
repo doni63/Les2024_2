@@ -9,7 +9,6 @@ public class EnderecoViewModel
     public int ClienteID { get; set; }
 
     [Required(ErrorMessage ="Informe tipo de endereço")]
-    
     [Display(Name = "Tipo de endereço")]
     public TipoEndereco TipoEndereco { get; set; }
 

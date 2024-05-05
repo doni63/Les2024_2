@@ -417,9 +417,6 @@ namespace SwitchSelect.Migrations
                     b.Property<string>("CodigoCupom")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("PagamentoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
                         .HasColumnType("longtext");
 
@@ -430,51 +427,7 @@ namespace SwitchSelect.Migrations
 
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("PagamentoId");
-
                     b.ToTable("Cupons");
-                });
-
-            modelBuilder.Entity("SwitchSelect.Models.Devolucao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CpfCliente")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("DataConfirmacao")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DataSolicitacao")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Motivo")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("NomeCliente")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("PedidoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StatusDevolucao")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Devolucoes");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
@@ -608,20 +561,20 @@ namespace SwitchSelect.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CartaoIds")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("CodigoCupom")
-                        .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("varchar(14)");
 
-                    b.Property<string>("NumerosCartao")
-                        .IsRequired()
+                    b.Property<string>("CodigosCupons")
                         .HasColumnType("longtext");
 
                     b.Property<int?>("PedidoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Tipo")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
@@ -633,6 +586,29 @@ namespace SwitchSelect.Migrations
                     b.HasIndex("PedidoId");
 
                     b.ToTable("Pagamentos");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PagamentoCartao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartaoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PagamentoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartaoId");
+
+                    b.HasIndex("PagamentoId");
+
+                    b.ToTable("PagamentosCartoes");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Pais", b =>
@@ -663,8 +639,15 @@ namespace SwitchSelect.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnType("decimal(65,30)");
+
                     b.Property<int?>("EnderecoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("PedidoEntregueEm")
                         .HasColumnType("datetime(6)");
@@ -757,6 +740,302 @@ namespace SwitchSelect.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Telefones");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.CartaoViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bandeira")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CpfTitularCartao")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<DateTime?>("DataValidade")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NumeroCartao")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("Origem")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TipoCartao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TitularDoCartao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CartaoViewModel");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.ClienteCompletoViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Bandeira")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("varchar(8)");
+
+                    b.Property<string>("CVV")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Complemento")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("CpfTitularCartao")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("DDD")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<DateTime>("DataDeNascimento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DataValidade")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("NumeroCartao")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("varchar(16)");
+
+                    b.Property<string>("NumeroTelefone")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("Pais")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<int>("TipoCartao")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoEndereco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoLogradouro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoResidencia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoTelefone")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TitularDoCartao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClienteViewModels");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.ClienteDadosPessoaisViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
+
+                    b.Property<string>("DDD")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<DateTime>("DataDeNascimento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("NumeroTelefone")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("varchar(9)");
+
+                    b.Property<int>("TipoTelefone")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClienteDadosPessoaisViewModel");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.ViewModels.EnderecoViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("varchar(8)");
+
+                    b.Property<string>("Cidade")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("ClienteID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Complemento")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Origem")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TipoEndereco")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoLogradouro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoResidencia")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnderecoViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -859,10 +1138,6 @@ namespace SwitchSelect.Migrations
                     b.HasOne("SwitchSelect.Models.Cliente", null)
                         .WithMany("Cupons")
                         .HasForeignKey("ClienteId");
-
-                    b.HasOne("SwitchSelect.Models.Pagamento", null)
-                        .WithMany("Cupons")
-                        .HasForeignKey("PagamentoId");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
@@ -922,6 +1197,23 @@ namespace SwitchSelect.Migrations
                     b.HasOne("SwitchSelect.Models.Pedido", null)
                         .WithMany("Pagamentos")
                         .HasForeignKey("PedidoId");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PagamentoCartao", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Cartao", "Cartao")
+                        .WithMany()
+                        .HasForeignKey("CartaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Pagamento", "Pagamento")
+                        .WithMany()
+                        .HasForeignKey("PagamentoId");
+
+                    b.Navigation("Cartao");
+
+                    b.Navigation("Pagamento");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
@@ -1008,11 +1300,6 @@ namespace SwitchSelect.Migrations
             modelBuilder.Entity("SwitchSelect.Models.Estado", b =>
                 {
                     b.Navigation("Cidades");
-                });
-
-            modelBuilder.Entity("SwitchSelect.Models.Pagamento", b =>
-                {
-                    b.Navigation("Cupons");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Pais", b =>

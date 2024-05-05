@@ -18,6 +18,9 @@
                 @Html.DisplayNameFor(model => model.PedidoTotal)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Desconto)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PedidoEnviado)
             </th>
             <th>
@@ -41,7 +44,9 @@
                     <input type="hidden" name="pedidoTotal" value="@item.PedidoTotal.ToString("0.00")" />
 
                 </td>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desconto)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PedidoEnviado)
                 </td>
@@ -54,6 +59,10 @@
                 <td>
                     <a class="btn btn-info" asp-action="PedidoDetalhe" asp-route-pedidoId="@item.Id"
                        asp-route-pedidoTotal="@item.PedidoTotal">Detalhes</a>
+                    <a class="btn btn-primary" asp-action="#" asp-route-id="@item.Id">Trocar Produto</a>
+                    <a class="btn btn-danger" asp-controller="Devolucao" asp-action="Index"
+                      asp-route-id="@item.Id" >Devolver Produto</a>
+
                 </td>
             </tr>
         }

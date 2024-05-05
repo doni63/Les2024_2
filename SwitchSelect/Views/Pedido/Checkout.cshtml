@@ -3,7 +3,7 @@
 <h2>Checkout</h2>
 
 <div>
-    <form asp-action="Checkout" asp-controller="Pedido" method="post">
+    <form asp-action="Checkout" asp-controller="Pedido" method="post" onsubmit="return onSubmitForm()">
         <div class="row">
             <div class="col-sm-1">
                 <label asp-for="Nome"></label>
@@ -11,21 +11,30 @@
             <div class="col-sm-5">
                 <input asp-for="Nome" readonly class="col-sm-4 form-control" style="border:none" />
             </div>
+
+            <!--Valores Hidden-->
+            <div class="">
+                <strong>
+                    <input name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" hidden />
+                    <input name="totalItensPedido" value="@ViewBag.TotalItensPedido" hidden />
+                    <input name="cupomAplicado" value="@ViewBag.Cupom" hidden />
+                </strong>
+            </div>
         </div>
 
         <div class="row">
-            <div class="col-sm-1"> <label asp-for="Cpf"></label></div>
+            <div class="col-sm-1">
+                <label asp-for="Cpf"></label>
+            </div>
             <div class="col-sm-5">
                 <input asp-for="Cpf" readonly class="col-sm-4 form-control" style="border:none" />
             </div>
-
         </div>
         <br />
         <hr />
         <div class="row">
             <div class="col-sm-6">
                 <h4>Dados de Endereço</h4>
-
                 <select id="endereco" name="enderecoId" class="form-select">
                     <option value="">Selecione um endereço</option>
                     @foreach (var endereco in Model.Enderecos)
@@ -37,36 +46,31 @@
                         </option>
                     }
                 </select>
-
-                <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id"
-                   asp-route-origem="Pedido" class="btn btn-primary">+ Endereço</a>
+                <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
+                    class="btn btn-primary">+ Endereço</a>
             </div>
+
             <div class="col-sm-6">
                 <h4>Dados de Pagamento</h4>
-                <form id="formCartoes" asp-controller="Pedido" asp-action="Checkout" method="post">
-                    @foreach (var cartao in Model.Cartoes)
-                    {
-                        <div>
-                            <input type="checkbox" id="@("cartao_" + cartao.Id)" name="cartoesSelecionados" value="@cartao.Id">
-                            <label for="@("cartao_" + cartao.Id)">
-                                ID: @cartao.Id, Tipo de Cartão: @cartao.TipoCartao,
-                                Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito
-                            </label>
-                            <input type="number" name="valorCartao_@cartao.Id" step="0.01" min="0" max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
-                        </div>
-                    }
-                    <input type="hidden" name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" />
-                    <input type="hidden" name="totalItensPedido" value="@ViewBag.TotalItensPedido" />
-                    <input type="hidden" name="cupomAplicado" value="@ViewBag.Cupom" />
-                    <input type="hidden" name="enderecoId" id="enderecoId" />
-                    <input type="submit" class="btn btn-primary mt-4" value="Finalizar Compra" />
-                </form>
+                @foreach (var cartao in Model.Cartoes)
+                {
+                    <div>
+                        <input type="checkbox" id="@("cartao_" + cartao.Id)" name="cartoesSelecionados" value="@cartao.Id">
+                        <label for="@("cartao_" + cartao.Id)">
+                            ID: @cartao.Id, Tipo de Cartão: @cartao.TipoCartao,
+                            Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito
+                        </label>
+                        <input type="number" name="valorCartao_@cartao.Id" step="0.01" min="0" max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
+                    </div>
+                }
+                <input type="hidden" name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" />
+                <input type="hidden" name="totalItensPedido" value="@ViewBag.TotalItensPedido" />
+                <input type="hidden" name="cupomAplicado" value="@ViewBag.Cupom" />
+                <input type="hidden" name="enderecoId" id="enderecoId" />
+                <input type="hidden" name="cartoesIds" id="cartoesIds" />
             </div>
+        </div>
 
-
-
-
-        </div>      
         <!--botao finalizar-->
         <div class="row justify-content-end">
             <div class="col-sm-6"></div>
@@ -86,8 +90,6 @@
                 </div>
             </div>
         </div>
-
-
     </form>
 
     <!--AplicarCupom-->
@@ -105,18 +107,18 @@
         </div>
     </form>
 </div>
+
+
 <script>
-    // Adicione um ouvinte de evento para o envio do formulário
-    document.querySelector('form').addEventListener('submit', function () {
-        // Obtenha o valor selecionado na select de endereço e cartao
-        var enderecoIdSelecionado = document.getElementById('endereco').value;
-        var cartaoSelecionado = document.getElementById('cartao').value;
-
-        // Defina o valor selecionado no campo oculto
-        document.getElementById('enderecoId').value = enderecoIdSelecionado;
-        document.getElementById('cartaoId').value = cartaoSelecionado;
-    });
-
+    function onSubmitForm() {
+        var cartoesSelecionados = document.querySelectorAll('input[name="cartoesSelecionados"]:checked');
+        var cartoesIds = [];
+        cartoesSelecionados.forEach(function (cartao) {
+            var cartaoId = cartao.value;
+            var valor = document.querySelector('input[name="valorCartao_' + cartaoId + '"]').value;
+            cartoesIds.push({ id: cartaoId, valor: valor });
+        });
+        document.getElementById('cartoesIds').value = JSON.stringify(cartoesIds);
+        return true; // Permita o envio do formulário
+    }
 </script>
-
-

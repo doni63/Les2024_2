@@ -5,25 +5,24 @@
 namespace SwitchSelect.Migrations
 {
     /// <inheritdoc />
-    public partial class corrigindopedidoDetalhe : Migration
+    public partial class atualizandoPagamento : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "NomeJogo",
-                table: "PedidoDetalhes",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
+            migrationBuilder.AddColumn<int>(
+                name: "Cartaoid",
+                table: "Pagamentos",
+                type: "int",
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "NomeJogo",
-                table: "PedidoDetalhes");
+                name: "Cartaoid",
+                table: "Pagamentos");
         }
     }
 }

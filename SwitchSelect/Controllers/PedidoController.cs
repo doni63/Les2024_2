@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI;
+using Newtonsoft.Json;
 using SwitchSelect.Data;
+using SwitchSelect.Dto;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
@@ -13,23 +15,23 @@ namespace SwitchSelect.Controllers
     public class PedidoController : Controller
     {
         private readonly IPedidoRepositorio _pedidoRepositorio;
-        private readonly ICartaoRepositorio _cartaoRepositorio;
         private readonly CarrinhoCompra _carrinhoCompra;
         private readonly SwitchSelectContext _context;
         private readonly CartaoService _cartaoService;
         private readonly IClienteRepositorio _clienteRepositorio;
         private readonly ClienteService _clienteService;
+        private readonly PagamentoService _pagamentoService;
 
 
-        public PedidoController(IPedidoRepositorio pedidoRepositorio,ICartaoRepositorio cartaoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context, CartaoService cartaoService, ClienteService clienteService, IClienteRepositorio clienteRepositorio)
+        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context, CartaoService cartaoService, ClienteService clienteService, IClienteRepositorio clienteRepositorio,PagamentoService pagamentoService)
         {
             _pedidoRepositorio = pedidoRepositorio;
-            _cartaoRepositorio = cartaoRepositorio;
             _carrinhoCompra = carrinhoCompra;
             _context = context;
             _cartaoService = cartaoService;
             _clienteRepositorio = clienteRepositorio;
             _clienteService = clienteService;
+            _pagamentoService = pagamentoService;
 
         }
         [HttpGet]
@@ -65,6 +67,11 @@ namespace SwitchSelect.Controllers
                     totalItensPedido += item.Quantidade;
                     precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
                 }
+                var precoTotalPedidoBytes = BitConverter.GetBytes(Convert.ToDouble(precoTotalPedido));
+                var totalItensPedidoBytes = BitConverter.GetBytes(totalItensPedido);
+
+                HttpContext.Session.Set("PrecoTotalPedido", precoTotalPedidoBytes);
+                HttpContext.Session.Set("TotalItensPedido", totalItensPedidoBytes);
 
                 ViewBag.PrecoTotalPedido = precoTotalPedido;
                 ViewBag.TotalItensPedido = totalItensPedido;
@@ -93,86 +100,75 @@ namespace SwitchSelect.Controllers
 
 
         [HttpPost]
-        public IActionResult Checkout(int enderecoId, List<int> cartoesSelecionados, decimal precoTotalPedido, int totalItensPedido, string cupomAplicado)
+        public IActionResult Checkout(int enderecoId, string cartoesIds, decimal precoTotalPedido, int totalItensPedido, string cupomAplicado)
         {
+            // recuperar dados do cartao do forms
+            var cartoesIdsJson = JsonConvert.DeserializeObject<List<CartaoIdValor>>(cartoesIds);
+            
+            var pagamentos = new List<Pagamento>();
+
+            // criando pagamento para cada cartao
+            foreach (var cartaoIdValor in cartoesIdsJson)
+            {
+                var pagamento = _pagamentoService.CriarPagamento(cartaoIdValor);
+                pagamentos.Add(pagamento);
+
+                _pagamentoService.CriarPagamentoCartao(pagamento.Id, cartaoIdValor.Id);
+            }
+
+            //obter itens do carrinho de compra do cliente
+            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
+
             // Buscar cliente da sessão
             var cliente = _clienteService.ObterClienteDaSessao();
 
-            // Obter itens do carrinho de compra do cliente
-            List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
-
-            // Valor total do pedido
-            decimal totalValorPedido = itens.Sum(item => item.Jogo.Preco * item.Quantidade);
-
-            // Criar lista de pagamentos
-            var pagamentos = new List<Pagamento>();
-
-            // Adicionar os cartões selecionados aos pagamentos
-            if (cartoesSelecionados != null && cartoesSelecionados.Any())
-            {
-                foreach (var cartaoId in cartoesSelecionados)
-                {
-                    var cartao = _cartaoRepositorio.GetCartaoPorId(cartaoId);
-                    if (cartao != null)
-                    {
-                        var pagamento = new Pagamento
-                        {
-                            Valor = precoTotalPedido,
-                            Tipo = "Cartão de Crédito",
-                            NumerosCartao = new List<string> { cartao.NumeroCartao }
-                        };
-                        pagamentos.Add(pagamento);
-                    }
-                }
-            }
-
-            // Criar um novo pedido
-            var modelPedido = new Pedido
+            // Crie um novo pedido
+            var pedido = new Pedido
             {
                 ClienteId = cliente.Id,
                 Nome = cliente.Nome,
-                TelefoneId = cliente.Telefones.FirstOrDefault().Id,
+                TelefoneId = (int) cliente.Telefones.FirstOrDefault()?.Id,
                 EnderecoId = enderecoId,
+                Pagamentos = pagamentos,
                 Status = "Processando",
                 TotalItensPedido = totalItensPedido,
-                PedidoTotal = precoTotalPedido,
-                Pagamentos = pagamentos // Adicionar os pagamentos ao pedido
+                PedidoTotal = precoTotalPedido
             };
 
-            // Aplicar desconto se houver cupom aplicado
-            decimal desconto = 0m;
+            // Se um cupom foi aplicado, atualize as informações do cupom
             if (!string.IsNullOrEmpty(cupomAplicado))
             {
-                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado);
+                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado && c.Status == "Valido");
                 if (cupom != null)
                 {
                     cupom.Status = "Usado";
                     cupom.ClienteId = cliente.Id;
-                    _context.Update(cupom);
                     _context.SaveChanges();
-                    desconto = totalValorPedido - precoTotalPedido;
+                    pedido.Desconto = cupom.Valor;
                 }
             }
-
-            // Validar os dados do pedido
             ModelState.Remove("cupomAplicado");
+            // Verifique a validade do modelo antes de criar o pedido
             if (ModelState.IsValid)
             {
-                // Criar o pedido e os detalhes
-                _pedidoRepositorio.CriarPedido(modelPedido);
+                _pedidoRepositorio.CriarPedido(pedido);
 
-                // Limpar o carrinho e a sessão do cliente
+                //mensagem ao cliente
+                ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra !";
+                ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
+
+                // Limpe o carrinho e a sessão do cliente
                 _carrinhoCompra.LimparCarrinho();
                 _clienteService.LimparSessaoCliente();
 
-                // Exibir a view com os dados do pedido
-                ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra!";
-                ViewBag.PedidoTotal = precoTotalPedido;
-                return View("~/Views/Pedido/CheckoutCompleto.cshtml", modelPedido);
+                // Exiba a view de checkout completo com os detalhes do pedido
+                return View("~/Views/Pedido/CheckoutCompleto.cshtml", pedido);
             }
-
-            // Retornar a view de erro em caso de problemas com a validação dos dados do pedido
-            return View("~/Views/Pedido/PedidoError.cshtml");
+            else
+            {
+                // Se houver erros de validação, retorne a view de erro de pedido
+                return View("~/Views/Pedido/PedidoError.cshtml");
+            }
         }
 
 
@@ -232,8 +228,6 @@ namespace SwitchSelect.Controllers
 
             return View();
         }
-
-
 
         public async Task<IActionResult> PedidoListCliente(int clienteId)
         {

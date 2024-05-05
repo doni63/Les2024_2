@@ -39,13 +39,9 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(modelItem =>item.NomeJogo)
             </dd>
-           <dd>
-                <a class="btn btn-primary" asp-action="#" asp-route-id="@item.Id">Trocar Produto</a>
-               
-           </dd>
+           
         </dl>
     </div>
 }
-<a class="btn btn-danger" asp-controller="Devolucao" asp-action="IndexPedido">Devolver Pedido</a>
 <button type="button" onclick="history.back();" class="btn btn-primary">Voltar</button>
 

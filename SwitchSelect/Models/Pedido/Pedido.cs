@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SwitchSelect.Service;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwitchSelect.Models;
@@ -6,14 +8,6 @@ namespace SwitchSelect.Models;
 [Table("Pedidos")]
 public class Pedido
 {
-    public Pedido()
-    {
-        // Inicialize as listas de navegação no construtor
-        PedidoItens = new List<PedidoDetalhe>();
-        Pagamentos = new List<Pagamento>();
-        
-    }
-
     [Key]
     public int Id { get; set; }
 
@@ -21,10 +15,9 @@ public class Pedido
     public int ClienteId { get; set; }
     public virtual Cliente Cliente { get; set; }
 
-    [NotMapped]
     [StringLength(100, ErrorMessage = "Número máximo de caracter 100")]
     public string? Nome { get; set; }
-
+   
     // Relação com o endereço
     public int? EnderecoId { get; set; }
     public virtual Endereco Endereco { get; set; }
@@ -33,11 +26,13 @@ public class Pedido
     public int TelefoneId {  get; set; }
 
     public virtual Telefone? Telefone { get; set; }
-
+         
     [ScaffoldColumn(false)]
     [Column(TypeName = "decimal(18,2)")]
     [Display(Name = "Total do Pedido")]
     public decimal PedidoTotal { get; set; }
+
+    public  decimal? Desconto { get; set; }
 
     [ScaffoldColumn(false)]
     [Display(Name = "Itens no Pedido")]
@@ -56,7 +51,6 @@ public class Pedido
     [StringLength(20)]
     public string? Status {  get; set; }
 
-    public List<PedidoDetalhe>? PedidoItens { get; set; }
-
-    public List<Pagamento> Pagamentos { get; set; }
+    public List<PedidoDetalhe>? PedidoItens { get; set; } = new List<PedidoDetalhe>();
+    public List<Pagamento> Pagamentos { get; set; } = new List<Pagamento>();
 }

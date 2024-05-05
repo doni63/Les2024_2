@@ -1,23 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SwitchSelect.Models
+namespace SwitchSelect.Models;
+
+public class Pagamento
 {
-    public class Pagamento
-    {
-        public int Id { get; set; }
-        public decimal Valor { get; set; }
+    public int Id { get; set; }
+    public decimal Valor { get; set; }
 
-        [StringLength(20)]
-        public string Tipo { get; set; } // Pode ser cartão de crédito ou cupom
+    [StringLength(20)]
+    public string? Tipo { get; set; }
 
-        public List<string> NumerosCartao { get; set; } // Lista de números de cartão associados ao pagamento
+    public List<int>? CartaoIds { get; set; } = new List<int>();
+    
 
-        public List<Cupom> Cupons { get; set; } // Lista de cupons associados ao pagamento
+    public List<string>? CodigosCupons { get; set; } = new List<string>();
 
-        [StringLength(14)]
-        public string? CodigoCupom { get; set; }
-
-        
-    }
+    [StringLength(14)]
+    public string? CodigoCupom { get; set; }
 }

@@ -12,8 +12,8 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    [Migration("20240427152924_corrigindo cupom e pedido")]
-    partial class corrigindocupomepedido
+    [Migration("20240504194416_retirandoCartaoIdDePagamento")]
+    partial class retirandoCartaoIdDePagamento
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -556,6 +556,64 @@ namespace SwitchSelect.Migrations
                     b.ToTable("Jogos");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Pagamento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CartaoIds")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CodigoCupom")
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
+
+                    b.Property<string>("CodigosCupons")
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tipo")
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("Pagamentos");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PagamentoCartao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CartaoId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PagamentoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartaoId");
+
+                    b.HasIndex("PagamentoId");
+
+                    b.ToTable("PagamentosCartoes");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Pais", b =>
                 {
                     b.Property<int>("Id")
@@ -584,14 +642,15 @@ namespace SwitchSelect.Migrations
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CupomId")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("Desconto")
                         .HasColumnType("decimal(65,30)");
 
                     b.Property<int?>("EnderecoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<DateTime?>("PedidoEntregueEm")
                         .HasColumnType("datetime(6)");
@@ -612,20 +671,13 @@ namespace SwitchSelect.Migrations
                     b.Property<int>("TotalItensPedido")
                         .HasColumnType("int");
 
-                    b.Property<int>("cartaoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
-                    b.HasIndex("CupomId");
-
                     b.HasIndex("EnderecoId");
 
                     b.HasIndex("TelefoneId");
-
-                    b.HasIndex("cartaoId");
 
                     b.ToTable("Pedidos");
                 });
@@ -640,6 +692,9 @@ namespace SwitchSelect.Migrations
 
                     b.Property<int>("JogoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("NomeJogo")
+                        .HasColumnType("longtext");
 
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
@@ -1140,6 +1195,30 @@ namespace SwitchSelect.Migrations
                     b.Navigation("Categoria");
                 });
 
+            modelBuilder.Entity("SwitchSelect.Models.Pagamento", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Pedido", null)
+                        .WithMany("Pagamentos")
+                        .HasForeignKey("PedidoId");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.PagamentoCartao", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Cartao", "Cartao")
+                        .WithMany()
+                        .HasForeignKey("CartaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Pagamento", "Pagamento")
+                        .WithMany()
+                        .HasForeignKey("PagamentoId");
+
+                    b.Navigation("Cartao");
+
+                    b.Navigation("Pagamento");
+                });
+
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
                     b.HasOne("SwitchSelect.Models.Cliente", "Cliente")
@@ -1147,10 +1226,6 @@ namespace SwitchSelect.Migrations
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SwitchSelect.Models.Cupom", "Cupom")
-                        .WithMany()
-                        .HasForeignKey("CupomId");
 
                     b.HasOne("SwitchSelect.Models.Endereco", "Endereco")
                         .WithMany()
@@ -1162,17 +1237,7 @@ namespace SwitchSelect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SwitchSelect.Models.Cartao", "Cartao")
-                        .WithMany()
-                        .HasForeignKey("cartaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cartao");
-
                     b.Navigation("Cliente");
-
-                    b.Navigation("Cupom");
 
                     b.Navigation("Endereco");
 
@@ -1247,6 +1312,8 @@ namespace SwitchSelect.Migrations
 
             modelBuilder.Entity("SwitchSelect.Models.Pedido", b =>
                 {
+                    b.Navigation("Pagamentos");
+
                     b.Navigation("PedidoItens");
                 });
 #pragma warning restore 612, 618

@@ -30,10 +30,16 @@ public class SwitchSelectContext : /*DbContext*/ IdentityDbContext<IdentityUser>
     public DbSet<Cupom> Cupons { get; set; }
     public DbSet<PedidoDetalhe> PedidoDetalhes { get; set; }
     public DbSet<CarrinhoCompraItem> CarrinhoCompraItens { get; set; }
-    public DbSet<Devolucao> Devolucoes { get; set; }
-
     public DbSet<Pagamento> Pagamentos { get; set; }
+    public DbSet<PagamentoCartao> PagamentosCartoes { get; set; }
 
+public DbSet<ClienteCompletoViewModel> ClienteViewModels { get; set; } = default!;
+
+public DbSet<EnderecoViewModel> EnderecoViewModel { get; set; } = default!;
+
+public DbSet<ClienteDadosPessoaisViewModel> ClienteDadosPessoaisViewModel { get; set; } = default!;
+
+public DbSet<CartaoViewModel> CartaoViewModel { get; set; } = default!;
     
 
     
