@@ -131,8 +131,10 @@ namespace SwitchSelect.Controllers
                 EnderecoId = enderecoId,
                 Pagamentos = pagamentos,
                 Status = "Processando",
+                
                 TotalItensPedido = totalItensPedido,
                 PedidoTotal = precoTotalPedido
+                
             };
 
             // Se um cupom foi aplicado, atualize as informações do cupom

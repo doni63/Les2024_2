@@ -98,6 +98,20 @@ namespace SwitchSelect.Controllers
                 return NotFound(); 
             }
 
+            if (novoStatus.Equals("Troca confirmada"))
+            {
+                var cupomTroca = new Cupom();
+                string codigo = cupomTroca.GerarCodigoCupom();
+                cupomTroca.CodigoCupom = codigo;
+                cupomTroca.Valor = pedido.PedidoTotal;
+                cupomTroca.Status = "Valido";
+                cupomTroca.ClienteId = pedido.ClienteId;
+
+                _context.Cupons.Add(cupomTroca);
+
+                ViewBag.Mensagem = "Cupom de troca gerado com sucesso";
+            }
+
             pedido.Status = novoStatus;
             _context.SaveChanges();
             return Ok();

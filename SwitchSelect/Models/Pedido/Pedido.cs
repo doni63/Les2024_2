@@ -26,7 +26,9 @@ public class Pedido
     public int TelefoneId {  get; set; }
 
     public virtual Telefone? Telefone { get; set; }
-         
+
+
+    //informações pedido     
     [ScaffoldColumn(false)]
     [Column(TypeName = "decimal(18,2)")]
     [Display(Name = "Total do Pedido")]
@@ -53,4 +55,5 @@ public class Pedido
 
     public List<PedidoDetalhe>? PedidoItens { get; set; } = new List<PedidoDetalhe>();
     public List<Pagamento> Pagamentos { get; set; } = new List<Pagamento>();
+
 }
