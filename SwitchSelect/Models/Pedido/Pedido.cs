@@ -53,7 +53,7 @@ public class Pedido
     [StringLength(20)]
     public string? Status {  get; set; }
 
-    public List<PedidoDetalhe>? PedidoItens { get; set; } = new List<PedidoDetalhe>();
+    public List<PedidoDetalhe> PedidoItens { get; set; } = new List<PedidoDetalhe>();
     public List<Pagamento> Pagamentos { get; set; } = new List<Pagamento>();
 
 }

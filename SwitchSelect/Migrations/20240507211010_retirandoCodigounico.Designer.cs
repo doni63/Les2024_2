@@ -12,8 +12,8 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    [Migration("20240504155132_PagamentoCartao")]
-    partial class PagamentoCartao
+    [Migration("20240507211010_retirandoCodigounico")]
+    partial class retirandoCodigounico
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -602,7 +602,7 @@ namespace SwitchSelect.Migrations
                     b.Property<int>("CartaoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PagamentoId")
+                    b.Property<int?>("PagamentoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -690,6 +690,9 @@ namespace SwitchSelect.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ImagemUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("JogoId")
                         .HasColumnType("int");
 
@@ -704,6 +707,9 @@ namespace SwitchSelect.Migrations
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
+
+                    b.Property<string>("Restricao")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -743,6 +749,49 @@ namespace SwitchSelect.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Telefones");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.TrocaProduto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataSolicitacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("JogoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Motivo")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("NomeJogo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qtd")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("TrocaProdutos");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.ViewModels.CartaoViewModel", b =>
@@ -1212,9 +1261,7 @@ namespace SwitchSelect.Migrations
 
                     b.HasOne("SwitchSelect.Models.Pagamento", "Pagamento")
                         .WithMany()
-                        .HasForeignKey("PagamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PagamentoId");
 
                     b.Navigation("Cartao");
 
@@ -1274,6 +1321,17 @@ namespace SwitchSelect.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.TrocaProduto", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Pedido", "Pedido")
+                        .WithMany()
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Bairro", b =>

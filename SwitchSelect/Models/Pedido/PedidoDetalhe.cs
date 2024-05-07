@@ -8,15 +8,17 @@ public class PedidoDetalhe
     public int Id { get; set; }
     public int PedidoId { get; set; }
     public int JogoId { get; set; }
+    public string Restricao { get; set; } //status do produto comprado
+    public string? ImagemUrl { get; set; }
     public int Quantidade { get; set; }
 
     [Column(TypeName = "decimal(10,2)")]
     public decimal Preco { get; set; }
 
-    [Display(Name ="Jogo")]
+    [Display(Name = "Jogo")]
     public string? NomeJogo { get; set; }
 
-    [Display(Name ="Codigo de venda do produto")]
+    [Display(Name = "Codigo de venda do produto")]
     public virtual Jogo? Jogo { get; set; }
     public virtual Pedido? Pedido { get; set; }
 }

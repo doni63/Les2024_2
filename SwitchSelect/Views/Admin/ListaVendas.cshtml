@@ -14,6 +14,7 @@
             <th>Total do Pedido</th>
             <th>Status</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -36,7 +37,9 @@
                         Atualizar Status
                     </button>
                 </td>
-                
+                <td>
+                    <a class="btn btn-info" asp-action="DetalhesVenda" asp-route-pedidoId="@pedido.Id">Detalhes</a>
+                </td>
             </tr>
 
             <!-- Modal -->
@@ -54,8 +57,6 @@
                                 <option value="Processando">Processando</option>
                                 <option value="A Caminho">A Caminho</option>
                                 <option value="Entregue">Entregue</option>
-                                <option value="EM TROCA"> EM TROCA</option>
-                                <option>Troca confirmada</option>
                             </select>
                         </div>
                         <div class="modal-footer">
@@ -70,7 +71,7 @@
         }
         <div id="mensagem" class="alert alert-success" style="display: none;"></div>
     </tbody>
-    
+
     <script>
         function atualizarStatus(pedidoId, novoStatus) {
             $.post('/Admin/AtualizarStatus', { pedidoId: pedidoId, novoStatus: novoStatus })
@@ -79,15 +80,6 @@
                     setTimeout(function () {
                         $('#atualizarStatusModal-' + pedidoId).modal('hide');
                     }, 250);
-
-                    console.log('Status atualizado com sucesso');
-
-                    // Exibir a mensagem
-                    if (novoStatus === 'Troca confirmada') {
-                        $('#mensagem').text('Cupom de troca gerado com sucesso').fadeIn().delay(3000).fadeOut();
-                    }
-
-
 
                     setTimeout(function () {
                         location.reload();
@@ -99,5 +91,4 @@
         }
     </script>
 </table>
-
 

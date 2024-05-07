@@ -9,7 +9,10 @@ public class TrocaProduto
     [Required(ErrorMessage = "Por favor, especifique o motivo da troca.")]
     [StringLength(200, ErrorMessage = "Máximo 200 caracteres.")]
     public string Motivo { get; set; }
+
+    public int Qtd { get; set; }//quantidade de produtos para trocar
     public int JogoId { get; set; }
+    public decimal Valor { get; set; }
 
     [Required(ErrorMessage = "Informe o nome do jogo.")]
     [StringLength(100,ErrorMessage = "Máximo 100 caracteres.")]

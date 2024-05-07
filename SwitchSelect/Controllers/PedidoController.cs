@@ -131,7 +131,7 @@ namespace SwitchSelect.Controllers
                 EnderecoId = enderecoId,
                 Pagamentos = pagamentos,
                 Status = "Processando",
-                
+               
                 TotalItensPedido = totalItensPedido,
                 PedidoTotal = precoTotalPedido
                 
@@ -242,14 +242,18 @@ namespace SwitchSelect.Controllers
             return View(pedidoCliente);
         }
 
-        public IActionResult PedidoDetalhe(int pedidoId, string pedidoTotal, string status)
+        public IActionResult SelecionarPedidoTroca(int pedidoId, string pedidoTotal, string status)
         {
             var itensPedido = _context.PedidoDetalhes.Where(pd => pd.PedidoId == pedidoId).ToList();
+           
+           
 
             ViewBag.StatusPedido = status;
             ViewBag.PedidoTotal = pedidoTotal;
 
             return View(itensPedido);
         }
+
+        
     }
 }

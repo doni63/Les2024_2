@@ -16,4 +16,5 @@ public class TrocaProdutoViewModel
     [Required(ErrorMessage = "Por favor, especifique o motivo da troca.")]
     [StringLength(200, ErrorMessage = "Máximo 200 caracteres.")]
     public string? Motivo { get; set; }
+    public List<int> ProdutosIds { get; set; } = new List<int>();
 }

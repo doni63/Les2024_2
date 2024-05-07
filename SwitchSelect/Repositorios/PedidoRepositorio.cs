@@ -35,8 +35,9 @@ public class PedidoRepositorio : IPedidoRepositorio
                 JogoId = carrinhoItens.Jogo.Id,
                 Preco = carrinhoItens.Jogo.Preco,
                 NomeJogo = carrinhoItens.Jogo.Nome,
-                PedidoId = pedido.Id
-
+                ImagemUrl = carrinhoItens.Jogo.ImagemUrl,
+                PedidoId = pedido.Id,
+                Restricao = "Nenhum",
             };
             _context.PedidoDetalhes.Add(pedidoDetalhe);
         }

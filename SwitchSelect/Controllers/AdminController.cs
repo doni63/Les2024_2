@@ -3,6 +3,7 @@ using SwitchSelect.Service;
 using SwitchSelect.Models;
 using SwitchSelect.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace SwitchSelect.Controllers
@@ -12,16 +13,16 @@ namespace SwitchSelect.Controllers
         private readonly AdminService _adminservice;
         private readonly SwitchSelectContext _context;
 
-        public IActionResult TelaAdmin()
-        {
-            return View();
-        }
-
         public AdminController(AdminService Adminservice, SwitchSelectContext context)
         {
             _adminservice = Adminservice;
             _context = context;
         }
+
+        public IActionResult TelaAdmin()
+        {
+            return View();
+        }       
 
         public IActionResult AdminListaCliente(string pesquisa)
         {
@@ -58,7 +59,7 @@ namespace SwitchSelect.Controllers
         public async Task<IActionResult> AdicionarProduto([FromForm] Jogo jogo)
         {
             jogo.Categoria = _context.Categorias.FirstOrDefault(c => c.Id == jogo.CategoriaID);
-
+            
             _context.Jogos.Add(jogo);
             await _context.SaveChangesAsync();
             return RedirectToAction("TelaAdmin", "Admin");
@@ -90,31 +91,22 @@ namespace SwitchSelect.Controllers
         [HttpPost]
         public IActionResult AtualizarStatus(int pedidoId, string novoStatus)
         {
-            
+
             var pedido = _context.Pedidos.Find(pedidoId);
 
             if (pedido == null)
             {
-                return NotFound(); 
-            }
-
-            if (novoStatus.Equals("Troca confirmada"))
-            {
-                var cupomTroca = new Cupom();
-                string codigo = cupomTroca.GerarCodigoCupom();
-                cupomTroca.CodigoCupom = codigo;
-                cupomTroca.Valor = pedido.PedidoTotal;
-                cupomTroca.Status = "Valido";
-                cupomTroca.ClienteId = pedido.ClienteId;
-
-                _context.Cupons.Add(cupomTroca);
-
-                ViewBag.Mensagem = "Cupom de troca gerado com sucesso";
+                return NotFound();
             }
 
             pedido.Status = novoStatus;
             _context.SaveChanges();
             return Ok();
         }
+
+        ////public IActionResult DetalhesVenda(int pedidoId)
+        ////{
+            
+        ////}
     }
 }

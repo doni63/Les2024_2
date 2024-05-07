@@ -687,6 +687,9 @@ namespace SwitchSelect.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ImagemUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("JogoId")
                         .HasColumnType("int");
 
@@ -701,6 +704,9 @@ namespace SwitchSelect.Migrations
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
+
+                    b.Property<string>("Restricao")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -769,8 +775,14 @@ namespace SwitchSelect.Migrations
                     b.Property<int>("PedidoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Qtd")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .HasColumnType("longtext");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 

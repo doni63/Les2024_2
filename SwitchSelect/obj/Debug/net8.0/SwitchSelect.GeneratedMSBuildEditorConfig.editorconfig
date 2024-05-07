@@ -42,6 +42,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5MaXN0YUNsaWVudGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/DetalhesVenda.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWxoZXNWZW5kYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Admin/ListaVendas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGlzdGFWZW5kYXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -218,16 +222,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/PedidoDetalhe.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkb0RldGFsaGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/PedidoError.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkb0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/PedidoListCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFBlZGlkb0xpc3RDbGllbnRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/SelecionarPedidoTroca.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFNlbGVjaW9uYXJQZWRpZG9Ucm9jYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/StatusDevolucao.cshtml]
@@ -238,12 +242,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFN0YXR1c1BlZGlkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/StatusTroca.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFN0YXR1c1Ryb2NhLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/TrocaPedido.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFRyb2NhUGVkaWRvLmNzaHRtbA==
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Pedido/TrocaSolicitada.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVkaWRvXFRyb2NhU29saWNpdGFkYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Shared/Components/CarrinhoCompraResumo/Default.cshtml]
@@ -266,12 +266,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/SolicitarTroca.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcU29saWNpdGFyVHJvY2EuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/TrocaConfirmacao.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcVHJvY2FDb25maXJtYWNhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/TrocaPedido.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcVHJvY2FQZWRpZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/_ViewImports.cshtml]
