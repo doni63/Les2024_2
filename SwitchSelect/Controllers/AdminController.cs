@@ -104,9 +104,6 @@ namespace SwitchSelect.Controllers
             return Ok();
         }
 
-        ////public IActionResult DetalhesVenda(int pedidoId)
-        ////{
-            
-        ////}
+      
     }
 }

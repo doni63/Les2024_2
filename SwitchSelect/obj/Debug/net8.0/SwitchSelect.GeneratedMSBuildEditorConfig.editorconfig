@@ -266,12 +266,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/TrocaConfirmacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcVHJvY2FDb25maXJtYWNhby5jc2h0bWw=
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/ListaSolicitacoesTroca.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcTGlzdGFTb2xpY2l0YWNvZXNUcm9jYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/TrocaPedido.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcVHJvY2FQZWRpZG8uY3NodG1s
+[D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/Troca/TrocaConfirmacao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJvY2FcVHJvY2FDb25maXJtYWNhby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ProgramacaoCsharp/MinhasAplicacoes/projetoLes2024/SwitchSelect/SwitchSelect/Views/_ViewImports.cshtml]

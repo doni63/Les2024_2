@@ -72,6 +72,10 @@ namespace SwitchSelect.Controllers
             var jogoTroca = _jogoRepositorio.GetJogoPorId(model.JogoId);
             //atualizar restricao do pedido do produto
             var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == model.JogoId);
+            //buscar pedido
+            var pedido = _context.Pedidos.Find(model.PedidoId);
+            //buscar cliente
+            var cliente = _context.Clientes.Find(pedido.ClienteId);
 
             if (detalhe != null)
             {
@@ -88,7 +92,7 @@ namespace SwitchSelect.Controllers
             trocaJogo.DataSolicitacao = DateTime.Now;
             trocaJogo.Qtd = qtd;
             trocaJogo.Valor = jogoTroca.Preco * qtd;
-            
+            trocaJogo.ClienteId = cliente.Id;
             
             _context.TrocaProdutos.Add(trocaJogo);
             _context.SaveChanges();
@@ -96,6 +100,60 @@ namespace SwitchSelect.Controllers
 
 
             return View("~/Views/Pedido/TrocaSolicitada.cshtml");
+        }
+
+        //lista de solicitação de trocas de produto
+        public IActionResult ListaSolicitacoesTroca()
+        {
+            var trocas = _context.TrocaProdutos.Include(c => c.Cliente).ToList();
+
+            return View(trocas);
+        }
+
+        //negar troca de produto
+        public IActionResult NegarTrocaProduto(int jogoId)
+        {
+            //buscando detalhes de produto para alterar restrição
+            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
+            //buscando trocaProduto para alterar status
+            var troca = _context.TrocaProdutos.FirstOrDefault(t => t.JogoId == jogoId);
+
+            //lista de trocas solicitadas
+            var trocas = _context.TrocaProdutos.Include(c => c.Cliente).ToList();
+
+            if (detalhe != null && troca != null)
+            {
+                detalhe.Restricao = "Troca não aprovada";
+                troca.Status = "Troca não aprovada";
+
+                _context.Update(troca);
+                _context.Update(detalhe);
+                _context.SaveChanges();
+            }
+            return View(trocas);
+        }
+
+        public IActionResult AprovarTrocaProduto(int jogoId)
+        {
+            //buscando detalhes de produto para alterar restrição
+            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
+            //buscando trocaProduto para alterar status
+            var troca = _context.TrocaProdutos.FirstOrDefault(t => t.JogoId == jogoId);
+
+            //lista de trocas solicitadas
+            var trocas = _context.TrocaProdutos.Include(c => c.Cliente).ToList();
+
+            if (detalhe != null && troca != null)
+            {
+                detalhe.Restricao = "Troca aprovada";
+                troca.Status = "Troca aprovada";
+
+                _context.Update(troca);
+                _context.Update(detalhe);
+                _context.SaveChanges();
+            }
+
+            return View(trocas);
         }
     }
 }

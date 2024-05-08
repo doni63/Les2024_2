@@ -246,11 +246,9 @@ namespace SwitchSelect.Controllers
         {
             var itensPedido = _context.PedidoDetalhes.Where(pd => pd.PedidoId == pedidoId).ToList();
            
-           
-
             ViewBag.StatusPedido = status;
             ViewBag.PedidoTotal = pedidoTotal;
-
+            ViewBag.PedidoId = pedidoId;
             return View(itensPedido);
         }
 

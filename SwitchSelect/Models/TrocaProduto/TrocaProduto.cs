@@ -6,6 +6,9 @@ public class TrocaProduto
 {
     public int Id { get; set; }
 
+    public int ClienteId { get; set; }
+    public Cliente? Cliente { get; set; }
+
     [Required(ErrorMessage = "Por favor, especifique o motivo da troca.")]
     [StringLength(200, ErrorMessage = "Máximo 200 caracteres.")]
     public string Motivo { get; set; }

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<SwitchSelect.Models.PedidoDetalhe>
 
 <div class="container">
+    <h1>Pedido - @ViewBag.PedidoId</h1>
+    <hr />
     <form asp-controller="Troca" asp-action="SolicitarTrocaProduto" method="post">
         @foreach (var item in Model)
         {
@@ -12,15 +14,12 @@
                     {
                         <input type="submit" class="btn btn-primary" value="Solicitar troca" />
                     }
-                    else if(item.Restricao.Equals("Troca aprovada"))
+                    else if (item.Restricao.Equals("Troca aprovada"))
                     {
-                        
+
                     }
                 </div>
                 <div class="col-12 col-md-7">
-                    <h1>
-                        Detalhes do Pedido - @item.PedidoId
-                    </h1>
                     <p class="fs-5">
                         <!-- Descrição do pedido ou informações adicionais podem ser adicionadas aqui -->
                     </p>
@@ -34,7 +33,7 @@
                         <dt class="col-sm-4">Status:</dt>
                         <dd class="col-sm-8"><input value="@ViewBag.StatusPedido" readonly style="border:none" /></dd>
                         <dt class="col-sm-4">Restrição:</dt>
-                        <dd class="col-sm-8"><input asp-for="@item.Restricao" readonly style="border:none"/></dd>
+                        <dd class="col-sm-8"><input asp-for="@item.Restricao" readonly style="border:none" /></dd>
                     </dl>
                     @if (ViewBag.StatusPedido.Equals("Entregue") && item.Restricao.Equals("Nenhum"))
                     {

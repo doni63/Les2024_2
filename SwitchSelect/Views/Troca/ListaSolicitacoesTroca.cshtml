@@ -1,0 +1,39 @@
+﻿@model List<SwitchSelect.Models.TrocaProduto>
+
+<h2>Solicitações de Troca</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID do Cliente</th>
+            <th>Cliente</th>
+            <th>ID do Pedido</th>
+            <th>Jogo</th>
+            <th>Preço</th>
+            <th>Motivo</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solicitacao in Model)
+        {
+            <tr>
+                <td>@solicitacao.Cliente.Id</td>
+                <td>@solicitacao.Cliente.Nome</td>
+                <td>@solicitacao.PedidoId</td>
+                <td>@solicitacao.NomeJogo</td>
+                <td>@solicitacao.Valor.ToString("c2")</td>
+                <td>@solicitacao.Motivo</td>
+                <td>@solicitacao.Status</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="AprovarTrocaProduto" asp-route-jogoId="@solicitacao.JogoId">Aprovar troca</a> |
+                    <a class="btn btn-danger" asp-action="NegarTrocaProduto" asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
+                </td>
+            </tr>
+            <!--inputs hidden-->
+            <input asp-for="@solicitacao.JogoId" hidden />
+
+        }
+    </tbody>
+</table>
