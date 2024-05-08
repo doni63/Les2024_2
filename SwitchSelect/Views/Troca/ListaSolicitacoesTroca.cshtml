@@ -27,8 +27,10 @@
                 <td>@solicitacao.Motivo</td>
                 <td>@solicitacao.Status</td>
                 <td>
-                    <a class="btn btn-primary" asp-action="AprovarTrocaProduto" asp-route-jogoId="@solicitacao.JogoId">Aprovar troca</a> |
-                    <a class="btn btn-danger" asp-action="NegarTrocaProduto" asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
+                    <a class="btn btn-primary" asp-controller="Troca" asp-action="AprovarTrocaProduto"
+                       asp-route-jogoId="@solicitacao.JogoId">Aprovar troca</a> |
+                    <a class="btn btn-danger" asp-controller="Troca" asp-action="NegarTrocaProduto"
+                       asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
                 </td>
             </tr>
             <!--inputs hidden-->
