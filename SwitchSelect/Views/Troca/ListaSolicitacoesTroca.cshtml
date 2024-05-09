@@ -9,7 +9,8 @@
             <th>Cliente</th>
             <th>ID do Pedido</th>
             <th>Jogo</th>
-            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Valor</th>
             <th>Motivo</th>
             <th>Status</th>
             <th></th>
@@ -23,15 +24,30 @@
                 <td>@solicitacao.Cliente.Nome</td>
                 <td>@solicitacao.PedidoId</td>
                 <td>@solicitacao.NomeJogo</td>
+                <td>@solicitacao.Qtd</td>
                 <td>@solicitacao.Valor.ToString("c2")</td>
                 <td>@solicitacao.Motivo</td>
                 <td>@solicitacao.Status</td>
-                <td>
-                    <a class="btn btn-primary" asp-controller="Troca" asp-action="AprovarTrocaProduto"
-                       asp-route-jogoId="@solicitacao.JogoId">Aprovar troca</a> |
-                    <a class="btn btn-danger" asp-controller="Troca" asp-action="NegarTrocaProduto"
-                       asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
-                </td>
+                <!--Se troca solicitada-->
+                @if (solicitacao.Status.Equals("TROCA SOLICITADA"))
+                {
+                    <td>
+                        <a class="btn btn-success" asp-controller="Troca" asp-action="AprovarTrocaProduto"
+                           asp-route-jogoId="@solicitacao.JogoId">Aprovar </a> |
+                        <a class="btn btn-danger" asp-controller="Troca" asp-action="NegarTrocaProduto"
+                           asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
+                    </td>
+                }
+                else if (solicitacao.Status.Equals("Prd. Enviado"))
+                {
+                    <td>
+                        <a class="btn btn-success">Recebido</a> |
+                        <a class="btn btn-danger" asp-controller="Troca" asp-action="ProdutoNaoRecebido" asp-route-jogoId="@solicitacao.JogoId">
+                            Não recebido
+                        </a>
+                    </td>
+                }
+
             </tr>
             <!--inputs hidden-->
             <input asp-for="@solicitacao.JogoId" hidden />

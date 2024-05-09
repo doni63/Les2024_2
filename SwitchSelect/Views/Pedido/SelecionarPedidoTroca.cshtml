@@ -3,69 +3,82 @@
 <div class="container">
     <h1>Pedido - @ViewBag.PedidoId</h1>
     <hr />
-    <form asp-controller="Troca" asp-action="SolicitarTrocaProduto" method="post">
+    <form id="trocaForm" asp-controller="Troca" asp-action="SolicitarTrocaProduto" method="post">
         @foreach (var item in Model)
         {
             <div class="row mb-4">
                 <div class="col-12 col-md-2 text-center">
                     <img src="@Url.Content(item.ImagemUrl)" class="img-fluid" style="height:70%" alt="" />
-                    @if (ViewBag.StatusPedido.Equals("Entregue") && item.Restricao.Equals("Nenhum"))
-                    {
-                        <input type="submit" class="btn btn-primary" value="Solicitar troca" />
-                    }
-
                 </div>
+                
                 <div class="col-12 col-md-7">
-                    <p class="fs-5">
-                        <!-- Descrição do pedido ou informações adicionais podem ser adicionadas aqui -->
-                    </p>
-
-                    <h5 class="card-title">@item.NomeJogo - Código: @item.JogoId</h5>
+                    
+                    <h5 class="card-title">@item.NomeJogo - Código: @item.JogoId - QTD: @item.Quantidade</h5>
                     <dl class="row">
-                        <dt class="col-sm-4">Preço:</dt>
+                        <dt class="col-sm-4">Preço unitário:</dt>
                         <dd class="col-sm-8"><input name="Preco" value="@item.Preco" readonly style="border:none" /></dd>
-                        <dt class="col-sm-4">Quantidade:</dt>
-                        <dd class="col-sm-8"><input name="Quantidade" value="@item.Quantidade" readonly style="border:none" /></dd>
-                        <dt class="col-sm-4">Status:</dt>
-                        <dd class="col-sm-8"><input value="@ViewBag.StatusPedido" readonly style="border:none" /></dd>
-                        <dt class="col-sm-4">Restrição:</dt>
-                        <dd class="col-sm-8"><input asp-for="@item.Restricao" readonly style="border:none" /></dd>
-                        @if (item.Restricao.Equals("Troca aprovada"))
-                        {
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <p>Troca aprovada, envie o produto para dar andamento com sua troca.</p>
-                                </div>
-                               
-                                <a class="btn btn-success">Informar envio</a>
-                            </div>
-                            
-                        }
+                        <dt class="col-sm-4">Status do pedido:</dt>
+                        <dd class="col-sm-8">@ViewBag.StatusPedido</dd>
+                        <dt class="col-sm-4">Informação:</dt>
+                        <dd class="col-sm-8">@item.Restricao</dd>                      
                     </dl>
+                    @if (item.Restricao.Equals("Troca aprovada"))
+                    {
+                        <a class="btn btn-success" asp-controller="Troca" asp-action="ConfirmarEnvioProduto" 
+                        asp-route-pedidoId="@item.PedidoId" asp-route-jogoId="@item.JogoId">
+                            Informar envio do produto
+                        </a>
+                    }
                     @if (ViewBag.StatusPedido.Equals("Entregue") && item.Restricao.Equals("Nenhum"))
                     {
-                        @if (item.Quantidade > 1)
-                        {
-                            <label asp-for="@item.Quantidade"></label>
-                            <input type="number" name="qtd" placeholder="Informe quantidade" />
-                        }
-                        else if (item.Quantidade == 1)
-                        {
-                            <input type="number" name="qtd" value="1" hidden />
-                        }
-
+                        <label class="col-sm-4">Quantidade:</label>
+                        <input type="number" name="quantidade[@item.JogoId]" min="0" max="@item.Quantidade" placeholder="Qtd." />
                         <label for="motivo">Motivo</label>
-                        <input name="motivo" placeholder="Informe motivo" />
+                        <input name="motivo[@item.JogoId]" placeholder="Informe motivo" />
                     }
+                    
                     <!--Inputs hidden-->
-                    <input name="Restricao" value="@item.Restricao" hidden />
-                    <input name="NomeJogo" value="@item.NomeJogo" hidden />
-                    <input name="PedidoId" value="@item.PedidoId" hidden />
-                    <input name="JogoId" value="@item.JogoId" hidden />
+                    <input name="Restricao" value="@item.Restricao" type="hidden" />
+                    <input name="NomeJogo" value="@item.NomeJogo" type="hidden" />
+                    <input name="PedidoId" value="@item.PedidoId" type="hidden" />
+                    <input name="JogoId" value="@item.JogoId" type="hidden" />
                 </div>
-
             </div>
-
+            <hr />
         }
+       
+        <button type="submit" class="btn btn-primary" onclick="return validarTroca()">Solicitar troca</button>
     </form>
+    <script>
+        function validarTroca() {
+            // Obtém todos os elementos de entrada do formulário
+            var elementosInput = document.querySelectorAll('#trocaForm input');
+
+            // Variáveis para contar a quantidade de motivos e quantidades informados
+            var motivosInformados = 0;
+            var quantidadesInformadas = 0;
+
+            // Itera sobre os elementos de entrada
+            elementosInput.forEach(function (elemento) {
+                // Verifica se o nome do elemento contém 'motivo'
+                if (elemento.name.includes('motivo') && elemento.value.trim() !== '') {
+                    motivosInformados++;
+                }
+
+                // Verifica se o nome do elemento contém 'quantidade'
+                if (elemento.name.includes('quantidade') && elemento.value.trim() !== '') {
+                    quantidadesInformadas++;
+                }
+            });
+
+            // Verifica se pelo menos um motivo e quantidade foram informados
+            if (motivosInformados === 0 || quantidadesInformadas === 0) {
+                alert("Por favor, informe o motivo e a quantidade para pelo menos um produto.");
+                return false; // Impede o envio do formulário
+            }
+
+            return true; // Permite o envio do formulário
+        }
+    </script>
+
 </div>

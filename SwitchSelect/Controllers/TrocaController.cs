@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SwitchSelect.Data;
+using SwitchSelect.Dto;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
@@ -66,40 +67,76 @@ namespace SwitchSelect.Controllers
         }
 
         [HttpPost]
-        public IActionResult SolicitarTrocaProduto([FromForm] PedidoDetalhe model, string motivo, int qtd)
+        public IActionResult SolicitarTrocaProduto([FromForm] TrocaProdutosRequest request)
         {
-            //buscar dados do jogo para troca
-            var jogoTroca = _jogoRepositorio.GetJogoPorId(model.JogoId);
-            //atualizar restricao do pedido do produto
-            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == model.JogoId);
-            //buscar pedido
-            var pedido = _context.Pedidos.Find(model.PedidoId);
-            //buscar cliente
-            var cliente = _context.Clientes.Find(pedido.ClienteId);
-
-            if (detalhe != null)
+            foreach (var jogoId in request.Quantidade.Keys)
             {
-                detalhe.Restricao = "EM TROCA";
-                _context.Update(detalhe);
+                var quantidade = request.Quantidade[jogoId];
+                var motivo = request.Motivo[jogoId];
+
+                //buscar dados do jogo para troca
+                var jogoTroca = _jogoRepositorio.GetJogoPorId(jogoId);
+                //atualizar restricao do pedido do produto
+                var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
+                //buscar pedido
+                var pedido = _context.Pedidos.Find(detalhe.PedidoId);
+                //buscar cliente
+                var cliente = _context.Clientes.Find(pedido.ClienteId);
+
+                if (detalhe != null)
+                {
+                    detalhe.Restricao = "EM TROCA";
+                    _context.Update(detalhe);
+                }
+                var trocaJogo = new TrocaProduto();
+                trocaJogo.Motivo = motivo;
+                trocaJogo.JogoId = jogoId;
+                trocaJogo.NomeJogo = detalhe.NomeJogo;
+                trocaJogo.PedidoId = pedido.Id;
+                trocaJogo.Status = "TROCA SOLICITADA";
+                trocaJogo.DataSolicitacao = DateTime.Now;
+                trocaJogo.Qtd = quantidade;
+                trocaJogo.Valor = jogoTroca.Preco * quantidade;
+                trocaJogo.ClienteId = cliente.Id;
+
+                _context.TrocaProdutos.Add(trocaJogo);
+                _context.SaveChanges();
             }
-           
-            var trocaJogo = new TrocaProduto();
-            trocaJogo.Motivo = motivo;
-            trocaJogo.JogoId = model.JogoId;
-            trocaJogo.NomeJogo = jogoTroca.Nome;
-            trocaJogo.PedidoId = model.PedidoId;
-            trocaJogo.Status = "Troca solicitada";
-            trocaJogo.DataSolicitacao = DateTime.Now;
-            trocaJogo.Qtd = qtd;
-            trocaJogo.Valor = jogoTroca.Preco * qtd;
-            trocaJogo.ClienteId = cliente.Id;
-            
-            _context.TrocaProdutos.Add(trocaJogo);
-            _context.SaveChanges();
 
 
+            //var jogoTroca = _jogoRepositorio.GetJogoPorId(model.JogoId);
+            ////atualizar restricao do pedido do produto
+            //var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == model.JogoId);
+            ////buscar pedido
+            //var pedido = _context.Pedidos.Find(model.PedidoId);
+            ////buscar cliente
+            //var cliente = _context.Clientes.Find(pedido.ClienteId);
 
-            return View("~/Views/Pedido/TrocaSolicitada.cshtml");
+            //if (detalhe != null)
+            //{
+            //    detalhe.Restricao = "EM TROCA";
+            //    _context.Update(detalhe);
+            //}
+
+            //var trocaJogo = new TrocaProduto();
+            //trocaJogo.Motivo = motivo;
+            //trocaJogo.JogoId = model.JogoId;
+            //trocaJogo.NomeJogo = jogoTroca.Nome;
+            //trocaJogo.PedidoId = model.PedidoId;
+            //trocaJogo.Status = "Troca solicitada";
+            //trocaJogo.DataSolicitacao = DateTime.Now;
+            //trocaJogo.Qtd = qtd;
+            //trocaJogo.Valor = jogoTroca.Preco * qtd;
+            //trocaJogo.ClienteId = cliente.Id;
+
+            //_context.TrocaProdutos.Add(trocaJogo);
+            //_context.SaveChanges();
+
+            //mensagem após solicitar troca
+            ViewBag.Titulo = "Troca Solicitada";
+            ViewBag.Mensagem = "Sua troca foi solicitada. Acompanhe o andamento em seus pedidos.";
+
+            return View("~/Views/Mensagem/Mensagem.cshtml");
         }
 
         //lista de solicitação de trocas de produto
@@ -123,14 +160,16 @@ namespace SwitchSelect.Controllers
 
             if (detalhe != null && troca != null)
             {
-                detalhe.Restricao = "Troca não aprovada";
+                detalhe.Restricao = "Troca não aprovada. Entre em contato para mais informações.";
                 troca.Status = "Troca não aprovada";
 
                 _context.Update(troca);
                 _context.Update(detalhe);
                 _context.SaveChanges();
             }
-            return View(trocas);
+            ViewBag.Titulo = "Troca não aprovada";
+            ViewBag.Mensagem = "A troca não foi aprovada. O cliente será informado";
+            return View("~/Views/Mensagem/Mensagem.cshtml");
         }
 
         public IActionResult AprovarTrocaProduto(int jogoId)
@@ -146,14 +185,62 @@ namespace SwitchSelect.Controllers
             if (detalhe != null && troca != null)
             {
                 detalhe.Restricao = "Troca aprovada";
-                troca.Status = "Troca aprovada";
+                troca.Status = "Aguardando envio";
 
                 _context.Update(troca);
                 _context.Update(detalhe);
                 _context.SaveChanges();
             }
+            ViewBag.Titulo = "Troca aprovada";
+            ViewBag.Mensagem = "A troca foi aprovada. Aguardando envio do produto.";
+            return View("~/Views/Mensagem/Mensagem.cshtml");
+        }
 
-            return View(trocas);
+        public IActionResult ConfirmarEnvioProduto(int pedidoId, int jogoId)
+        {
+            //buscar plista de troca
+            var itensTroca = _context.TrocaProdutos.Where(i => i.PedidoId == pedidoId);
+            //buscando detalhes de produto para alterar restrição
+            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
+
+            foreach (var item in itensTroca)
+            {
+                if (item.JogoId == jogoId && detalhe.JogoId == jogoId)
+                {
+                    item.Status = "Prd. Enviado";
+                    detalhe.Restricao = "Aguardando confirmação de recebimento do produto.";
+                    _context.Update(item);
+                    
+                }
+            }
+
+            ViewBag.Titulo = "Confirmação de envio";
+            ViewBag.Mensagem = "Nossa equipe irá confirmar o recebimento do produto. Acompanhe o andamento em seu produtos";
+            _context.SaveChanges();
+            return View("~/Views/Mensagem/Mensagem.cshtml");
+        }
+
+        public IActionResult ProdutoNaoRecebido(int jogoId)
+        {
+            //buscando detalhes de produto para alterar restrição
+            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
+            //buscando trocaProduto para alterar status
+            var troca = _context.TrocaProdutos.FirstOrDefault(t => t.JogoId == jogoId);
+            //lista de trocas solicitadas
+            var trocas = _context.TrocaProdutos.Include(c => c.Cliente).ToList();
+
+            if (detalhe != null && troca != null)
+            {
+                detalhe.Restricao = "Troca cancelada. Não recebemos o produto em nossa loja.";
+                troca.Status = "Troca cancelada";
+
+                _context.Update(troca);
+                _context.Update(detalhe);
+                _context.SaveChanges();
+            }
+            ViewBag.Titulo = "Troca cancelada";
+            ViewBag.Mensagem = "A troca foi cancelada. Produto não foi recebido em nossa loja.";
+            return View("~/Views/Mensagem/Mensagem.cshtml");
         }
     }
 }
