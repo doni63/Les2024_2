@@ -41,7 +41,10 @@
                 else if (solicitacao.Status.Equals("Prd. Enviado"))
                 {
                     <td>
-                        <a class="btn btn-success">Recebido</a> |
+                        <a class="btn btn-success" asp-controller="Troca" asp-action="ProdutoRecebido"
+                           asp-route-jogoId="@solicitacao.JogoId" asp-route-pedidoId="@solicitacao.PedidoId">
+                            Recebido
+                        </a> |
                         <a class="btn btn-danger" asp-controller="Troca" asp-action="ProdutoNaoRecebido" 
                         asp-route-jogoId="@solicitacao.JogoId" asp-route-pedidoId="@solicitacao.PedidoId">
                             Não recebido

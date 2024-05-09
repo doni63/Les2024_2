@@ -198,8 +198,6 @@ namespace SwitchSelect.Controllers
         {
             try
             {
-
-
                 //filtar pedido
                 var detalhesPedido = _context.PedidoDetalhes.Where(d => d.PedidoId == pedidoId).ToList();
 
@@ -223,6 +221,53 @@ namespace SwitchSelect.Controllers
                 }
                 ViewBag.Titulo = "Troca cancelada";
                 ViewBag.Mensagem = "A troca foi cancelada. Produto não foi recebido em nossa loja.";
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Titulo = "Erro";
+                ViewBag.Mensagem = "Ocorreu um erro ao processar a solicitação." + ex;
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+        }
+
+        public IActionResult ProdutoRecebido(int jogoId, int pedidoId)
+        {
+            try
+            {
+                //filtar pedido
+                var detalhesPedido = _context.PedidoDetalhes.Where(d => d.PedidoId == pedidoId).ToList();
+                //buscando detalhes de produto para alterar restrição
+                var detalhe = detalhesPedido.FirstOrDefault(d => d.JogoId == jogoId);
+                //lista de trocas solicitadas
+                var trocas = _context.TrocaProdutos.Where(t => t.PedidoId == detalhe.PedidoId).Include(c => c.Cliente).ToList();
+                //buscando trocaProduto para alterar status
+                var troca = trocas.FirstOrDefault(t => t.JogoId == jogoId);
+
+                if (detalhe != null && troca != null)
+                {
+                    detalhe.Restricao = "Troca finalizada. O produto foi recebido pela nossa equipe, seu cupom de troca foi gerado.";
+                    troca.Status = "Troca finalizada";
+
+                    _context.Update(troca);
+                    _context.Update(detalhe);
+                    
+                }
+
+                //criando cupom de troca
+                var cupom = new Cupom();
+                //gerando código de cupom
+                cupom.CodigoCupom = cupom.GerarCodigoCupom(); 
+                //status de cupom
+                cupom.Status = "Valido";
+                cupom.Valor = troca.Valor;
+                cupom.ClienteId = troca.ClienteId;
+                _context.Add(cupom);
+                //salvando todas as alterações no banco
+                _context.SaveChanges();
+
+                ViewBag.Titulo = "Troca finalizada";
+                ViewBag.Mensagem = "A troca foi finalizada com sucesso. O cupom do cliente foi gerado e disponibilizado para o cliente.";
                 return View("~/Views/Mensagem/Mensagem.cshtml");
             }
             catch (Exception ex)
