@@ -42,7 +42,8 @@
                 {
                     <td>
                         <a class="btn btn-success">Recebido</a> |
-                        <a class="btn btn-danger" asp-controller="Troca" asp-action="ProdutoNaoRecebido" asp-route-jogoId="@solicitacao.JogoId">
+                        <a class="btn btn-danger" asp-controller="Troca" asp-action="ProdutoNaoRecebido" 
+                        asp-route-jogoId="@solicitacao.JogoId" asp-route-pedidoId="@solicitacao.PedidoId">
                             Não recebido
                         </a>
                     </td>
