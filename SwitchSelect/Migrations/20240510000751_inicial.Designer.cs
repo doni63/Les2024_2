@@ -12,8 +12,8 @@ using SwitchSelect.Data;
 namespace SwitchSelect.Migrations
 {
     [DbContext(typeof(SwitchSelectContext))]
-    [Migration("20240507234552_clienteIdTrocaProduto")]
-    partial class clienteIdTrocaProduto
+    [Migration("20240510000751_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -431,6 +431,43 @@ namespace SwitchSelect.Migrations
                     b.HasIndex("ClienteId");
 
                     b.ToTable("Cupons");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Devolucao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataSolicitacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Motivo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("Devolucoes");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>
@@ -1196,6 +1233,25 @@ namespace SwitchSelect.Migrations
                     b.HasOne("SwitchSelect.Models.Cliente", null)
                         .WithMany("Cupons")
                         .HasForeignKey("ClienteId");
+                });
+
+            modelBuilder.Entity("SwitchSelect.Models.Devolucao", b =>
+                {
+                    b.HasOne("SwitchSelect.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwitchSelect.Models.Pedido", "Pedido")
+                        .WithMany()
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Pedido");
                 });
 
             modelBuilder.Entity("SwitchSelect.Models.Endereco", b =>

@@ -18,54 +18,7 @@ namespace SwitchSelect.Controllers
             _jogoRepositorio = jogoRepositorio;
             _context = context;
         }
-
-        public IActionResult TrocaPedido(int pedidoId)
-        {
-            var produtosIds = _context.PedidoDetalhes
-                              .Where(pi => pi.PedidoId == pedidoId)
-                              .Select(pi => pi.JogoId)
-                              .ToList();
-
-            var viewModel = new TrocaProdutoViewModel
-            {
-                PedidoId = pedidoId,
-                ProdutosIds = produtosIds
-            };
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        public IActionResult TrocaPedido([FromForm] TrocaProdutoViewModel viewModel, string motivo)
-        {
-            int pedidoId = viewModel.PedidoId;
-            List<int> produtosIds = viewModel.ProdutosIds;
-
-            var produtos = _context.PedidoDetalhes
-                           .Where(pi => produtosIds.Contains(pi.JogoId))
-                           .ToList();
-
-            foreach (var produto in produtos)
-            {
-                var troca = new TrocaProduto();
-                troca.Motivo = viewModel.Motivo;
-                troca.JogoId = produto.JogoId;
-                troca.NomeJogo = produto.NomeJogo;
-                troca.PedidoId = pedidoId;
-                troca.Status = "Troca solicitada";
-
-                _context.TrocaProdutos.Add(troca);
-            }
-            var pedido = _context.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
-            if (pedido != null)
-            {
-                pedido.Status = "EM TROCA";
-                _context.Update(pedido);
-            }
-            _context.SaveChanges();
-            return View("TrocaConfirmacao");
-        }
-
+        
         [HttpPost]
         public IActionResult SolicitarTrocaProduto([FromForm] TrocaProdutosRequest request, int pedidoId)
         {

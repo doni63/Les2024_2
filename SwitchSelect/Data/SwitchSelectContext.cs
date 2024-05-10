@@ -33,7 +33,7 @@ public class SwitchSelectContext : /*DbContext*/ IdentityDbContext<IdentityUser>
     public DbSet<Pagamento> Pagamentos { get; set; }
     public DbSet<PagamentoCartao> PagamentosCartoes { get; set; }
     public DbSet<TrocaProduto> TrocaProdutos { get; set; }
-
+    public DbSet<Devolucao> Devolucoes { get; set; }
     public DbSet<ClienteCompletoViewModel> ClienteViewModels { get; set; } = default!;
 
     public DbSet<EnderecoViewModel> EnderecoViewModel { get; set; } = default!;

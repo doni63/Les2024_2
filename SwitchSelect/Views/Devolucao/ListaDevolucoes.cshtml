@@ -1,0 +1,42 @@
+﻿@model List<SwitchSelect.Models.Devolucao>
+
+<h2>Solicitações de devolução</h2>
+
+<table class="table table-responsive-md table-bordered">
+    <thead>
+        <tr>
+            <th>ID Cliente</th>
+            <th>Cliente</th>
+            <th>ID Pedido</th>
+            <th>Valor</th>
+            <th>Motivo</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var devolucao in Model)
+        {
+            <tr>
+                <td>@devolucao.ClienteId</td>
+                <td>@devolucao.Cliente.Nome</td>
+                <td>@devolucao.PedidoId</td>
+                <td>@devolucao.Valor.ToString("c2")</td>
+                <td>@devolucao.Motivo</td>
+                <td>@devolucao.Status</td>
+                <!--Se troca solicitada-->
+                @if (devolucao.Status.Equals("Pedido enviado"))
+                {
+                    <td>
+                        <a class="btn btn-success" asp-controller="Devolucao" asp-action="ConfirmarDevolucao" 
+                        asp-route-pedidoId="@devolucao.PedidoId">
+                            Confirmar recebimento
+                        </a>
+                    </td>
+                }
+                
+            </tr>
+        }
+    </tbody>
+</table>

@@ -58,11 +58,23 @@
                 </td>
                 <td>
                     <a class="btn btn-primary" asp-action="SelecionarPedidoTroca" asp-route-pedidoId="@item.Id"
-                       asp-route-pedidoTotal="@item.PedidoTotal" asp-route-status="@item.Status">Detalhes</a>
+                       asp-route-pedidoTotal="@item.PedidoTotal" asp-route-status="@item.Status">Detalhes/Troca</a>
 
-                    <a class="btn btn-danger" asp-controller="" asp-action="" asp-route-pedidoId="@item.Id">
-                        Devolver
-                    </a>
+                    <!--Pedido de devolução-->
+                    @if (item.Status.Equals("Entregue"))
+                    {
+                        <a class="btn btn-danger" asp-controller="Devolucao" asp-action="Devolucao" asp-route-pedidoId="@item.Id">
+                            Devolver
+                        </a>
+                    }
+                    <!--Aguardando envio para deolução-->
+                    @if (item.Status.Equals("Em devolução"))
+                    {
+                        <a class="btn btn-success" asp-controller="Devolucao" asp-action="ConfirmarEnvio"
+                           asp-route-pedidoId="@item.Id">
+                            Confirmar envio
+                        </a>
+                    }
                 </td>
             </tr>
         }
