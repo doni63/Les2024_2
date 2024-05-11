@@ -127,11 +127,10 @@ namespace SwitchSelect.Controllers
             {
                 ClienteId = cliente.Id,
                 Nome = cliente.Nome,
-                TelefoneId = (int) cliente.Telefones.FirstOrDefault()?.Id,
+                TelefoneId = (int)cliente.Telefones.FirstOrDefault()?.Id,
                 EnderecoId = enderecoId,
                 Pagamentos = pagamentos,
                 Status = "Processando",
-               
                 TotalItensPedido = totalItensPedido,
                 PedidoTotal = precoTotalPedido
                 
@@ -156,7 +155,7 @@ namespace SwitchSelect.Controllers
                 _pedidoRepositorio.CriarPedido(pedido);
 
                 //mensagem ao cliente
-                ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra !";
+                ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra. Estamos verificando o pagamento.";
                 ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
 
                 // Limpe o carrinho e a sessão do cliente
@@ -252,6 +251,48 @@ namespace SwitchSelect.Controllers
             return View(itensPedido);
         }
 
-        
+        public IActionResult ListaPagamentos()
+        {
+            var pagPedidos = _context.Pagamentos.ToList();
+
+            return View("~/Views/Admin/ListaPagamentos.cshtml", pagPedidos);
+        }
+
+        public IActionResult AprovarPagamento(int pedidoId)
+        {
+            //buscar pagamento com pedidoId
+            var pagamento = _context.Pagamentos.Find(pedidoId);
+            //buscar pedido para atualizar status
+            var pedido = _context.Pedidos.Find(pedidoId);
+
+            //verificar se existe pagamento
+            if (pagamento != null)
+            {
+                pagamento.StatusPagamento = "Aprovado";
+                _context.Update(pagamento);
+            }
+            else
+            {
+                ViewBag.Titulo = "Erro";
+                ViewBag.Mensagem = "Esse pagamento não foi localizado";
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+
+            //verificar se existe pedido
+            if(pedido != null)
+            {
+                pedido.Status = "Aprovado";
+                _context.Update(pedido);
+            }
+            else
+            {
+                ViewBag.Titulo = "Erro";
+                ViewBag.Mensagem = "Não foi encontrado um pedido vinculado a este pagamento";
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("ListaPagamentos", "Pedido");
+        }
     }
 }

@@ -19,7 +19,7 @@ public class PagamentoService
         {
             Valor = cartaoIdValor.Valor,
             Tipo = "Cartao",
-            
+            StatusPagamento = "Aguardando aprovação",
         };
         pagamento.CartaoIds.Add(cartaoIdValor.Id);
 

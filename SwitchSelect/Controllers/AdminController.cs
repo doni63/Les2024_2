@@ -130,17 +130,28 @@ namespace SwitchSelect.Controllers
         {
 
             var pedido = _context.Pedidos.Find(pedidoId);
+            pedido.Status = novoStatus;
 
             if (pedido == null)
             {
                 return NotFound();
             }
 
-            pedido.Status = novoStatus;
+            if(novoStatus.Equals("A Caminho"))
+            {
+                pedido.PedidoEnviado = DateTime.Now;
+                _context.Update(pedido);
+            }
+            else if (novoStatus.Equals("Entregue"))
+            {
+                pedido.PedidoEntregueEm = DateTime.Now;
+                _context.Update(pedido);
+            }
+            
             _context.SaveChanges();
             return Ok();
         }
 
-      
+       
     }
 }

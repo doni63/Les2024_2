@@ -31,12 +31,16 @@
                 <td>
                     <a>@pedido.Status</a>
                 </td>
-                <td>
+                @if (pedido.Status.Equals("Aprovado") || pedido.Status.Equals("A Caminho"))
+                {
+                    <td>
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                             data-bs-target="#atualizarStatusModal-@pedido.Id">
                         Atualizar Status
                     </button>
                 </td>
+                }
+                
                 <td>
                     <a class="btn btn-info" asp-action="DetalhesVenda" asp-route-pedidoId="@pedido.Id">Detalhes</a>
                 </td>

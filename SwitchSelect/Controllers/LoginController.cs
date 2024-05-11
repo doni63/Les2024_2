@@ -25,7 +25,7 @@ namespace SwitchSelect.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            
+
             if (ModelState.IsValid)
             {
                 //verificando cpf de usuário
@@ -35,7 +35,6 @@ namespace SwitchSelect.Controllers
 
                     if (cliente.Status.Equals("Ativo"))
                     {
-                       
                         return RedirectToAction("AreaCliente", "Cliente", cliente);
                     }
                     else
@@ -44,7 +43,7 @@ namespace SwitchSelect.Controllers
                         ViewBag.Mensagem = "Entre em contato com nossa equipe.";
                         return View("~/Views/Mensagem/Mensagem.cshtml");
                     }
-                    
+
                 }
                 else
                 {

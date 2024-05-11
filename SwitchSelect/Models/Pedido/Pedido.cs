@@ -43,7 +43,7 @@ public class Pedido
     [Display(Name = "Data de envio")]
     [DataType(DataType.Text)]
     [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
-    public DateTime PedidoEnviado { get; set; }
+    public DateTime? PedidoEnviado { get; set; }
 
     [Display(Name = "Data de entrega")]
     [DataType(DataType.Text)]

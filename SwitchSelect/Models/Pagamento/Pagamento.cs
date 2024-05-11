@@ -5,6 +5,7 @@ namespace SwitchSelect.Models;
 public class Pagamento
 {
     public int Id { get; set; }
+    public int PedidoId {  get; set; }
     public decimal Valor { get; set; }
 
     [StringLength(20)]
@@ -17,4 +18,7 @@ public class Pagamento
 
     [StringLength(14)]
     public string? CodigoCupom { get; set; }
+
+    [Display(Name = "Satatus")]
+    public string? StatusPagamento { get; set; }
 }

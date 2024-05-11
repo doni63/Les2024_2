@@ -102,6 +102,20 @@
                              "Selecione o Tipo de logradouro",
                              new { @class = "form-control" })
                 </div>
+
+                <!--Consulta Cep-->
+                <div class="form-group">
+                    <label asp-for="CEP" class="control-label"></label>
+                    <div class="input-group">
+                        <input asp-for="CEP" class="form-control" />
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" id="btnConsultarCep">Consultar CEP</button>
+                        </div>
+                    </div>
+                    <span asp-validation-for="CEP" class="text-danger"></span>
+                </div>
+
+
                 <div class="form-group">
                     <label asp-for="Logradouro" class="control-label"></label>
                     <input asp-for="Logradouro" class="form-control" />
@@ -112,11 +126,7 @@
                     <input asp-for="Numero" class="form-control" />
                     <span asp-validation-for="Numero" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="CEP" class="control-label"></label>
-                    <input asp-for="CEP" class="form-control" />
-                    <span asp-validation-for="CEP" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
                     <label asp-for="TipoResidencia" class="control-label"></label>
                     @Html.DropDownListFor(model => model.TipoResidencia,
@@ -186,7 +196,7 @@
                     <input asp-for="NumeroCartao" class="form-control" />
                     <span asp-validation-for="NumeroCartao" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label asp-for="MesValidade" class="control-label">Mês Validade</label>
                     <input asp-for="MesValidade" class="form-control" type="number" />
@@ -282,5 +292,23 @@
         });
 
 
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btnConsultarCep').click(function () {
+                // buscando valor do CEP
+                var cep = $('#CEP').val();
+
+                // Faça a solicitação para a API do CEP
+                $.get(`https://brasilapi.com.br/api/cep/v1/${cep}`, function (data) {
+                    
+                    $('#Logradouro').val(data.street);
+                    $('#Bairro').val(data.neighborhood);
+                    $('#Cidade').val(data.city);
+                    $('#Estado').val(data.state);
+                });
+            });
+        });
     </script>
 }
