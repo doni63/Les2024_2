@@ -39,6 +39,7 @@ public class Cliente
     public List<Cartao> Cartoes { get; set; } = new List<Cartao>();
 
     public List<Cupom>? Cupons { get; set; } = new List<Cupom>();
+    public string? Status {  get; set; }
 
    
 }

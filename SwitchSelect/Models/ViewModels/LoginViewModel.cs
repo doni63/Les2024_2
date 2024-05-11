@@ -8,7 +8,6 @@ namespace SwitchSelect.Models.ViewModels
         [Display(Name = "CPF")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "Cpf inválido")]
         public string Cpf { get; set; }
-
-
+        public string? Status {  get; set; }
     }
 }

@@ -99,6 +99,7 @@ namespace SwitchSelect.Service
                 Email = model.Email,
                 Cpf = model.Cpf,
                 RG = model.RG,
+                Status = "Ativo"
             };
 
             var telefone = new Telefone

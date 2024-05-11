@@ -18,47 +18,59 @@
     </div>
 </form>
 
-    <table class="table ">
-        <thead>
+<table class="table ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Cpf)
-                </th>
-
-
-                <th></th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.Id" asp-route-origem="adminInfo">Editar</a> |
+                    <a class="btn btn-primary" asp-action="AdminInformacaoCliente" asp-route-id="@item.Id">Informações</a> |
+                    @if (item.Status.Equals("Ativo"))
+                    {
+                        <a class="btn btn-danger" asp-action="InativarCliente" asp-route-id="@item.Id">Inativar</a>
+                    }
+                    else if (item.Status.Equals("Inativo"))
+                    {
+                        <a class="btn btn-primary" asp-action="AtivarCliente" asp-route-id="@item.Id">Ativar</a> 
+                    }
+                    
+                    <a class="btn btn-danger" asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cpf)
-                    </td>
-
-                    <td>
-                    <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.Id" asp-route-origem="adminInfo">Editar</a> |
-                    <a asp-action="AdminInformacaoCliente" asp-route-id="@item.Id">Informações</a> |
-                        <a asp-action="Inativar" asp-route-id="@item.Id">Inativar</a> |
-                        <a asp-controller="Cliente" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 

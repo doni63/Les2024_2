@@ -25,25 +25,35 @@ namespace SwitchSelect.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            if(ModelState.IsValid)
+            
+            if (ModelState.IsValid)
             {
                 //verificando cpf de usuário
-                //var usuario = _context.Clientes.FirstOrDefault(u => u.Cpf == model.Cpf);
-                if (model.Cpf != null) 
+                if (model.Cpf != null)
                 {
-                    //HttpContext.Session.SetString("Cpf", usuario.Cpf);
-                    //HttpContext.Session.SetString("Nome", usuario.Nome);
-                    //HttpContext.Session.SetInt32("Id", usuario.Id);
                     var cliente = _cliRepo.GetPorCpf(model.Cpf);
-                    //return RedirectToAction("AreaCliente","Cliente", new { id = usuario.Id });
-                    return RedirectToAction("AreaCliente","Cliente",cliente);
+
+                    if (cliente.Status.Equals("Ativo"))
+                    {
+                       
+                        return RedirectToAction("AreaCliente", "Cliente", cliente);
+                    }
+                    else
+                    {
+                        ViewBag.Titulo = "Cliente Bloqueado.";
+                        ViewBag.Mensagem = "Entre em contato com nossa equipe.";
+                        return View("~/Views/Mensagem/Mensagem.cshtml");
+                    }
+                    
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "CPF não encontrado");
+                    ViewBag.Titulo = "Cadastro não encontrado";
+                    ViewBag.Mensagem = "Cpf não foi encontrado em nossa base de dados. É necessário se cadastrar primeiro.";
+                    return View("~/Views/Mensagem/Mensagem.cshtml");
                 }
             }
-            return View("TelaLogin",model);
+            return View("TelaLogin", model);
         }
     }
 }

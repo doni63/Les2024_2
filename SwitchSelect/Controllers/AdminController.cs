@@ -19,6 +19,43 @@ namespace SwitchSelect.Controllers
             _context = context;
         }
 
+        public IActionResult InativarCliente(int id)
+        {
+            var cliente = _context.Clientes.Find(id);
+            if (cliente != null)
+            {
+                cliente.Status = "Inativo";
+                _context.Update(cliente);
+                _context.SaveChanges();
+                return RedirectToAction("AdminListaCliente", "Admin", cliente);
+            }
+            else
+            {
+                ViewBag.Titulo = "Cliente não encontrado";
+                ViewBag.Mensagem = "O cadastro do cliente não foi encontrado.";
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+            
+        }
+        public IActionResult AtivarCliente(int id)
+        {
+            var cliente = _context.Clientes.Find(id);
+            if (cliente != null)
+            {
+                cliente.Status = "Ativo";
+                _context.Update(cliente);
+                _context.SaveChanges();
+                return RedirectToAction("AdminListaCliente","Admin", cliente);
+            }
+            else
+            {
+                ViewBag.Titulo = "Cliente não encontrado";
+                ViewBag.Mensagem = "O cadastro do cliente não foi encontrado.";
+                return View("~/Views/Mensagem/Mensagem.cshtml");
+            }
+            
+        }
+
         public IActionResult TelaAdmin()
         {
             return View();
