@@ -102,9 +102,10 @@ namespace SwitchSelect.Controllers
         [HttpPost]
         public IActionResult Checkout(int enderecoId, string cartoesIds, decimal precoTotalPedido, int totalItensPedido, string cupomAplicado)
         {
+
             // recuperar dados do cartao do forms
             var cartoesIdsJson = JsonConvert.DeserializeObject<List<CartaoIdValor>>(cartoesIds);
-            
+
             var pagamentos = new List<Pagamento>();
 
             // criando pagamento para cada cartao
@@ -112,9 +113,10 @@ namespace SwitchSelect.Controllers
             {
                 var pagamento = _pagamentoService.CriarPagamento(cartaoIdValor);
                 pagamentos.Add(pagamento);
-
+                
                 _pagamentoService.CriarPagamentoCartao(pagamento.Id, cartaoIdValor.Id);
             }
+
 
             //obter itens do carrinho de compra do cliente
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
@@ -254,7 +256,7 @@ namespace SwitchSelect.Controllers
         public IActionResult ListaPagamentos()
         {
             var pagPedidos = _context.Pagamentos.ToList();
-
+            
             return View("~/Views/Admin/ListaPagamentos.cshtml", pagPedidos);
         }
 

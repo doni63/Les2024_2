@@ -5,14 +5,14 @@ namespace SwitchSelect.Models;
 public class Pagamento
 {
     public int Id { get; set; }
-    public int PedidoId {  get; set; }
+    public int? PedidoId { get; set; }
     public decimal Valor { get; set; }
 
     [StringLength(20)]
     public string? Tipo { get; set; }
 
     public List<int>? CartaoIds { get; set; } = new List<int>();
-    
+
 
     public List<string>? CodigosCupons { get; set; } = new List<string>();
 
