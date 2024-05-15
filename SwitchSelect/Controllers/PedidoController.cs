@@ -113,10 +113,9 @@ namespace SwitchSelect.Controllers
             {
                 var pagamento = _pagamentoService.CriarPagamento(cartaoIdValor);
                 pagamentos.Add(pagamento);
-                
+
                 _pagamentoService.CriarPagamentoCartao(pagamento.Id, cartaoIdValor.Id);
             }
-
 
             //obter itens do carrinho de compra do cliente
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
@@ -260,10 +259,10 @@ namespace SwitchSelect.Controllers
             return View("~/Views/Admin/ListaPagamentos.cshtml", pagPedidos);
         }
 
-        public IActionResult AprovarPagamento(int pedidoId)
+        public IActionResult AprovarPagamento(int pedidoId, int id)
         {
             //buscar pagamento com pedidoId
-            var pagamento = _context.Pagamentos.Find(pedidoId);
+            var pagamento = _context.Pagamentos.Find(id);
             //buscar pedido para atualizar status
             var pedido = _context.Pedidos.Find(pedidoId);
 

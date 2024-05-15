@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwitchSelect")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b3e56a04433521120e5c301c8ab111d116fca5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb3c14da610df28cd4f98d04a8e504391b6980f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwitchSelect")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwitchSelect")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

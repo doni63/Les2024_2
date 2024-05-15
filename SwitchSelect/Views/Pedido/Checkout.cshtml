@@ -40,14 +40,14 @@
                     @foreach (var endereco in Model.Enderecos)
                     {
                         <option value="@endereco.Id">
-                            @endereco.Id, @endereco.TipoLogradouro @endereco.Logradouro,
-                            N°. @endereco.Numero, CEP. @endereco.CEP - @endereco.Complemento,
+                            @endereco.Logradouro,
+                            N°. @endereco.Numero, CEP. @endereco.CEP,
                             @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao
                         </option>
                     }
                 </select>
                 <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
-                    class="btn btn-primary">+ Endereço</a>
+                   class="btn btn-primary">+ Endereço</a>
             </div>
 
             <div class="col-sm-6">
@@ -57,10 +57,9 @@
                     <div>
                         <input type="checkbox" id="@("cartao_" + cartao.Id)" name="cartoesSelecionados" value="@cartao.Id">
                         <label for="@("cartao_" + cartao.Id)">
-                            ID: @cartao.Id, Tipo de Cartão: @cartao.TipoCartao,
-                            Titular: @cartao.TitularDoCartao, Últimos 4 Dígitos: @cartao.CartaoQuatroDigito
+                            Cartão de Final: @cartao.CartaoQuatroDigito
                         </label>
-                        <input type="number" name="valorCartao_@cartao.Id" step="0.01" min="0" max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
+                        <input type="number" name="valorCartao_@cartao.Id" step="0.01" min="10" max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
                     </div>
                 }
                 <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
@@ -113,7 +112,23 @@
 
 <script>
     function onSubmitForm() {
+        var precoTotalPedido = parseFloat(document.querySelector('input[name="precoTotalPedido"]').value);
+        var valorTotalCartoes = 0;
+
+        // Calcula o valor total dos cartões selecionados
         var cartoesSelecionados = document.querySelectorAll('input[name="cartoesSelecionados"]:checked');
+        cartoesSelecionados.forEach(function (cartao) {
+            var cartaoId = cartao.value;
+            var valor = parseFloat(document.querySelector('input[name="valorCartao_' + cartaoId + '"]').value);
+            valorTotalCartoes += valor;
+        });
+
+        // Verifica se o valor total dos cartões é menor que o valor total do pedido
+        if (valorTotalCartoes < precoTotalPedido) {
+            alert("O valor total dos cartões não pode ser menor que o valor total do pedido.");
+            return false; // Impede o envio do formulário
+        }
+
         var cartoesIds = [];
         cartoesSelecionados.forEach(function (cartao) {
             var cartaoId = cartao.value;
@@ -121,6 +136,7 @@
             cartoesIds.push({ id: cartaoId, valor: valor });
         });
         document.getElementById('cartoesIds').value = JSON.stringify(cartoesIds);
-        return true; // Permita o envio do formulário
+        return true; // Permite o envio do formulário
     }
 </script>
+

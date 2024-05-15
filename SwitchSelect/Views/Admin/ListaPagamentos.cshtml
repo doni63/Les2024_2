@@ -26,7 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.StatusPagamento)
             </th>
-            <th>Ações</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -51,16 +51,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.StatusPagamento)
                 </td>
-                <td>
-                    <a class="btn btn-success" asp-controller="Pedido" asp-action="AprovarPagamento"
-                       asp-route-pedidoId="@item.Id">
-                        Aprovar pagamento
-                    </a> |
+                @if (item.StatusPagamento.Equals("Processando"))
+                {
+                    <td>
+                        <a class="btn btn-success" asp-controller="Pedido" asp-action="AprovarPagamento"
+                           asp-route-pedidoId="@item.PedidoId" asp-route-id="@item.Id">
+                            Aprovar pagamento
+                        </a> |
 
-                    <a class="btn btn-danger" asp-controller="" asp-action="Delete" asp-route-id="@item.Id">
-                        Não aprovar pagamento
-                    </a>
-                </td>
+                        <a class="btn btn-danger" asp-controller="" asp-action="Delete" asp-route-id="@item.Id">
+                            Não aprovar pagamento
+                        </a>
+                    </td>
+                }
+                
             </tr>
         }
     </tbody>
