@@ -15,7 +15,6 @@
                     <th>Quantidade</th>
                     <th>Jogo</th>
                     <th>Preço</th>
-                    <th>Desconto</th>
                 </tr>
                 @foreach (var item in Model.PedidoItens)
                 {
@@ -26,25 +25,20 @@
                         </td>
                         <td>@item.Quantidade</td>
                         <td>@item.Jogo.Nome</td>
-                        <td>@item.Jogo.Preco</td>
-                        <td>
-                            @if (item.Pedido.Desconto.HasValue)
-                            {
-                                <text>@item.Pedido.Desconto.Value.ToString("c2")</text>
-                            }
-                            else
-                            {
-                                <p>R$0,00</p>
-                            }
-                        </td>
-
-
+                        <td>@item.Jogo.Preco</td>                      
                     </tr>
                 }
             </table>
-            <h4>Valor total do pedido: <strong>@(((decimal)ViewBag.PedidoTotal).ToString("C2"))</strong></h4>
+            <p> Valor do pedido:@(((decimal)ViewBag.PedidoTotal).ToString("C2"))</p>
+            @if (ViewBag.Desconto != null)
+            {
+                <p>Desconto: @ViewBag.Desconto.ToString("C2")</p>
+            }
+
+            <p>Frete: @ViewBag.Frete</p>
+            <h4>Valor total do pedido: <strong>@ViewBag.Total</strong></h4>
             <h4>Status do pedido: <strong>@Model.Status</strong></h4>
-            
+   
         </div>
     </div>
 </div>

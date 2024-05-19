@@ -153,6 +153,14 @@
       "PackagePath": "staticwebassets\\imagens\\zelda1-484x484.png"
     },
     {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\js\\checkout.js",
+      "PackagePath": "staticwebassets\\js\\checkout.js"
+    },
+    {
+      "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\js\\listaVendas.js",
+      "PackagePath": "staticwebassets\\js\\listaVendas.js"
+    },
+    {
       "Id": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

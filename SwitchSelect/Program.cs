@@ -48,6 +48,8 @@ builder.Services.AddSession();
 builder.Services.AddMemoryCache(); //habilitando memoria cache
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddHttpClient<CuriosidadeController>();
+builder.Services.AddControllersWithViews();
+
 //builder.Services.AddIdentity<IdentityUser, IdentityRole>();
 
 var app = builder.Build();

@@ -23,7 +23,7 @@ namespace SwitchSelect.Controllers
         private readonly PagamentoService _pagamentoService;
 
 
-        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context, CartaoService cartaoService, ClienteService clienteService, IClienteRepositorio clienteRepositorio,PagamentoService pagamentoService)
+        public PedidoController(IPedidoRepositorio pedidoRepositorio, CarrinhoCompra carrinhoCompra, SwitchSelectContext context, CartaoService cartaoService, ClienteService clienteService, IClienteRepositorio clienteRepositorio, PagamentoService pagamentoService)
         {
             _pedidoRepositorio = pedidoRepositorio;
             _carrinhoCompra = carrinhoCompra;
@@ -37,7 +37,7 @@ namespace SwitchSelect.Controllers
         [HttpGet]
         public IActionResult CheckoutLogin(int quantidade)
         {
-            if(quantidade > 1)
+            if (quantidade > 1)
             {
                 return View("~/Views/Pedido/PedidoError.Cshtml");
             }
@@ -100,7 +100,7 @@ namespace SwitchSelect.Controllers
 
 
         [HttpPost]
-        public IActionResult Checkout(int enderecoId, string cartoesIds, decimal precoTotalPedido, int totalItensPedido, string cupomAplicado)
+        public IActionResult Checkout(int enderecoId, string cartoesIds, decimal total, int totalItensPedido, string cupomAplicado, decimal frete)
         {
 
             // recuperar dados do cartao do forms
@@ -133,8 +133,8 @@ namespace SwitchSelect.Controllers
                 Pagamentos = pagamentos,
                 Status = "Processando",
                 TotalItensPedido = totalItensPedido,
-                PedidoTotal = precoTotalPedido
-                
+                PedidoTotal = total
+
             };
 
             // Se um cupom foi aplicado, atualize as informações do cupom
@@ -157,7 +157,10 @@ namespace SwitchSelect.Controllers
 
                 //mensagem ao cliente
                 ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra. Estamos verificando o pagamento.";
+                ViewBag.Frete = frete / 100;
                 ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
+                ViewBag.Total = total;
+                ViewBag.Desconto = pedido.Desconto;
 
                 // Limpe o carrinho e a sessão do cliente
                 _carrinhoCompra.LimparCarrinho();
@@ -205,11 +208,15 @@ namespace SwitchSelect.Controllers
                 totalItensPedido += item.Quantidade;
                 precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
             }
-            //aplicando desconto
+            //aplica desconto
             precoTotalPedido = precoTotalPedido - desconto;
+
+            // Verifica se o valor total após o desconto é menor que 10
+            bool pagamentoAbaixoDezReaisPermitido = precoTotalPedido < 10;
 
             ViewBag.PrecoTotalPedido = precoTotalPedido;
             ViewBag.TotalItensPedido = totalItensPedido;
+            ViewBag.PagamentoAbaixoDezReaisPermitido = pagamentoAbaixoDezReaisPermitido ? "True" : "False"; 
 
             if (Cpf != null)
             {
@@ -237,7 +244,7 @@ namespace SwitchSelect.Controllers
                 .Where(p => p.ClienteId == clienteId)
                 .ToListAsync();
 
-            
+
 
             return View(pedidoCliente);
         }
@@ -245,7 +252,7 @@ namespace SwitchSelect.Controllers
         public IActionResult SelecionarPedidoTroca(int pedidoId, string pedidoTotal, string status)
         {
             var itensPedido = _context.PedidoDetalhes.Where(pd => pd.PedidoId == pedidoId).ToList();
-           
+
             ViewBag.StatusPedido = status;
             ViewBag.PedidoTotal = pedidoTotal;
             ViewBag.PedidoId = pedidoId;
@@ -255,7 +262,7 @@ namespace SwitchSelect.Controllers
         public IActionResult ListaPagamentos()
         {
             var pagPedidos = _context.Pagamentos.ToList();
-            
+
             return View("~/Views/Admin/ListaPagamentos.cshtml", pagPedidos);
         }
 
@@ -280,7 +287,7 @@ namespace SwitchSelect.Controllers
             }
 
             //verificar se existe pedido
-            if(pedido != null)
+            if (pedido != null)
             {
                 pedido.Status = "Aprovado";
                 _context.Update(pedido);
