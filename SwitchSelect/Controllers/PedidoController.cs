@@ -140,7 +140,7 @@ namespace SwitchSelect.Controllers
             // Se um cupom foi aplicado, atualize as informações do cupom
             if (!string.IsNullOrEmpty(cupomAplicado))
             {
-                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado && c.Status == "Valido");
+                var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == cupomAplicado);
                 if (cupom != null)
                 {
                     cupom.Status = "Usado";
@@ -177,8 +177,12 @@ namespace SwitchSelect.Controllers
         }
 
 
-        public IActionResult AplicarCupom(string Cpf, string codigoCupom)
+        public IActionResult AplicarCupom(string Cpf, string codigoCupom, decimal total)
         {
+            var cliente = _clienteRepositorio.GetPorCpf(Cpf);
+            // Verifica se o valor total já é zero
+           
+
             ViewBag.Cupom = codigoCupom;
             //recebendo valor do desconto
             var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
@@ -210,17 +214,35 @@ namespace SwitchSelect.Controllers
             }
             //aplica desconto
             precoTotalPedido = precoTotalPedido - desconto;
+            
+            if (precoTotalPedido < 0)
+            {
+
+                var valorTroco = precoTotalPedido * (-1);
+                cupom.Status = "Usado";
+                _context.Cupons.Update(cupom);
+
+                var troco = new Cupom();
+                troco.CodigoCupom = troco.GerarCodigoCupom();
+                troco.Valor = valorTroco;
+                troco.Status = "Valido";
+                troco.ClienteId = cliente.Id;
+                _context.Cupons.Add(troco);
+                _context.SaveChanges();
+
+                precoTotalPedido = 0;
+            }
 
             // Verifica se o valor total após o desconto é menor que 10
             bool pagamentoAbaixoDezReaisPermitido = precoTotalPedido < 10;
 
             ViewBag.PrecoTotalPedido = precoTotalPedido;
             ViewBag.TotalItensPedido = totalItensPedido;
-            ViewBag.PagamentoAbaixoDezReaisPermitido = pagamentoAbaixoDezReaisPermitido ? "True" : "False"; 
+            ViewBag.PagamentoAbaixoDezReaisPermitido = pagamentoAbaixoDezReaisPermitido ? "True" : "False";
 
             if (Cpf != null)
             {
-                var cliente = _clienteRepositorio.GetPorCpf(Cpf);
+
                 foreach (var cartao in cliente.Cartoes)
                 {
                     var numeroCartao = cartao.NumeroCartao;

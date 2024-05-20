@@ -4,7 +4,12 @@
     var valorInvalido = false;
     var pagamentoAbaixoDezReaisPermitido = document.getElementById('pagamentoAbaixoDezReaisPermitido').value === 'True';
 
-   
+    // Verifica se um endereço foi selecionado
+    var enderecoSelecionado = document.getElementById('endereco').value;
+    if (!enderecoSelecionado) {
+        alert("Por favor, selecione um endereço.");
+        return false;
+    }
 
     // Calcula o valor total dos cartões selecionados
     var cartoesSelecionados = document.querySelectorAll('input[name="cartoesSelecionados"]:checked');
@@ -15,15 +20,14 @@
         if (isNaN(valor)) {
             valorInvalido = true;
         }
-        else
-        {
+        else {
             valorTotalCartoes += valor;
         }
         //verifica se um cartão selecionado é menor que R$10,00
         if (valor < 10) {
             valorInvalido = true;
         }
-       
+
     });
     //verifica se pedidototal é menor que R$10,00, valorInvalido recebe false para permitir valor menor que 10 reais
     if (pagamentoAbaixoDezReaisPermitido) {
@@ -36,14 +40,11 @@
         return false;
     }
 
-    
-
     // Verifica se o valor total dos cartões é menor que o valor total do pedido
-    if (valorTotalCartoes < total || valorTotalCartoes == 0) {
+    if (valorTotalCartoes < total) {
         alert("O valor total dos cartões não pode ser menor que o valor total do pedido.");
         return false; // Impede o envio do formulário
     }
-    
 
     var cartoesIds = [];
     cartoesSelecionados.forEach(function (cartao) {
@@ -75,7 +76,13 @@ function calcularFrete(cep) {
 
                 var valorFrete = parseFloat(freteInput.value);
                 var totalInput = document.getElementById('total');
-                totalInput.value = ((precoTotalPedido) + valorFrete).toFixed(2).replace('.',',');
+
+                // Se o valor do pedido é zero, manter o total como zero
+                if (precoTotalPedido === 0) {
+                    totalInput.value = "0,00";
+                } else {
+                    totalInput.value = ((precoTotalPedido) + valorFrete).toFixed(2).replace('.', ',');
+                }
             } else {
                 alert("Não foi possível calcular o frete. Tente novamente.");
             }
@@ -84,8 +91,6 @@ function calcularFrete(cep) {
             console.error('Erro ao calcular o frete:', error);
         });
 }
-
-
 document.getElementById('endereco').addEventListener('change', function () {
     var selectedOption = this.options[this.selectedIndex];
     if (selectedOption.value) {
@@ -96,3 +101,25 @@ document.getElementById('endereco').addEventListener('change', function () {
         document.getElementById('total').value = '';
     }
 });
+
+function validarAplicacaoCupom() {
+    var totalInput = document.getElementById('totalInput');
+    var total = parseFloat(totalInput.value.replace('.', ','));
+
+    if (total <= 0) {
+        alert('O valor total já é zero. Não é possível aplicar outro cupom.');
+        return false; 
+    }
+
+    return true; 
+}
+
+
+
+
+
+
+
+
+
+

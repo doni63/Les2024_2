@@ -57,23 +57,23 @@
                 <h4>Dados de Pagamento</h4>
                 @foreach (var cartao in Model.Cartoes)
                 {
-                    <div>
-                        <input type="checkbox" id="@("cartao_" + cartao.Id)" name="cartoesSelecionados" value="@cartao.Id">
-                        <label for="@("cartao_" + cartao.Id)">
-                            Cartão de Final: @cartao.CartaoQuatroDigito
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="@("cartao_" + cartao.Id)" name="cartoesSelecionados" value="@cartao.Id">
+                        <label class="form-check-label" for="@("cartao_" + cartao.Id)">
+                            <strong>@cartao.Bandeira</strong><br />
+                            <strong>Final:</strong> @cartao.CartaoQuatroDigito
                         </label>
-                        <input type="number" name="valorCartao_@cartao.Id" step="0.01"  max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
                     </div>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="number" name="valorCartao_@cartao.Id" step="0.01" 
+                        max="@ViewBag.PrecoTotalPedido" placeholder="Valor a pagar com este cartão" />
+                    </div>
+
                 }
-                <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
-                   class="btn btn-primary">+ Cartão</a>
-                <input type="hidden" name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" />
-                <input type="hidden" name="totalItensPedido" value="@ViewBag.TotalItensPedido" />
-               
-                <input type="hidden" name="cupomAplicado" value="@ViewBag.Cupom" />
-                <input type="hidden" name="enderecoId" id="enderecoId" />
-                <input type="hidden" name="cartoesIds" id="cartoesIds" />
+                <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido" class="btn btn-primary">+ Cartão</a>
             </div>
+
+
         </div>
         <div class="row">
             <div class="col-auto">
@@ -108,23 +108,25 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mt-4">Finalizar Compra</button>
+                        <button type="submit" id="finalizarPedido" class="btn btn-primary mt-4">Finalizar Compra</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </form>
 
-    <!--AplicarCupom-->
-    <form asp-controller="Pedido" asp-action="AplicarCupom" method="post">
+    <form asp-controller="Pedido" asp-action="AplicarCupom" method="post" onsubmit="return validarAplicacaoCupom()">
         <input asp-for="Cpf" hidden />
-        <div class="col-sm-4">                  
+        <input type="hidden" name="total" id="totalInput" value="@ViewBag.PrecoTotalPedido" />
+        <div class="col-sm-4">
             <div class="input-group">
                 <input type="text" name="codigoCupom" class="form-control" placeholder="Código do Cupom">
                 <button type="submit" class="btn btn-primary">Aplicar Cupom</button>
             </div>
         </div>
     </form>
+
 </div>
 
 <!--Java script-->
