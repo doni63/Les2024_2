@@ -103,6 +103,15 @@ document.getElementById('endereco').addEventListener('change', function () {
 });
 
 function validarAplicacaoCupom() {
+    //verifica se o input do cupom está em branco
+    var codigoCupom = document.getElementById('codigoCupom').value;
+    if (codigoCupom === "") {
+        alert('Nehum cupom foi informado!')
+        return false;
+    }
+
+
+    //verifica se após aplicar o cupom o total do pedido é zero
     var totalInput = document.getElementById('totalInput');
     var total = parseFloat(totalInput.value.replace('.', ','));
 
@@ -113,13 +122,33 @@ function validarAplicacaoCupom() {
 
     return true; 
 }
+//verificar se endereço foi selecionado para aplicar cupom
+document.addEventListener("DOMContentLoaded", function () {
+    var formAplicarCupom = document.getElementById("formAplicarCupom");
 
+    formAplicarCupom.addEventListener("submit", function (event) {
+        var enderecoSelect = document.getElementById("endereco");
+        if (enderecoSelect.value === "") {
+            alert("Selecione um endereço para calcular o frete e o total do pedido");
+            event.preventDefault();
+        }
+    });
+});
 
+//mostra mensagem de se houver troco do cupom
+document.addEventListener("DOMContentLoaded", function () {
+    var mensagemTroco = document.getElementById('mensagemTrocoInput').value;
+    if (mensagemTroco) {
+        alert(mensagemTroco);
+    }
+});
 
-
-
-
-
-
+//mostra mensagem de erro se não encontrar cupom
+document.addEventListener("DOMContentLoaded", function () {
+    var mensagemErroCupom = document.getElementById('mensagemCupomInput').value;
+    if (mensagemErroCupom) {
+        alert(mensagemErroCupom);
+    }
+});
 
 

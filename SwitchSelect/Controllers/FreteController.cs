@@ -53,6 +53,10 @@ namespace SwitchSelect.Controllers
                     var valorFreteString = freteResponse[1].price;
                     var valorFrete = (Convert.ToDecimal(valorFreteString))/100;
 
+                    // Armazenar valor do frete na sessão e cep
+                    HttpContext.Session.SetString("ValorFrete", valorFrete.ToString());
+                    HttpContext.Session.SetString("CepSession", request.cep);
+
                     return Json(new { success = true, valorFrete = valorFrete });
                 }
             }

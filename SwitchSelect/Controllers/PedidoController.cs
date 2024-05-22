@@ -100,8 +100,15 @@ namespace SwitchSelect.Controllers
 
 
         [HttpPost]
-        public IActionResult Checkout(int enderecoId, string cartoesIds, decimal total, int totalItensPedido, string cupomAplicado, decimal frete)
+        public IActionResult Checkout(int enderecoId, string cartoesIds, decimal total, int totalItensPedido, string cupomAplicado)
         {
+            //recuperar valor de frete da sessão para acrescentar no pedidoTotal
+            var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            decimal valorFrete = 0m;
+            if (valorFreteString != null)
+            {
+                valorFrete = decimal.Parse(valorFreteString);
+            }
 
             // recuperar dados do cartao do forms
             var cartoesIdsJson = JsonConvert.DeserializeObject<List<CartaoIdValor>>(cartoesIds);
@@ -157,7 +164,7 @@ namespace SwitchSelect.Controllers
 
                 //mensagem ao cliente
                 ViewBag.CheckoutCompletoMensagem = "Obrigado pela compra. Estamos verificando o pagamento.";
-                ViewBag.Frete = frete / 100;
+                ViewBag.Frete = valorFrete;
                 ViewBag.PedidoTotal = _carrinhoCompra.GetCarrinhoCompraTotal();
                 ViewBag.Total = total;
                 ViewBag.Desconto = pedido.Desconto;
@@ -182,7 +189,6 @@ namespace SwitchSelect.Controllers
             var cliente = _clienteRepositorio.GetPorCpf(Cpf);
             // Verifica se o valor total já é zero
            
-
             ViewBag.Cupom = codigoCupom;
             //recebendo valor do desconto
             var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
@@ -197,7 +203,7 @@ namespace SwitchSelect.Controllers
             //atualizar valor com desconto
 
             int totalItensPedido = 0;
-            decimal precoTotalPedido = 0;
+            decimal precoTotalPedido = total;
 
             //obter itens do carrinho de compra do cliente
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhosCompraItens();
@@ -210,10 +216,25 @@ namespace SwitchSelect.Controllers
             foreach (var item in itens)
             {
                 totalItensPedido += item.Quantidade;
-                precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
+                //precoTotalPedido += (item.Jogo.Preco * item.Quantidade);
             }
+            //recuperar valor de frete da sessão para acrescentar no pedidoTotal
+            var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            decimal valorFrete = 0m;
+            //recuperar valor do cep para buscar enderecoId
+            var cep = HttpContext.Session.GetString("CepSession");
+            var enderecoSelecionado = _context.Enderecos.FirstOrDefault(e => e.CEP == cep);
+           
+            if (valorFreteString != null)
+            {
+                 valorFrete = decimal.Parse(valorFreteString);
+                //remove valor do frete da sessão
+                HttpContext.Session.Remove("ValorFrete");
+            }
+            //adiciona o valor do frete no precoTotalPEdido
+            precoTotalPedido += valorFrete;
             //aplica desconto
-            precoTotalPedido = precoTotalPedido - desconto;
+            precoTotalPedido -= desconto;
             
             if (precoTotalPedido < 0)
             {
@@ -231,14 +252,19 @@ namespace SwitchSelect.Controllers
                 _context.SaveChanges();
 
                 precoTotalPedido = 0;
-            }
 
+                ViewBag.MensagemTroco = "Seu cupom de troco foi gerado no valor de R$" + valorTroco.ToString("c2");
+            }
+           
             // Verifica se o valor total após o desconto é menor que 10
             bool pagamentoAbaixoDezReaisPermitido = precoTotalPedido < 10;
 
             ViewBag.PrecoTotalPedido = precoTotalPedido;
             ViewBag.TotalItensPedido = totalItensPedido;
             ViewBag.PagamentoAbaixoDezReaisPermitido = pagamentoAbaixoDezReaisPermitido ? "True" : "False";
+            ViewBag.EnderecoSelecionado = enderecoSelecionado;
+
+           
 
             if (Cpf != null)
             {
@@ -250,7 +276,15 @@ namespace SwitchSelect.Controllers
                 }
                 //colocar cliente na sessao
                 _clienteService.GuardarClienteNaSessao(cliente);
-                return View("Checkout", cliente);
+
+                //se cupom for inválido retorna a checkout
+                if (cupom == null)
+                {
+                    ViewBag.MensagemErroCupom = "Cupom inválido";
+                    return View("Checkout", cliente);
+                }
+
+                return View("CheckoutCupomAplicado", cliente);
             }
             else
             {

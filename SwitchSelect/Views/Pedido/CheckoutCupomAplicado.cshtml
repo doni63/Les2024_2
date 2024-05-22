@@ -2,15 +2,26 @@
 
 <h2>Checkout</h2>
 
-@{
-    var mensagemTroco = ViewBag.MensagemTroco as string;
-    var mensagemCupom = ViewBag.MensagemErroCupom as string;
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var mensagemTroco = '@ViewBag.MensagemTroco';
+            if (mensagemTroco) {
+                alert(mensagemTroco);
+            }
+
+            // Marcar o endereço selecionado automaticamente
+            var enderecoIdSelecionado = '@ViewBag.EnderecoIdSelecionado';
+            if (enderecoIdSelecionado) {
+                $('#endereco').val(enderecoIdSelecionado);
+            }
+        });
+    </script>
 }
 
 <div>
     <form asp-action="Checkout" asp-controller="Pedido" method="post" onsubmit="return onSubmitForm()">
         <input type="hidden" id="pagamentoAbaixoDezReaisPermitido" value="@ViewBag.PagamentoAbaixoDezReaisPermitido" />
-        <input id="mensagemCupomInput" value="@mensagemCupom" hidden />
         <div class="row">
             <div class="col-sm-1">
                 <label asp-for="Nome"></label>
@@ -22,7 +33,10 @@
             <!--Valores Hidden-->
             <div class="">
                 <strong>
-                    
+                    <input name="precoTotalPedido" value="@ViewBag.PrecoTotalPedido" hidden />
+                    <input name="totalItensPedido" value="@ViewBag.TotalItensPedido" hidden />
+                    <input name="cupomAplicado" value="@ViewBag.Cupom" hidden />
+                    <input type="hidden" id="pagamentoAbaixoDezReaisPermitido" value="@ViewBag.PagamentoAbaixoDezReaisPermitido" />
                 </strong>
             </div>
         </div>
@@ -40,20 +54,18 @@
         <div class="row">
             <div class="col-sm-6">
                 <h4>Dados de Endereço</h4>
-                <select id="endereco" name="enderecoId" class="form-select">
-                    <option value="">Selecione um endereço</option>
-                    @foreach (var endereco in Model.Enderecos)
+                <div>
+                    @if (ViewBag.EnderecoSelecionado != null)
                     {
-                        <option value="@endereco.Id" data-cep="@endereco.CEP">
-                            @endereco.Logradouro,
-                            N°. @endereco.Numero, CEP. @endereco.CEP,
-                            @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao
-                        </option>
+                        var endereco = ViewBag.EnderecoSelecionado;
+                        <p>@endereco.Logradouro, N°. @endereco.Numero, CEP. @endereco.CEP, @endereco.Bairro.Cidade.Descricao, @endereco.Bairro.Cidade.Estado.Descricao</p>
+                        <input type="hidden" id="endereco" name="enderecoId" value="@endereco.Id" />
                     }
-                </select>
-
-                <a asp-controller="Endereco" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
-                   class="btn btn-primary">+ Endereço</a>
+                    else
+                    {
+                        <p>Nenhum endereço selecionado</p>
+                    }
+                </div>
             </div>
 
             <div class="col-sm-6">
@@ -75,7 +87,6 @@
                             </div>
                         </div>
                     </div>
-
                 }
                 <a asp-controller="Cartao" asp-action="Create" asp-route-clienteId="@Model.Id" asp-route-origem="Pedido"
                    class="btn btn-primary">+ Cartão</a>
@@ -97,18 +108,10 @@
         </div>
         <div class="row">
             <div class="col-auto">
-                <label class="col-form-label">Frete:</label>
-            </div>
-            <div class="col-auto">
-                <input class="form-control" name="frete" id="frete" readonly />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-auto">
                 <label class="col-form-label">Total:</label>
             </div>
             <div class="col-auto">
-                <input class="form-control" name="total" id="total" readonly />
+                <input class="form-control" name="total" id="total" value="@ViewBag.PrecoTotalPedido" readonly />
             </div>
         </div>
 
@@ -131,7 +134,7 @@
     <form asp-controller="Pedido" asp-action="AplicarCupom" id="formAplicarCupom" method="post" onsubmit="return validarAplicacaoCupom()">
         <input asp-for="Cpf" hidden />
         <input type="hidden" name="total" id="totalInput" value="@ViewBag.PrecoTotalPedido" />
-        <input name="mensagemTrocoInput" id="mensagemTrocoInput" value="@mensagemTroco" hidden/>
+       
         <div class="col-sm-4">
             <div class="input-group">
                 <input type="text" name="codigoCupom" id="codigoCupom" class="form-control" placeholder="Código do Cupom">
@@ -141,6 +144,4 @@
     </form>
 
 </div>
-
-<!--Java script-->
 <script src="~/js/checkout.js"></script>

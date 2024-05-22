@@ -51,7 +51,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.StatusPagamento)
                 </td>
-                @if (item.StatusPagamento.Equals("Processando"))
+                @if (item.StatusPagamento.Equals("Aguardando aprovação"))
                 {
                     <td>
                         <a class="btn btn-success" asp-controller="Pedido" asp-action="AprovarPagamento"
