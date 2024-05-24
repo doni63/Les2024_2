@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MySqlX.XDevAPI;
 using Newtonsoft.Json;
@@ -104,6 +105,9 @@ namespace SwitchSelect.Controllers
         {
             //recuperar valor de frete da sessão para acrescentar no pedidoTotal
             var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            //remove valor do frete da sessão
+            HttpContext.Session.Remove("ValorFrete");
+
             decimal valorFrete = 0m;
             if (valorFreteString != null)
             {
@@ -153,7 +157,12 @@ namespace SwitchSelect.Controllers
                     cupom.Status = "Usado";
                     cupom.ClienteId = cliente.Id;
                     _context.SaveChanges();
-                    pedido.Desconto = cupom.Valor;
+
+                    var totalDesconto = HttpContext.Session.GetObjectFromJson<List<DescontoAplicado>>("DescontosAplicados")?.Sum(d => d.ValorDesconto) ?? 0;
+
+                    pedido.Desconto = totalDesconto;
+
+                    HttpContext.Session.Remove("DescontosAplicados");//retira lista de desconto da sessão
                 }
             }
             ModelState.Remove("cupomAplicado");
@@ -188,19 +197,35 @@ namespace SwitchSelect.Controllers
         {
             var cliente = _clienteRepositorio.GetPorCpf(Cpf);
             // Verifica se o valor total já é zero
-           
+
             ViewBag.Cupom = codigoCupom;
             //recebendo valor do desconto
             var cupom = _context.Cupons.FirstOrDefault(c => c.CodigoCupom == codigoCupom);
             decimal desconto = 0m;
 
+
             //adicionando o valor do desconto na variavel desconto
             if (cupom != null && cupom.Status.Equals("Valido"))
             {
                 desconto = cupom.Valor;
+                cupom.Status = "Usado";
+                _context.Cupons.Update(cupom);
+
+                //criar uma lista na sessão com o valor aplicado do cupom para calcular  total de desconto depois
+                // Recupera a lista de descontos da sessão, se existir
+                var descontosAplicados = HttpContext.Session.GetObjectFromJson<List<DescontoAplicado>>("DescontosAplicados") ?? new List<DescontoAplicado>();
+
+                // Adiciona o novo desconto à lista
+                descontosAplicados.Add(new DescontoAplicado { CodigoCupom = codigoCupom, ValorDesconto = desconto });
+
+                // Armazena a lista atualizada na sessão
+                HttpContext.Session.SetObjectAsJson("DescontosAplicados", descontosAplicados);
+
+                // Calcula o total de desconto aplicado
+                decimal totalDesconto = descontosAplicados.Sum(d => d.ValorDesconto);
             }
 
-            //atualizar valor com desconto
+            //atualizar valor com desconto 
 
             int totalItensPedido = 0;
             decimal precoTotalPedido = total;
@@ -224,47 +249,42 @@ namespace SwitchSelect.Controllers
             //recuperar valor do cep para buscar enderecoId
             var cep = HttpContext.Session.GetString("CepSession");
             var enderecoSelecionado = _context.Enderecos.FirstOrDefault(e => e.CEP == cep);
-           
+
             if (valorFreteString != null)
             {
-                 valorFrete = decimal.Parse(valorFreteString);
-                //remove valor do frete da sessão
-                HttpContext.Session.Remove("ValorFrete");
+                valorFrete = decimal.Parse(valorFreteString);
+               
             }
             //adiciona o valor do frete no precoTotalPEdido
             precoTotalPedido += valorFrete;
             //aplica desconto
             precoTotalPedido -= desconto;
-            
+
+           
+
             if (precoTotalPedido < 0)
             {
-
                 var valorTroco = precoTotalPedido * (-1);
-                cupom.Status = "Usado";
-                _context.Cupons.Update(cupom);
-
                 var troco = new Cupom();
                 troco.CodigoCupom = troco.GerarCodigoCupom();
                 troco.Valor = valorTroco;
                 troco.Status = "Valido";
                 troco.ClienteId = cliente.Id;
                 _context.Cupons.Add(troco);
-                _context.SaveChanges();
-
-                precoTotalPedido = 0;
+                 precoTotalPedido = 0;
 
                 ViewBag.MensagemTroco = "Seu cupom de troco foi gerado no valor de R$" + valorTroco.ToString("c2");
             }
-           
+            _context.SaveChanges(); // confirma alterações no banco
+
             // Verifica se o valor total após o desconto é menor que 10
             bool pagamentoAbaixoDezReaisPermitido = precoTotalPedido < 10;
-
             ViewBag.PrecoTotalPedido = precoTotalPedido;
             ViewBag.TotalItensPedido = totalItensPedido;
             ViewBag.PagamentoAbaixoDezReaisPermitido = pagamentoAbaixoDezReaisPermitido ? "True" : "False";
             ViewBag.EnderecoSelecionado = enderecoSelecionado;
 
-           
+
 
             if (Cpf != null)
             {

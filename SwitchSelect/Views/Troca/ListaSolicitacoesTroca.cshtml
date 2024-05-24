@@ -33,7 +33,7 @@
                 {
                     <td>
                         <a class="btn btn-success" asp-controller="Troca" asp-action="AprovarTrocaProduto"
-                           asp-route-jogoId="@solicitacao.JogoId">Aprovar </a> |
+                           asp-route-jogoId="@solicitacao.JogoId" asp-route-pedidoId="@solicitacao.PedidoId">Aprovar</a> |
                         <a class="btn btn-danger" asp-controller="Troca" asp-action="NegarTrocaProduto"
                            asp-route-jogoId="@solicitacao.JogoId">Reprovar troca</a>
                     </td>

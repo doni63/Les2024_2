@@ -44,19 +44,24 @@ namespace SwitchSelect.Controllers
                     detalhe.Restricao = "EM TROCA";
                     _context.Update(detalhe);
                 }
-                var trocaJogo = new TrocaProduto();
-                trocaJogo.Motivo = motivo;
-                trocaJogo.JogoId = jogoId;
-                trocaJogo.NomeJogo = detalhe.NomeJogo;
-                trocaJogo.PedidoId = pedido.Id;
-                trocaJogo.Status = "TROCA SOLICITADA";
-                trocaJogo.DataSolicitacao = DateTime.Now;
-                trocaJogo.Qtd = quantidade;
-                trocaJogo.Valor = jogoTroca.Preco * quantidade;
-                trocaJogo.ClienteId = cliente.Id;
+                //verifica se tem jogo para troca
+                if (motivo != null)
+                {
+                    var trocaJogo = new TrocaProduto();
+                    trocaJogo.Motivo = motivo;
+                    trocaJogo.JogoId = jogoId;
+                    trocaJogo.NomeJogo = detalhe.NomeJogo;
+                    trocaJogo.PedidoId = pedido.Id;
+                    trocaJogo.Status = "TROCA SOLICITADA";
+                    trocaJogo.DataSolicitacao = DateTime.Now;
+                    trocaJogo.Qtd = quantidade;
+                    trocaJogo.Valor = jogoTroca.Preco * quantidade;
+                    trocaJogo.ClienteId = cliente.Id;
 
-                _context.TrocaProdutos.Add(trocaJogo);
-                _context.SaveChanges();
+                    _context.TrocaProdutos.Add(trocaJogo);
+                    _context.SaveChanges();
+                }
+                
             }
 
             //mensagem após solicitar troca
@@ -99,12 +104,16 @@ namespace SwitchSelect.Controllers
             return View("~/Views/Mensagem/Mensagem.cshtml");
         }
 
-        public IActionResult AprovarTrocaProduto(int jogoId)
+        public IActionResult AprovarTrocaProduto(int jogoId, int pedidoId)
         {
-            //buscando detalhes de produto para alterar restrição
-            var detalhe = _context.PedidoDetalhes.FirstOrDefault(d => d.JogoId == jogoId);
-            //buscando trocaProduto para alterar status
-            var troca = _context.TrocaProdutos.FirstOrDefault(t => t.JogoId == jogoId);
+            // Buscar o detalhe do pedido específico pelo pedidoId e jogoId
+            var detalhe = _context.PedidoDetalhes
+                                  .Include(d => d.Pedido)
+                                  .FirstOrDefault(d => d.PedidoId == pedidoId && d.JogoId == jogoId);
+
+
+            // Buscar a troca específica relacionada ao pedidoId e jogoId
+            var troca = _context.TrocaProdutos.FirstOrDefault(t => t.PedidoId == pedidoId && t.JogoId == jogoId);
 
             //lista de trocas solicitadas
             var trocas = _context.TrocaProdutos.Include(c => c.Cliente).ToList();
