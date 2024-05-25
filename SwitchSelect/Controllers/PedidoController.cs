@@ -104,9 +104,9 @@ namespace SwitchSelect.Controllers
         public IActionResult Checkout(int enderecoId, string cartoesIds, decimal total, int totalItensPedido, string cupomAplicado)
         {
             //recuperar valor de frete da sessão para acrescentar no pedidoTotal
-            var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            var valorFreteString = HttpContext.Session.GetString("Frete");
             //remove valor do frete da sessão
-            HttpContext.Session.Remove("ValorFrete");
+            HttpContext.Session.Remove("Frete");
 
             decimal valorFrete = 0m;
             if (valorFreteString != null)
@@ -245,15 +245,17 @@ namespace SwitchSelect.Controllers
             }
             //recuperar valor de frete da sessão para acrescentar no pedidoTotal
             var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            //remove o valor do frete da sessao
+            HttpContext.Session.Remove("ValorFrete");
             decimal valorFrete = 0m;
             //recuperar valor do cep para buscar enderecoId
             var cep = HttpContext.Session.GetString("CepSession");
             var enderecoSelecionado = _context.Enderecos.FirstOrDefault(e => e.CEP == cep);
-
+           
             if (valorFreteString != null)
             {
                 valorFrete = decimal.Parse(valorFreteString);
-               
+                HttpContext.Session.SetString("Frete", valorFreteString);
             }
             //adiciona o valor do frete no precoTotalPEdido
             precoTotalPedido += valorFrete;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -60,9 +61,12 @@ namespace SwitchSelect.Controllers
             if (ModelState.IsValid)
             {
                 var codigoCupom = new Cupom();
-                string codigo = codigoCupom.GerarCodigoCupom();
-
-                cupom.CodigoCupom = codigo;
+                var codigo = new StringBuilder();
+                codigo.Append("promo-");
+                codigo.Append("R$" + cupom.Valor);
+                codigo.Append("-");
+                codigo.Append(codigoCupom.GerarCodigoCupom());
+                cupom.CodigoCupom = codigo.ToString();
 
                 cupom.Status = "Valido";
 

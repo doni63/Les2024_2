@@ -11,24 +11,19 @@ public class Cupom
     public int Id { get; set; }
     public string? CodigoCupom { get; set; }
 
-    [Required(ErrorMessage ="Adiconar valor do cupom")]
+    [Required(ErrorMessage = "Adiconar valor do cupom")]
     public decimal Valor { get; set; }
     public string? Status { get; set; }
     public int? ClienteId { get; set; }
 
-    public  string GerarCodigoCupom()
+    public string GerarCodigoCupom()
     {
         const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         var random = new Random();
         var codigo = new StringBuilder();
 
-        for (int i = 0; i < 12 ; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if (i > 0 && i % 4 == 0)
-            {
-                codigo.Append('-'); 
-            }
-
             int index = random.Next(caracteres.Length);
             codigo.Append(caracteres[index]);
         }

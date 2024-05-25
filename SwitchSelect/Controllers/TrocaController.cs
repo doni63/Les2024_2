@@ -5,6 +5,7 @@ using SwitchSelect.Dto;
 using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
+using System.Text;
 
 namespace SwitchSelect.Controllers
 {
@@ -219,7 +220,12 @@ namespace SwitchSelect.Controllers
                 //criando cupom de troca
                 var cupom = new Cupom();
                 //gerando código de cupom
-                cupom.CodigoCupom = cupom.GerarCodigoCupom(); 
+                var codigo = new StringBuilder();
+                codigo.Append("troca-");
+                string valor = troca.Valor.ToString("C2");
+                codigo.Append(valor);
+                codigo.Append("-" + cupom.GerarCodigoCupom());
+                cupom.CodigoCupom = codigo.ToString();
                 //status de cupom
                 cupom.Status = "Valido";
                 cupom.Valor = troca.Valor;

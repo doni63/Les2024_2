@@ -133,7 +133,7 @@
 
     <form asp-controller="Pedido" asp-action="AplicarCupom" id="formAplicarCupom" method="post" onsubmit="return validarAplicacaoCupom()">
         <input asp-for="Cpf" hidden />
-        <input type="hidden" name="total" id="totalInput" value="@ViewBag.PrecoTotalPedido" />
+        <input type="hidden" name="total"  value="@ViewBag.PrecoTotalPedido" />
        
         <div class="col-sm-4">
             <div class="input-group">
