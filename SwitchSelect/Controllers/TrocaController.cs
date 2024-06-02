@@ -128,9 +128,8 @@ namespace SwitchSelect.Controllers
                 _context.Update(detalhe);
                 _context.SaveChanges();
             }
-            ViewBag.Titulo = "Troca aprovada";
-            ViewBag.Mensagem = "A troca foi aprovada. Aguardando envio do produto.";
-            return View("~/Views/Mensagem/Mensagem.cshtml");
+           
+            return View("~/Views/Troca/ListaSolicitacoesTroca.cshtml",trocas);
         }
 
         public IActionResult ConfirmarEnvioProduto(int pedidoId, int jogoId)

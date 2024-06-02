@@ -1,0 +1,103 @@
+﻿<title>Gráfico de vendas</title>
+
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
+<label for="dataInicial">Data Inicial:</label>
+<input type="date" id="dataInicial" name="dataInicial">
+
+<label for="dataFinal">Data Final:</label>
+<input type="date" id="dataFinal" name="dataFinal">
+
+<button onclick="CarregaDados()">Atualizar Gráfico</button>
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(CarregaDados);
+
+    function CarregaDados() {
+        var dataInicial = document.getElementById('dataInicial').value;
+        var dataFinal = document.getElementById('dataFinal').value;
+
+        $.ajax({
+            url: '/Grafico/VendasJogos',
+            data: { dataInicial: dataInicial, dataFinal: dataFinal },
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                GraficoVendasJogos(data);
+            }
+        });
+    }
+
+
+    function GraficoVendasJogos(data) {
+        var dataArray = [
+            ['Data'] // Cabeçalho para a primeira coluna (mes/ano)
+        ];
+
+        // Adicionar cabeçalhos para cada jogo
+        var jogos = [];
+        data.forEach(function (item) {
+            if (!jogos.includes(item.jogoNome)) {
+                dataArray[0].push(item.jogoNome);
+                jogos.push(item.jogoNome);
+            }
+        });
+
+        // Mapear vendas de cada jogo para a série correspondente
+        var linhasPorMes = {};
+        data.forEach(function (item) {
+            if (!linhasPorMes[item.dataVenda]) {
+                linhasPorMes[item.dataVenda] = {};
+            }
+            linhasPorMes[item.dataVenda][item.jogoNome] = item.jogosValor;
+        });
+
+        for (var mesAno in linhasPorMes) {
+            var row = [new Date(mesAno).toLocaleDateString()]; // Adicionar a data ao início da linha
+            jogos.forEach(function (jogo) {
+                var valor = linhasPorMes[mesAno][jogo] || 0;
+                row.push(valor); // Adicionar o valor de venda deste jogo neste mês/ano
+            });
+            dataArray.push(row);
+        }
+
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Vendas por jogo',
+            chartArea: {
+                width: '70%'
+            },
+            hAxis: {
+                title: 'Mês/Ano',
+                format: 'MMM/yyyy'
+            },
+            vAxis: {
+                title: 'Valores(R$)'
+            },
+            annotations: {
+                textStyle: {
+                    fontSize: 12,
+                    bold: true,
+                    color: '#000', // Cor do texto da anotação
+                }
+            },
+            legend: 'none', // Ocultar a legenda
+            series: {
+                0: { lineWidth: 2 } // Personalizar a espessura da linha
+            }
+        };
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+
+
+</script>
+

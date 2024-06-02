@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZPiY7pzPxePPTPp1AvhzVlLEHFdp77hMH5lDwE2QcqyY/ZuxMPzkaNXOfHDt5lsATTIEA+ghcex6GmvP6A5IvA==",
+  "dgSpecHash": "qtuYg93P9IS/QUcPkkehUOF1Srlw8gLB2DiU6fxisjkEyALwjr7VPjes47pTYOOTzWYIFbGLuVJnIwMO1ra86w==",
   "success": true,
   "projectFilePath": "D:\\ProgramacaoCsharp\\MinhasAplicacoes\\projetoLes2024\\SwitchSelect\\SwitchSelect\\SwitchSelect.csproj",
   "expectedPackageFiles": [
@@ -123,6 +123,7 @@
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.9.0\\microsoft.testplatform.objectmodel.17.9.0.nupkg.sha512",
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.testplatform.testhost\\17.9.0\\microsoft.testplatform.testhost.17.9.0.nupkg.sha512",
+    "C:\\Users\\doniz\\.nuget\\packages\\microsoft.typescript.msbuild\\5.4.4\\microsoft.typescript.msbuild.5.4.4.nupkg.sha512",
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\8.0.2\\microsoft.visualstudio.web.codegeneration.8.0.2.nupkg.sha512",
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\8.0.2\\microsoft.visualstudio.web.codegeneration.core.8.0.2.nupkg.sha512",
     "C:\\Users\\doniz\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.design\\8.0.2\\microsoft.visualstudio.web.codegeneration.design.8.0.2.nupkg.sha512",

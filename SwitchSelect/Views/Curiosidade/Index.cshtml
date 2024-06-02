@@ -4,15 +4,23 @@
 <html>
 <head>
     <title>Curiosidades</title>
-    
+
 </head>
 <body>
-    <div class="container">
-        <h1>Curiosidades</h1>
-        <div>
-            <p>@Model</p>
-            <a href="javascript:history.back()" class="btn btn-primary">Voltar</a>
+    <form asp-action="ObterCompletions" method="post">
+        <input name="nome" value="@ViewBag.NomeJogo" hidden/>
+        <div class="container">
+            <h1>Curiosidades</h1>
+            <div>
+                <p>@Model</p>
+                <label>Faça uma pergunta sobre o jogo @ViewBag.NomeJogo</label>
+                <input name="pergunta"/>
+                <input type="submit" value="Enviar" />
+            </div>
         </div>
-    </div>
+       
+    </form>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Voltar</a>
 </body>
+
 </html>

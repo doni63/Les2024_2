@@ -2,18 +2,22 @@
     ViewData["Title"] = "Admin";
 }
 <h2>@ViewData["Title"]</h2>
-<a asp-controller="Admin" asp-action="AdminListaCliente">Gerenciar Clientes</a>
-<br />
-<a asp-controller="Admin" asp-action="AdicionarProduto">Adicionar produto</a>
-<br />
-<a asp-controller="Admin" asp-action="AdicionarCategoria">Adicionar Categoria</a>
-<br />
-<a asp-controller="Cupom" asp-action="Index">Cupom</a>
-<br>
-<a asp-controller="Admin" asp-action="ListaVendas">Vendas</a>
-<br />
-<a asp-controller="Pedido" asp-action="ListaPagamentos">Verificar pagamentos</a>
-<br />
-<a asp-controller="Troca" asp-action="ListaSolicitacoesTroca">Solicitações de troca</a>
-<br />
-<a asp-controller="Devolucao" asp-action="ListaDevolucoes">Devoluções</a>
+<div class="row">
+    <a asp-controller="Admin" asp-action="AdminListaCliente">Gerenciar Clientes</a>
+    <br />
+    <a asp-controller="Admin" asp-action="AdicionarProduto">Adicionar produto</a>
+    <br />
+    <a asp-controller="Admin" asp-action="AdicionarCategoria">Adicionar Categoria</a>
+    <br />
+    <a asp-controller="Cupom" asp-action="Index">Cupom</a>
+    <br>
+    <a asp-controller="Admin" asp-action="ListaVendas">Vendas</a>
+    <br />
+    <a asp-controller="Pedido" asp-action="ListaPagamentos">Verificar pagamentos</a>
+    <br />
+    <a asp-controller="Troca" asp-action="ListaSolicitacoesTroca">Solicitações de troca</a>
+    <br />
+    <a asp-controller="Devolucao" asp-action="ListaDevolucoes">Devoluções</a>
+    <br />
+    <a asp-controller="Grafico" asp-action="Index">Grafico de vendas</a>
+</div>

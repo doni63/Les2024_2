@@ -22,9 +22,6 @@ public class PedidoRepositorio : IPedidoRepositorio
 
         var carrinhoCompraItens = _carrinhoCompra.CarrinhosCompraItens;
 
-        //criando código único do produto vendido
-
-
         foreach (var carrinhoItens in carrinhoCompraItens)
         {
 
@@ -34,6 +31,7 @@ public class PedidoRepositorio : IPedidoRepositorio
                 JogoId = carrinhoItens.Jogo.Id,
                 Preco = carrinhoItens.Jogo.Preco,
                 NomeJogo = carrinhoItens.Jogo.Nome,
+                DataCompra = DateTime.Now,
                 ImagemUrl = carrinhoItens.Jogo.ImagemUrl,
                 PedidoId = pedido.Id,
                 Restricao = "Nenhum",

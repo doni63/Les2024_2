@@ -32,6 +32,7 @@ public class EnderecoController : Controller
         {
             Id = e.Id,
             ClienteID = clienteId,
+            TipoLogradouro = e.TipoLogradouro,
             Logradouro = e.Logradouro,
             Numero = e.Numero,
             Complemento = e.Complemento,
@@ -113,9 +114,20 @@ public class EnderecoController : Controller
     [HttpPost, ActionName("Delete")]
     public async Task<IActionResult> DeleteConfirmedAsync(int id, int clienteId)
     {
-        await _enderecoService.DeleteEndereco(id);
-        // Redireciona para a lista de endereços do cliente, passando o clienteId
-        return RedirectToAction(nameof(EnderecoList), new { clienteId = clienteId });
+        try
+        {
+            await _enderecoService.DeleteEndereco(id);
+            // Redireciona para a lista de endereços do cliente, passando o clienteId
+            return RedirectToAction(nameof(EnderecoList), new { clienteId = clienteId });
+        }
+        catch (Exception ex)
+        {
+            ViewBag.Titulo = "Erro ao deletar endereço";
+            ViewBag.Mensagem = "Não foi possível deletar esse endereço.Entre em contato com nossa equipe";
+           
+            return View("~/Views/Mensagem/Mensagem.cshtml");
+        }
+       
     }
 
     public IActionResult Edit(int? id, int clienteId)

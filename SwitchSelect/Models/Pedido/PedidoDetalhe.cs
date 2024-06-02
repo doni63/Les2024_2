@@ -18,6 +18,11 @@ public class PedidoDetalhe
     [Display(Name = "Jogo")]
     public string? NomeJogo { get; set; }
 
+    [Display(Name = "Data da compra")]
+    [DataType(DataType.Text)]
+    [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
+    public DateTime DataCompra { get; set; }
+
     [Display(Name = "Codigo de venda do produto")]
     public virtual Jogo? Jogo { get; set; }
     public virtual Pedido? Pedido { get; set; }

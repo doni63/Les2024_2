@@ -9,6 +9,7 @@ using SwitchSelect.Models;
 using SwitchSelect.Models.ViewModels;
 using SwitchSelect.Repositorios.Interfaces;
 using SwitchSelect.Service;
+using System.Text;
 
 namespace SwitchSelect.Controllers
 {
@@ -104,12 +105,17 @@ namespace SwitchSelect.Controllers
         public IActionResult Checkout(int enderecoId, string cartoesIds, decimal total, int totalItensPedido, string cupomAplicado)
         {
             //recuperar valor de frete da sessão para acrescentar no pedidoTotal
-            var valorFreteString = HttpContext.Session.GetString("Frete");
-            //remove valor do frete da sessão
-            HttpContext.Session.Remove("Frete");
-
+            var valorFreteString = HttpContext.Session.GetString("ValorFrete");
+            
             decimal valorFrete = 0m;
-            if (valorFreteString != null)
+            if (valorFreteString == null)
+            {
+                valorFreteString = HttpContext.Session.GetString("Frete");
+                valorFrete = decimal.Parse(valorFreteString);
+                //remove valor do frete da sessão
+                HttpContext.Session.Remove("Frete");
+            }
+            else
             {
                 valorFrete = decimal.Parse(valorFreteString);
             }
@@ -144,7 +150,8 @@ namespace SwitchSelect.Controllers
                 Pagamentos = pagamentos,
                 Status = "Processando",
                 TotalItensPedido = totalItensPedido,
-                PedidoTotal = total
+                PedidoTotal = total,
+                DataCompra = DateTime.Now
 
             };
 
@@ -268,7 +275,13 @@ namespace SwitchSelect.Controllers
             {
                 var valorTroco = precoTotalPedido * (-1);
                 var troco = new Cupom();
-                troco.CodigoCupom = troco.GerarCodigoCupom();
+                var codigo = new StringBuilder();
+
+                codigo.Append("troco-");
+                codigo.Append(valorTroco.ToString("C2"));
+                codigo.Append("-" + troco.GerarCodigoCupom());
+                troco.CodigoCupom = codigo.ToString();
+
                 troco.Valor = valorTroco;
                 troco.Status = "Valido";
                 troco.ClienteId = cliente.Id;

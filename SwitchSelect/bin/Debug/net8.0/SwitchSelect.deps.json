@@ -17,6 +17,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "8.0.4",
           "Microsoft.Extensions.Options": "8.0.2",
           "Microsoft.NET.Test.Sdk": "17.9.0",
+          "Microsoft.TypeScript.MSBuild": "5.4.4",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.2",
           "MySql.EntityFrameworkCore": "8.0.0",
           "OpenAI": "1.11.0",
@@ -1733,6 +1734,7 @@
           }
         }
       },
+      "Microsoft.TypeScript.MSBuild/5.4.4": {},
       "Microsoft.VisualStudio.Web.CodeGeneration/8.0.2": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
@@ -3335,6 +3337,13 @@
       "sha512": "sha512-Spmg7Wx49Ya3SxBjyeAR+nQpjMTKZwTwpZ7KyeOTIqI/WHNPnBU4HUvl5kuHPQAwGWqMy4FGZja1HvEwvoaDiA==",
       "path": "microsoft.testplatform.testhost/17.9.0",
       "hashPath": "microsoft.testplatform.testhost.17.9.0.nupkg.sha512"
+    },
+    "Microsoft.TypeScript.MSBuild/5.4.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v7rhit0iI/xf8PAuUlkJoBHRGV6dO3Sv/J9y3h6HFrCMOb90w0RYUp4Cb4xu2zFhDfrG9T62Ut5Lar39X/VrTA==",
+      "path": "microsoft.typescript.msbuild/5.4.4",
+      "hashPath": "microsoft.typescript.msbuild.5.4.4.nupkg.sha512"
     },
     "Microsoft.VisualStudio.Web.CodeGeneration/8.0.2": {
       "type": "package",

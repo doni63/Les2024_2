@@ -40,6 +40,11 @@ public class Pedido
     [Display(Name = "Itens no Pedido")]
     public int TotalItensPedido { get; set; }
 
+    [Display(Name = "Data da compra")]
+    [DataType(DataType.Text)]
+    [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
+    public DateTime DataCompra { get; set; }
+
     [Display(Name = "Data de envio")]
     [DataType(DataType.Text)]
     [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
