@@ -26,7 +26,8 @@ public class CuriosidadeController : Controller
         }
         else if(pergunta == null)
         {
-            string prompt = $"Se apresente como o personagem principal do jogo {nome} e fale um segredo";
+            string prompt = $"Assuma o papel do personagem principal do jogo {nome}. Primeiro, apresente-se e forneça uma breve descrição do jogo, incluindo o gênero e o desenvolvedor. Em seguida, forneça um resumo do enredo e compartilhe um segredo sobre sua jornada.";
+
 
             var cliente = new OpenAIAPI(apiKey);
 
@@ -42,7 +43,7 @@ public class CuriosidadeController : Controller
         }
         else
         {
-            string prompt = $"Responda a pergunta {pergunta}. Se a pergunta for de assuntos diferente de jogos, direcione a pessoa a falar sobre jogos, se for citado outro jogo diferente de {nome} responda a verdade, mas demonstrando ciúmes e mostrando a vantagem do jogo {nome}";
+            string prompt = $"Responda à pergunta '{pergunta}'. Se a pergunta for sobre assuntos não relacionados a jogos, gentilmente redirecione a conversa para falar sobre jogos. Se a pergunta mencionar um jogo diferente de {nome}, responda honestamente, mas demonstre ciúmes e destaque as vantagens únicas de {nome}. Certifique-se de manter um tom envolvente e divertido.";
 
             var cliente = new OpenAIAPI(apiKey);
 

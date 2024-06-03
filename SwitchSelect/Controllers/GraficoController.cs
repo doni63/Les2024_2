@@ -12,6 +12,26 @@ public class GraficoController : Controller
         _graficoVendas = graficoVendas ?? throw new ArgumentNullException(nameof(graficoVendas));
     }
 
+    [HttpGet]
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public JsonResult VendasJogosCategoria(DateTime? dataInicial, DateTime? dataFinal)
+    {
+        DateTime inicio = dataInicial ?? DateTime.Now.AddMonths(-12);
+        DateTime fim = dataFinal ?? DateTime.Now;
+
+        var jogoVendasTotais = _graficoVendas.GetVendasCategoria(inicio, fim);
+        return Json(jogoVendasTotais);
+    }
+
+    [HttpGet]
+    public IActionResult GraficoProduto()
+    {
+        return View();
+    }
     public JsonResult VendasJogos(DateTime? dataInicial, DateTime? dataFinal)
     {
         DateTime inicio = dataInicial ?? DateTime.Now.AddMonths(-12);
@@ -19,11 +39,5 @@ public class GraficoController : Controller
 
         var jogoVendasTotais = _graficoVendas.GetVendas(inicio, fim);
         return Json(jogoVendasTotais);
-    }
-
-    [HttpGet]
-    public IActionResult Index()
-    {
-        return View();
     }
 }

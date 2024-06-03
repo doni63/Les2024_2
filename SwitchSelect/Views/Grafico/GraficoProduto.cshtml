@@ -10,8 +10,7 @@
 
 <button onclick="CarregaDados()">Aplicar Filtro</button>
 
-<button  onclick="location.href='@Url.Action("GraficoProduto", "Grafico")'">Grafico por produto</button>
-
+<button onclick="location.href='@Url.Action("Index", "Grafico")'">Grafico por categoria</button>
 
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
@@ -25,7 +24,7 @@
         var dataFinal = document.getElementById('dataFinal').value;
 
         $.ajax({
-            url: '/Grafico/VendasJogosCategoria',
+            url: '/Grafico/VendasJogos',
             data: { dataInicial: dataInicial, dataFinal: dataFinal },
             dataType: "json",
             type: "GET",
@@ -93,8 +92,8 @@
                 }
             },
             legend: {
-                position: 'top', // Posição da legenda
-                alignment: 'center'
+                position: 'rigth', // Posição da legenda
+               
             },
             series: {
                 0: { lineWidth: 2 } // Personalizar a espessura da linha
@@ -103,7 +102,5 @@
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
     }
-
-
 </script>
 
