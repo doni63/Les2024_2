@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SwitchSelect.Models.ViewModels;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 public class MesValidadeAttribute : ValidationAttribute
 {
@@ -7,19 +9,33 @@ public class MesValidadeAttribute : ValidationAttribute
         ErrorMessage = "O mês de validade deve ser maior que o mês atual.";
     }
 
-    public override bool IsValid(object value)
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
-        if (value is null)
+        var model = (CartaoViewModel)validationContext.ObjectInstance;
+
+        if (model.MesValidade < 1 || model.MesValidade > 12)
         {
-            return true; // Se o valor for nulo, considera válido (outros validadores podem verificar isso)
+            return new ValidationResult("O mês de validade deve estar entre 1 e 12.");
         }
 
-        if (value is int mes)
+        if (model.AnoValidade == DateTime.Now.Year)
         {
-            // Verifica se o mês é válido (entre 1 e 12) e se é maior que o mês atual
-            return mes >= 1 && mes <= 12 && DateTime.Now.Month <= mes;
+            if (model.MesValidade >= DateTime.Now.Month)
+            {
+                return ValidationResult.Success;
+            }
+            else
+            {
+                return new ValidationResult(ErrorMessage);
+            }
         }
-
-        return false; // Se o valor não for um inteiro, considera inválido
+        else if (model.AnoValidade > DateTime.Now.Year)
+        {
+            return ValidationResult.Success;
+        }
+        else
+        {
+            return new ValidationResult("O ano de validade deve ser maior ou igual ao ano atual.");
+        }
     }
 }

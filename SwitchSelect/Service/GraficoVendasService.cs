@@ -15,15 +15,15 @@ public class GraficoVendasService
     public List<JogoGrafico> GetVendas(DateTime dataInicial, DateTime dataFinal)
     {
         var vendasPorJogo = (from pd in context.PedidoDetalhes
+                             join j in context.Jogos on pd.JogoId equals j.Id
                              where pd.DataCompra >= dataInicial && pd.DataCompra <= dataFinal
-                             
-                             group pd by new { pd.JogoId, pd.NomeJogo, MesAno = new { pd.DataCompra.Year, pd.DataCompra.Month } }
+                             group new { pd, j } by new { j.Categoria.Nome, MesAno = new { pd.DataCompra.Year, pd.DataCompra.Month } }
                              into g
                              select new
                              {
                                  MesAno = new DateTime(g.Key.MesAno.Year, g.Key.MesAno.Month, 1),
-                                 JogoNome = g.Key.NomeJogo,
-                                 JogosValorTotal = g.Sum(v => v.Preco * v.Quantidade)
+                                 Categoria = g.Key.Nome,
+                                 JogosValorTotal = g.Sum(v => v.pd.Preco * v.pd.Quantidade)
                              }).ToList();
 
         var lista = new List<JogoGrafico>();
@@ -31,7 +31,7 @@ public class GraficoVendasService
         foreach (var item in vendasPorJogo)
         {
             var jogo = new JogoGrafico();
-            jogo.JogoNome = item.JogoNome;
+            jogo.JogoNome = item.Categoria;
             jogo.JogosValor = item.JogosValorTotal;
             jogo.DataVenda = item.MesAno;
             lista.Add(jogo);
