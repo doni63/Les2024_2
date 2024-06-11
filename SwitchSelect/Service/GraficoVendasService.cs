@@ -68,4 +68,31 @@ public class GraficoVendasService
         return lista;
     }
 
+    public List<JogoGrafico> GetVendasTotal(DateTime dataInicial, DateTime dataFinal)
+    {
+        var vendasPorJogo = (from pd in context.Pedidos
+                             
+                             where pd.DataCompra >= dataInicial && pd.DataCompra <= dataFinal
+                             group new { pd } by new { MesAno = new { pd.DataCompra.Year, pd.DataCompra.Month } }
+                             into g
+                             select new
+                             {
+                                 MesAno = new DateTime(g.Key.MesAno.Year, g.Key.MesAno.Month,1),
+                                
+                                 JogosValorTotal = g.Sum(v => v.pd.PedidoTotal)
+                             }).ToList();
+
+        var lista = new List<JogoGrafico>();
+
+        foreach (var item in vendasPorJogo)
+        {
+            var jogo = new JogoGrafico();
+            jogo.JogosValor = item.JogosValorTotal;
+            jogo.DataVenda = item.MesAno;
+            lista.Add(jogo);
+        }
+
+        return lista;
+    }
+
 }

@@ -40,4 +40,5 @@ public class GraficoController : Controller
         var jogoVendasTotais = _graficoVendas.GetVendas(inicio, fim);
         return Json(jogoVendasTotais);
     }
+
 }

@@ -38,6 +38,12 @@
         });
     }
 
+    function formatDate(mesAno) {
+        var date = new Date(mesAno);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2); // Adicionar zero à esquerda
+        var year = date.getFullYear();
+        return month + '/' + year;
+    }
 
     function GraficoVendasJogos(data) {
         var dataArray = [
@@ -63,7 +69,7 @@
         });
 
         for (var mesAno in linhasPorMes) {
-            var row = [new Date(mesAno).toLocaleDateString()]; // Adicionar a data ao início da linha
+            var row = [formatDate(mesAno)]; // Formatar a data como MM/YYYY
             jogos.forEach(function (jogo) {
                 var valor = linhasPorMes[mesAno][jogo] || 0;
                 row.push(valor); // Adicionar o valor de venda deste jogo neste mês/ano
@@ -71,15 +77,15 @@
             dataArray.push(row);
         }
 
-        var data = google.visualization.arrayToDataTable(dataArray);
+        var googleData = google.visualization.arrayToDataTable(dataArray);
         var options = {
-            title: 'Vendas por categoria',
+            title: 'Vendas por jogo',
             chartArea: {
                 width: '70%'
             },
             hAxis: {
                 title: 'Mês/Ano',
-                format: 'MMM/yyyy'
+                format: 'MM/yyyy'
             },
             vAxis: {
                 title: 'Valores(R$)'
@@ -92,7 +98,7 @@
                 }
             },
             legend: {
-                position: 'rigth', // Posição da legenda
+                position: 'right', // Posição da legenda
                
             },
             series: {
@@ -100,7 +106,7 @@
             }
         };
         var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+        chart.draw(googleData, options);
     }
 </script>
 

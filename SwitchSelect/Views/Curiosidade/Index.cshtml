@@ -4,6 +4,20 @@
 <html>
 <head>
     <title>Curiosidades</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
 
 </head>
 <body>
@@ -13,8 +27,10 @@
             <h1>Curiosidades</h1>
             <div>
                 <p>@Model</p>
-                <label>Faça uma pergunta sobre o jogo @ViewBag.NomeJogo</label>
-                <input name="pergunta"/>
+                <label>
+                    <strong>Faça uma pergunta sobre o jogo @ViewBag.NomeJogo</strong>
+                </label>
+                <textarea name="pergunta"></textarea>
                 <input type="submit" value="Enviar" />
             </div>
         </div>
