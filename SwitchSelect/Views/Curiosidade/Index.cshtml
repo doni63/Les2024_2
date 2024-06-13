@@ -5,6 +5,10 @@
 <head>
     <title>Curiosidades</title>
     <style>
+        .container {
+            margin: 20px;
+        }
+
         textarea {
             width: 100%;
             height: 100px;
@@ -17,26 +21,58 @@
             padding: 10px 20px;
             font-size: 16px;
         }
-    </style>
 
+        .response-container {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .response {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-right: 20px;
+            flex: 1;
+        }
+
+        .image-container {
+            flex: 1;
+            text-align: center;
+        }
+
+            .image-container img {
+                max-width: 100%;
+                height: auto;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+    </style>
 </head>
 <body>
-    <form asp-action="ObterCompletions" method="post">
-        <input name="nome" value="@ViewBag.NomeJogo" hidden/>
-        <div class="container">
-            <h1>Curiosidades</h1>
-            <div>
+    <div class="container">
+        <h1>Curiosidades sobre @ViewBag.NomeJogo</h1>
+        <div class="response-container">
+            <div class="response">
                 <p>@Model</p>
-                <label>
-                    <strong>Faça uma pergunta sobre o jogo @ViewBag.NomeJogo</strong>
-                </label>
-                <textarea name="pergunta"></textarea>
-                <input type="submit" value="Enviar" />
             </div>
+            @if (!string.IsNullOrEmpty(ViewBag.ImagemUrl))
+            {
+                <div class="image-container">
+                    <img src="@ViewBag.ImagemUrl" alt="Imagem do jogo @ViewBag.NomeJogo" />
+                </div>
+            }
         </div>
+        <form asp-action="ObterCompletions" method="post">
+            <input name="nome" value="@ViewBag.NomeJogo" hidden />
+            <div>
+                <label for="pergunta"><strong>Faça uma pergunta sobre o jogo @ViewBag.NomeJogo</strong></label>
+                <textarea name="pergunta" id="pergunta"></textarea>
+                <input type="submit" value="Enviar" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Voltar</a>
+            </div>
+        </form>
        
-    </form>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Voltar</a>
+    </div>
 </body>
-
 </html>

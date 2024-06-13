@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenAI_API;
 using OpenAI_API.Chat;
+using OpenAI_API.Images;
 using OpenAI_API.Models;
+using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SwitchSelect.Controllers
 {
     public class CuriosidadeController : Controller
     {
-        private readonly IConfiguration _configuration;
-        private readonly HttpClient _httpClient;
         private readonly OpenAIAPI _api;
 
-        public CuriosidadeController(IConfiguration configuration, HttpClient httpClient)
+        public CuriosidadeController(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _httpClient = httpClient;
-
             string? apiKey = Environment.GetEnvironmentVariable("OpenaiApiKey");
             if (apiKey == null)
             {
@@ -32,7 +31,8 @@ namespace SwitchSelect.Controllers
 
             if (string.IsNullOrEmpty(pergunta))
             {
-                prompt = $"Assuma o papel do personagem principal do jogo {nome}. Primeiro, apresente-se e forneça uma breve descrição do jogo, incluindo o gênero e o desenvolvedor. Em seguida, forneça um resumo do enredo e compartilhe um segredo sobre sua jornada.";
+                prompt = $"Assuma o papel do personagem principal do jogo {nome}. " +
+                    $"Primeiro, apresente-se e forneça uma breve descrição do jogo e compartilhe um segredo sobre sua jornada. Observe o máximo de tokens permitido para não deixar frases inacabadas.";
             }
             else
             {
@@ -43,25 +43,65 @@ namespace SwitchSelect.Controllers
                 sb.Append($"3. Se a pergunta for sobre um jogo em outra plataforma, responda honestamente, mas destaque as vantagens e a experiência única de jogar {nome} no Nintendo Switch.");
                 sb.Append($"4. Se a pergunta não for relacionada a jogos, redirecione gentilmente a conversa de volta para o universo dos jogos Nintendo Switch.");
                 sb.Append($"5. Mantenha sempre um tom envolvente, divertido e cativante, sem responder perguntas maliciosas ou grosseiras.");
-                sb.Append($"Vamos continuar essa jornada emocionante! Estou aqui para qualquer coisa que você precisar sobre {nome}.");
                 prompt = sb.ToString();
             }
 
-            var chatRequest = new ChatRequest
+            try
             {
-                Messages = new List<ChatMessage>
+                var chatRequest = new ChatRequest
                 {
-                    new ChatMessage(ChatMessageRole.System, prompt)
-                },
-                Model = Model.ChatGPTTurbo, // Ou qualquer modelo adequado que você esteja usando
-                MaxTokens = 500,
+                    Messages = new List<ChatMessage>
+                    {
+                        new ChatMessage(ChatMessageRole.System, prompt)
+                    },
+                    Model = Model.ChatGPTTurbo, // Usando um modelo mais rápido
+                    MaxTokens = 300,
+                };
+
+                var chatTask = _api.Chat.CreateChatCompletionAsync(chatRequest);
+                var imageTask = GerarImagemAsync(nome);
+
+                // Aguarde a conclusão das tarefas em paralelo
+                await Task.WhenAll(chatTask, imageTask);
+
+                var resultado = chatTask.Result;
+                resposta = resultado.Choices.FirstOrDefault()?.Message.Content ?? "Nenhuma resposta obtida.";
+
+                string imagemUrl = imageTask.Result;
+
+                ViewBag.NomeJogo = nome;
+                ViewBag.ImagemUrl = imagemUrl;
+                return View("Index", resposta);
+            }
+            catch (Exception ex)
+            {
+                resposta = $"Ocorreu um erro ao processar sua solicitação: {ex.Message}";
+                ViewBag.NomeJogo = nome;
+                ViewBag.ImagemUrl = string.Empty;
+                return View("Index", resposta);
+            }
+        }
+
+        // Método de geração de imagem removido no exemplo atual para foco na performance
+        private async Task<string> GerarImagemAsync(string nome)
+        {
+            StringBuilder desenho = new StringBuilder();
+            desenho.Append($"Crie uma imagem divertida e vibrante do jogo {nome} que capture a essência e a magia do Nintendo Switch.");
+            desenho.Append("A imagem deve gerar sentimentos de alegria, diversão e nostalgia no usuário, fazendo-o sentir-se imerso no universo do jogo. ");
+            desenho.Append("Inclua elementos icônicos do jogo e da plataforma Nintendo Switch de maneira criativa e encantadora.");
+
+            var imageRequest = new ImageGenerationRequest
+            {
+                Prompt = $"Crie uma imagem divertida e vibrante do jogo {nome} que capture a essência e a magia do Nintendo Switch. " +
+                  "A imagem deve gerar sentimentos de alegria, diversão e nostalgia no usuário, fazendo-o sentir-se imerso no universo do jogo. " +
+                  "Inclua elementos icônicos do jogo e da plataforma Nintendo Switch de maneira criativa e encantadora.",
+                Model = Model.DALLE2,
+                Size = ImageSize._256,
+                ResponseFormat = ImageResponseFormat.Url
             };
 
-            var resultado = await _api.Chat.CreateChatCompletionAsync(chatRequest);
-            resposta = resultado.Choices.FirstOrDefault()?.Message.Content ?? "Nenhuma resposta obtida.";
-
-            ViewBag.NomeJogo = nome;
-            return View("Index", resposta);
+            var imageResult = await _api.ImageGenerations.CreateImageAsync(imageRequest);
+            return imageResult.Data.FirstOrDefault()?.Url ?? string.Empty;
         }
     }
 }
